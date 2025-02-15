@@ -5481,11 +5481,13 @@
 
 if (UI.dark_mode) {
     document.write('<meta name="theme-color" content="#273139">');
-    document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">');
+    document.write('<link rel="stylesheet" href="//rawcdn.githack.com/cheems/goindex-extended/b46bb643bb1c1314b669142e5e62d96a877b952b/css/mdui_v2_dark.min.css">');
+    document.write('<link rel="stylesheet" href="//rawcdn.githack.com/cheems/goindex-extended/f9af6b2192974a4a9c1b222efed8d29ca6cd1927/css/nexmoe_v2_dark.min.css">');
+} else {
+    document.write('<link rel="stylesheet" href="//rawcdn.githack.com/cheems/goindex-extended/b46bb643bb1c1314b669142e5e62d96a877b952b/css/mdui_v2.min.css">');
+    document.write('<link rel="stylesheet" href="//rawcdn.githack.com/cheems/goindex-extended/f9af6b2192974a4a9c1b222efed8d29ca6cd1927/css/nexmoe_v2.min.css">');
 }
-document.write('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>');
-document.write('<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>');
-document.write('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>');
+document.write('<script src="//rawcdn.githack.com/cheems/goindex-extended/295ceaf2d64b2cb8578b21c0313d75b7bc8738a1/js/mdui.min.js"></script>');
 
 // Players
 // -- DPlayer
@@ -5542,15 +5544,15 @@ function init() {
         `mdui-theme-primary-${UI.main_color} mdui-theme-accent-${UI.accent_color}`
     );
     var html = `
-<div class="container">
-    <div class="container-fluid">
-        <div id="nav" class="navbar navbar-expand-lg navbar-light bg-light"> </div>
+<div class="mdui-container">
+	<div class="mdui-container-fluid">
+		<div id="nav" class="mdui-toolbar nexmoe-item nav-style"> </div>
     </div>
-    <div class="container-fluid">
-        <div id="head_md" class="d-none p-3"></div>
-        <div id="content" class="card p-3"></div>
-        <div id="readme_md" class="d-none p-3"></div>
-    </div>
+	<div class="mdui-container-fluid">
+		<div id="head_md" class="mdui-typo nexmoe-item" style="display:none;padding: 20px 0;"></div>
+		<div id="content" class="nexmoe-item"></div>
+	 	<div id="readme_md" class="mdui-typo nexmoe-item" style="display:none; padding: 20px 0;"></div>
+  </div>
   <div class="mdui-center mdui-text-center mdui-text-color-blue-grey-5001" style="margin-bottom: 20px">${UI.footer_text}</div>
   `;
     if (UI.credits) {
