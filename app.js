@@ -177,7 +177,6 @@ function nav(path) {
     $('#nav').html(html);
 }
 
-// Sleep Function to Retry API Calls
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
@@ -186,13 +185,6 @@ function sleep(milliseconds) {
     } while (currentDate - date < milliseconds);
 }
 
-/**
- * Initiate POST request for listing
- * @param path Path
- * @param params Form params
- * @param resultCallback Success Result Callback
- * @param authErrorCallback Pass Error Callback
- */
 function requestListPath(path, params, resultCallback, authErrorCallback, retries = 3, fallback = false) {
     var requestData = {
         id: params['id'] || '',
@@ -250,14 +242,6 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
     performRequest();
 }
 
-
-
-
-/**
- * Search POST request
- * @param params Form params
- * @param resultCallback Success callback
- */
 function requestSearch(params, resultCallback, retries = 3) {
     var p = {
         q: params['q'] || null,
@@ -466,7 +450,6 @@ function list(path, id = '', fallback = false) {
         // Create an array to store the selected items' data
         const selectedItemsData = [];
 
-        // Loop through each checked checkbox
         if (checkedItems.length === 0) {
             alert("No items selected!");
             return;
@@ -514,11 +497,6 @@ function askPassword(path) {
     }
 }
 
-/**
- * Append the data of the requested new page to the list
- * @param path
- * @param files request result
- */
 function append_files_to_fallback_list(path, files) {
     try {
         console.log('append_files_to_fallback_list');
