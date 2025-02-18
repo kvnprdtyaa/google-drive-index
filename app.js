@@ -1384,33 +1384,6 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-    let player
-    if (!UI.disable_player) {
-        if (player_config.player == "plyr") {
-            player = `<video id="player" playsinline controls data-poster="${poster}">
-      <source src="${url}" type="video/mp4" />
-      <source src="${url}" type="video/webm" />
-        </video>`
-            player_js = 'https://cdn.plyr.io/' + player_config.plyr_io_version + '/plyr.polyfilled.js'
-            player_css = 'https://cdn.plyr.io/' + player_config.plyr_io_version + '/plyr.css'
-        } else if (player_config.player == "videojs") {
-            player = `<video id="vplayer" poster="${poster}" muted=true class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%" data-setup='{"fluid": true}' style="--plyr-captions-text-color: #ffffff;--plyr-captions-background: #000000;">
-      <source src="${url}" type="video/mp4" />
-      <source src="${url}" type="video/webm" />
-      <source src="${url}" type="video/avi" />
-    </video>`
-            player_js = 'https://vjs.zencdn.net/' + player_config.videojs_version + '/video.js'
-            player_css = 'https://vjs.zencdn.net/' + player_config.videojs_version + '/video-js.css'
-        } else if (player_config.player == "dplayer") {
-            player = `<div id="player-container"></div>`
-            player_js = 'https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js'
-            player_css = 'https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css'
-        } else if (player_config.player == "jwplayer") {
-            player = `<div id="player"></div>`
-            player_js = 'https://content.jwplatform.com/libraries/IDzF9Zmk.js'
-            player_css = ''
-        }
-    }
     // Add the container and card elements
     var content = `
     <div class="container text-center"><br>
@@ -1421,7 +1394,7 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
       </nav>
       <div class="card text-center">
         <div class="text-center">
-          <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>${player}</div>
+          <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div></div>
         </br>
         ${UI.disable_video_download ? `` : `
           <div class="card-body">
@@ -1456,51 +1429,6 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
   `;
     $("#content").html(content);
 
-    // Load Video.js and initialize the player
-    var videoJsScript = document.createElement('script');
-    videoJsScript.src = player_js;
-    videoJsScript.onload = function () {
-        // Video.js is loaded, initialize the player
-        if (player_config.player == "plyr") {
-            const player = new Plyr('#player');
-        } else if (player_config.player == "videojs") {
-            const player = new videojs('vplayer');
-        } else if (player_config.player == "dplayer") {
-            const dp = new DPlayer({
-                container: document.getElementById('player-container'),
-                screenshot: true,
-                video: {
-                    url: url,
-                    pic: poster,
-                    thumbnails: poster,
-                },
-            });
-        } else if (player_config.player == "jwplayer") {
-            jwplayer("player").setup({
-                file: url,
-                type: mimeType,
-                autostart: false,
-                image: poster,
-                width: "100%",
-                aspectratio: "16:9",
-                title: name,
-                description: "Powered by Google Drive Index",
-                tracks: [{
-                    file: url,
-                    kind: "captions",
-                    label: "Default",
-                    "default": true,
-                }],
-                captions: {
-                    color: "#f3f378",
-                    fontSize: 14,
-                    backgroundOpacity: 50,
-                    edgeStyle: "raised",
-                },
-            });
-        }
-
-    };
     document.head.appendChild(videoJsScript);
 
     var videoJsStylesheet = document.createElement('link');
