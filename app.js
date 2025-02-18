@@ -1428,13 +1428,6 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
     </div>
   `;
     $("#content").html(content);
-
-    document.head.appendChild(videoJsScript);
-
-    var videoJsStylesheet = document.createElement('link');
-    videoJsStylesheet.href = player_css;
-    videoJsStylesheet.rel = 'stylesheet';
-    document.head.appendChild(videoJsStylesheet);
 }
 
 
@@ -1516,20 +1509,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
     </div>
   `;
     $("#content").html(content);
-
-    // Load Video.js and initialize the player
-    var videoJsScript = document.createElement('script');
-    videoJsScript.src = 'https://vjs.zencdn.net/' + UI.videojs_version + '/video.min.js';
-    videoJsScript.onload = function () {
-        // Video.js is loaded, initialize the player
-        const player = videojs('aplayer');
-    };
-    document.head.appendChild(videoJsScript);
-
-    var videoJsStylesheet = document.createElement('link');
-    videoJsStylesheet.href = 'https://vjs.zencdn.net/' + UI.videojs_version + '/video-js.css';
-    videoJsStylesheet.rel = 'stylesheet';
-    document.head.appendChild(videoJsStylesheet);
 }
 
 
