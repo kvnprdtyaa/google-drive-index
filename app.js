@@ -167,9 +167,7 @@ function nav(path) {
 </nav>
 `;
 
-    // Personal or team
     if (model.root_type < 2) {
-        // Show search box
         html += search_bar;
     }
 
@@ -290,8 +288,6 @@ function requestSearch(params, resultCallback, retries = 3) {
     performRequest(retries);
 }
 
-
-// Render file list
 function list(path, id = '', fallback = false) {
     console.log(id);
     var containerContent = `<div class="container">${UI.fixed_header ? '<br>' : ''}
@@ -441,12 +437,8 @@ function list(path, id = '', fallback = false) {
 
     const copyBtn = document.getElementById("handle-multiple-items-copy");
 
-    // Add a click event listener to the copy button
     copyBtn.addEventListener("click", () => {
-        // Get all the checked checkboxes
         const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-
-        // Create an array to store the selected items' data
         const selectedItemsData = [];
 
         if (checkedItems.length === 0) {
@@ -454,9 +446,7 @@ function list(path, id = '', fallback = false) {
             return;
         }
         checkedItems.forEach((item) => {
-            // Get the value of the checkbox (in this case, the URL)
             const itemData = item.value;
-            // Push the value to the array
             selectedItemsData.push(itemData);
         });
 
@@ -537,11 +527,8 @@ function append_files_to_fallback_list(path, files) {
                     });
                 }
                 var ext = item.fileExtension
-                //if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|pdf|".indexOf(`|${ext}|`) >= 0) {
-                //targetFiles.push(filepath);
                 pn += "?a=view";
                 c += " view";
-                //}
                 html += `<div class="list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
 
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
@@ -562,29 +549,12 @@ function append_files_to_fallback_list(path, files) {
                     html += file_icon
                 }
 
-                html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: ${UI.css_a_tag_color};" href="${p}&a=view">${item.name}</a>${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
+                html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: ${UI.css_a_tag_color};" ${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
             }
         }
         if (is_file && UI.allow_selecting_files) {
             document.getElementById('select_items').style.display = 'block';
         }
-
-
-        /*let targetObj = {};
-        targetFiles.forEach((myFilepath, myIndex) => {
-            if (!targetObj[myFilepath]) {
-                targetObj[myFilepath] = {
-                    filepath: myFilepath,
-                    prev: myIndex === 0 ? null : targetFiles[myIndex - 1],
-                    next: myIndex === targetFiles.length - 1 ? null : targetFiles[myIndex + 1],
-                }
-            }
-        })
-        // console.log(targetObj)
-        if (Object.keys(targetObj).length) {
-            localStorage.setItem(path, JSON.stringify(targetObj));
-            // console.log(path)
-        }*/
 
         if (targetFiles.length > 0) {
             let old = localStorage.getItem(path);
@@ -1468,12 +1438,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
       <div class="card text-center">
         <div class="text-center">
           <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>
-          ${UI.disable_player ? `` : `
-          <video id="aplayer" poster="${UI.audioposter}" muted=true class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%" data-setup='{"fluid": true}' style="--plyr-captions-text-color: #ffffff;--plyr-captions-background: #000000;">
-            <source src="${url}" type="audio/mpeg" />
-            <source src="${url}" type="audio/ogg" />
-            <source src="${url}" type="audio/wav" />
-          </video>`}
         </div>
         </br>
         ${UI.disable_audio_download ? `` : `
