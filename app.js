@@ -39,9 +39,8 @@ const markdown_icon = `<svg width="1.5em" height="1.5em" viewBox="0 0 1024 1024"
 const pdf_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_44)"><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,24)"><path fill="rgb(255,87,34)" fill-opacity="1" d=" M16,21 C16,21 -16,21 -16,21 C-16,21 -16,-21 -16,-21 C-16,-21 6,-21 6,-21 C6,-21 16,-11 16,-11 C16,-11 16,21 16,21z"></path></g><g opacity="1" transform="matrix(1,0,0,1,33.75,9.25)"><path fill="rgb(251,233,231)" fill-opacity="1" d=" M4.75,4.75 C4.75,4.75 -4.75,4.75 -4.75,4.75 C-4.75,4.75 -4.75,-4.75 -4.75,-4.75 C-4.75,-4.75 4.75,4.75 4.75,4.75z"></path></g></g><g transform="matrix(1,0,0,1,24,24)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(255,255,255)" fill-opacity="1" d=" M-8,15 C-8.399999618530273,15 -8.699999809265137,14.899999618530273 -9,14.800000190734863 C-10.100000381469727,14.199999809265137 -10.199999809265137,13.300000190734863 -10,12.600000381469727 C-9.600000381469727,11.399999618530273 -7.400000095367432,9.899999618530273 -4.5,8.600000381469727 C-4.5,8.600000381469727 -4.5,8.600000381469727 -4.5,8.600000381469727 C-3.200000047683716,6.199999809265137 -2.200000047683716,3.700000047683716 -1.600000023841858,1.600000023841858 C-2.5999999046325684,-0.30000001192092896 -3.0999999046325684,-2.0999999046325684 -3.0999999046325684,-3.4000000953674316 C-3.0999999046325684,-4.099999904632568 -2.9000000953674316,-4.699999809265137 -2.5999999046325684,-5.199999809265137 C-2.200000047683716,-5.699999809265137 -1.600000023841858,-6 -0.800000011920929,-6 C0.10000000149011612,-6 0.800000011920929,-5.5 1.100000023841858,-4.599999904632568 C1.600000023841858,-3.4000000953674316 1.2999999523162842,-1.2000000476837158 0.6000000238418579,1.2999999523162842 C1.600000023841858,3 2.799999952316284,4.599999904632568 4.099999904632568,5.800000190734863 C6,5.400000095367432 7.699999809265137,5.199999809265137 8.800000190734863,5.400000095367432 C10.699999809265137,5.699999809265137 11,7 11,7.5 C11,9.600000381469727 8.800000190734863,9.600000381469727 8,9.600000381469727 C6.5,9.600000381469727 5,9 3.700000047683716,7.900000095367432 C3.700000047683716,7.900000095367432 3.700000047683716,7.900000095367432 3.700000047683716,7.900000095367432 C1.2999999523162842,8.5 -1.100000023841858,9.300000190734863 -3,10.199999809265137 C-4,11.899999618530273 -5,13.300000190734863 -5.900000095367432,14.100000381469727 C-6.800000190734863,14.800000190734863 -7.5,15 -8,15z M-6.800000190734863,12.100000381469727 C-7.300000190734863,12.399999618530273 -7.699999809265137,12.699999809265137 -7.900000095367432,13 C-7.699999809265137,12.899999618530273 -7.300000190734863,12.699999809265137 -6.800000190734863,12.100000381469727z M6.800000190734863,7.400000095367432 C7.199999809265137,7.5 7.599999904632568,7.599999904632568 8,7.599999904632568 C8.600000381469727,7.599999904632568 8.899999618530273,7.5 9,7.5 C9,7.5 9,7.5 9,7.5 C8.899999618530273,7.400000095367432 8.199999809265137,7.199999809265137 6.800000190734863,7.400000095367432z M-0.20000000298023224,3.799999952316284 C-0.6000000238418579,5 -1.2000000476837158,6.300000190734863 -1.7000000476837158,7.5 C-0.5,7.099999904632568 0.699999988079071,6.699999809265137 1.899999976158142,6.400000095367432 C1.100000023841858,5.599999904632568 0.4000000059604645,4.699999809265137 -0.20000000298023224,3.799999952316284z M-0.800000011920929,-4 C-0.8999999761581421,-4 -0.8999999761581421,-4 -0.8999999761581421,-4 C-1,-3.9000000953674316 -1.100000023841858,-3.200000047683716 -0.699999988079071,-1.7000000476837158 C-0.6000000238418579,-2.9000000953674316 -0.6000000238418579,-3.799999952316284 -0.800000011920929,-4z"></path></g></g></g></svg>`
 const file_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_63)"><g transform="matrix(1,0,0,1,7.75,2.75)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,16.25,21.25)"><path fill="rgb(144,201,248)" fill-opacity="1" d=" M16,21 C16,21 -16,21 -16,21 C-16,21 -16,-21 -16,-21 C-16,-21 6,-21 6,-21 C6,-21 16,-11 16,-11 C16,-11 16,21 16,21z"></path></g></g><g transform="matrix(1,0,0,1,15,21)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,1 C1,1 18,1 18,1"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,5 C1,5 14,5 14,5"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,9 C1,9 18,9 18,9"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,13 C1,13 14,13 14,13"></path></g></g><g transform="matrix(1,0,0,1,28.75,4.25)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,5,5)"><path fill="rgb(224,245,253)" fill-opacity="1" d=" M4.75,4.75 C4.75,4.75 -4.75,4.75 -4.75,4.75 C-4.75,4.75 -4.75,-4.75 -4.75,-4.75 C-4.75,-4.75 0,0 0,0 C0,0 4.75,4.75 4.75,4.75z"></path></g></g></g></svg>`
 
-// Don't know new OS thing, so I just copied it from the original source code and edited something.
 const Os = {
-    isWindows: navigator.userAgent.toUpperCase().indexOf('WIN') > -1, // .includes
+    isWindows: navigator.userAgent.toUpperCase().indexOf('WIN') > -1,
     isMac: navigator.userAgent.toUpperCase().indexOf('MAC') > -1,
     isMacLike: /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent),
     isIos: /(iPhone|iPod|iPad)/i.test(navigator.userAgent),
@@ -57,7 +56,6 @@ function getDocumentHeight() {
     );
 }
 
-// get search params
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
@@ -77,14 +75,10 @@ function render(path) {
     }
     title(path);
     nav(path);
-    // .../0: This
     var reg = /\/\d+:$/g;
     if (path.includes("/fallback")) {
-        // Used to store the state of some scroll events
         window.scroll_status = {
-            // Whether the scroll event is bound
             event_bound: false,
-            // "Scroll to the bottom, loading more data" event lock
             loading_lock: false
         };
         const can_preview = getQueryVariable('a');
@@ -95,20 +89,14 @@ function render(path) {
             return list(null, id, true);
         }
     } else if (window.MODEL.is_search_page) {
-        // Used to store the state of some scroll events
         window.scroll_status = {
-            // Whether the scroll event is bound
             event_bound: false,
-            // "Scroll to the bottom, loading more data" event lock
             loading_lock: false
         };
         render_search_result_list()
     } else if (path.match(reg) || path.slice(-1) == '/') {
-        // Used to store the state of some scroll events
         window.scroll_status = {
-            // Whether the scroll event is bound
             event_bound: false,
-            // "Scroll to the bottom, loading more data" event lock
             loading_lock: false
         };
         list(path);
@@ -117,14 +105,11 @@ function render(path) {
     }
 }
 
-
-// Render title
 function title(path) {
     path = decodeURI(path);
     var cur = window.current_drive_order || 0;
     var drive_name = window.drive_names[cur];
     path = path.replace(`/${cur}:`, '');
-    // $('title').html(document.siteName + ' - ' + path);
     var model = window.MODEL;
     if (model.is_search_page)
         $('title').html(`${drive_name} - Search results for ${model.q} `);
@@ -132,22 +117,19 @@ function title(path) {
         $('title').html(`${drive_name} - ${path}`);
 }
 
-// Render the navigation bar
 function nav(path) {
     var model = window.MODEL;
     var html = "";
     var cur = window.current_drive_order || 0;
-    html += `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} ${UI.header_style_class}">
-    <div class="container-fluid">
-  <a class="navbar-brand" href="/">${UI.logo_image ? '<img border="0" alt="' + UI.company_name + '" src="' + UI.logo_link_name + '" height="' + UI.logo_height + '" width="' + UI.logo_width + '">' : UI.logo_link_name}</a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="/${cur}:/">${UI.nav_link_1}</a>
-      </li>`;
+    html +=
+        `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} ${UI.header_style_class}">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">${UI.logo_image ? '<img border="0" alt="' + UI.company_name + '" src="' + UI.logo_link_name + '" height="' + UI.logo_height + '" width="' + UI.logo_width + '">' : UI.logo_link_name}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">`;
     var names = window.drive_names;
     var drive_name = window.drive_names[cur];
 
@@ -434,7 +416,6 @@ function list(path, id = '', fallback = false) {
             null);
     }
 
-
     const copyBtn = document.getElementById("handle-multiple-items-copy");
 
     copyBtn.addEventListener("click", () => {
@@ -449,27 +430,13 @@ function list(path, id = '', fallback = false) {
             const itemData = item.value;
             selectedItemsData.push(itemData);
         });
-
-        // Join the selected items' data with a newline character
         const dataToCopy = selectedItemsData.join("\n");
-
-        // Create a temporary input element
         const tempInput = document.createElement("textarea");
         tempInput.value = dataToCopy;
-
-        // Add the temporary input element to the document
         document.body.appendChild(tempInput);
-
-        // Select the text inside the temporary input element
         tempInput.select();
-
-        // Copy the selected text to the clipboard
         document.execCommand("copy");
-
-        // Remove the temporary input element from the document
         document.body.removeChild(tempInput);
-
-        // Alert the user that the data has been copied
         alert("Selected items copied to clipboard!");
     });
 }
@@ -490,7 +457,6 @@ function append_files_to_fallback_list(path, files) {
     try {
         console.log('append_files_to_fallback_list');
         var $list = $('#list');
-        // Is it the last page of data?
         var is_lastpage_loaded = null === $list.data('nextPageToken');
         var is_firstpage = '0' == $list.data('curPageIndex');
 
@@ -502,7 +468,6 @@ function append_files_to_fallback_list(path, files) {
             var item = files[i];
             var p = "/fallback?id=" + item.id
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
-            // replace / with %2F
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
                 html += `<a href="${p}" style="color: ${UI.folder_text_color};" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
             } else {
@@ -513,7 +478,6 @@ function append_files_to_fallback_list(path, files) {
                 var link = UI.second_domain_for_dl ? UI.downloaddomain + item.link : window.location.origin + item.link;
                 var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
                 var c = "file";
-                // README is displayed after the last page is loaded, otherwise it will affect the scroll event
                 if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
                     get_file(p, item, function (data) {
                         markdown("#readme_md", data);
@@ -559,7 +523,6 @@ function append_files_to_fallback_list(path, files) {
         if (targetFiles.length > 0) {
             let old = localStorage.getItem(path);
             let new_children = targetFiles;
-            // Reset on page 1; otherwise append
             if (!is_firstpage && old) {
                 let old_children;
                 try {
@@ -576,9 +539,7 @@ function append_files_to_fallback_list(path, files) {
             localStorage.setItem(path, JSON.stringify(new_children))
         }
 
-        // When it is page 1, remove the horizontal loading bar
         $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
-        // When it is the last page, count and display the total number of items
         if (is_lastpage_loaded) {
             total_size = formatFileSize(totalsize) || '0 Bytes';
             total_items = $list.find('.countitems').length;
@@ -603,14 +564,8 @@ function append_files_to_fallback_list(path, files) {
     }
 }
 
-/**
- * Append the data of the requested new page to the list
- * @param path
- * @param files request result
- */
 function append_files_to_list(path, files) {
     var $list = $('#list');
-    // Is it the last page of data?
     var is_lastpage_loaded = null === $list.data('nextPageToken');
     var is_firstpage = '0' == $list.data('curPageIndex');
 
@@ -623,7 +578,6 @@ function append_files_to_list(path, files) {
         var ep = encodeURIComponent(item.name).replace(/\//g, '%2F') + '/';
         var p = path + ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
         item['modifiedTime'] = utc2delhi(item['modifiedTime']);
-        // replace / with %2F
         if (item['mimeType'] == 'application/vnd.google-apps.folder') {
             html += `<a href="${p}" style="color: ${UI.folder_text_color};" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
         } else {
@@ -634,7 +588,6 @@ function append_files_to_list(path, files) {
             var link = UI.second_domain_for_dl ? UI.downloaddomain + item.link : window.location.origin + item.link;
             var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             var c = "file";
-            // README is displayed after the last page is loaded, otherwise it will affect the scroll event
             if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
                 get_file(p, item, function (data) {
                     markdown("#readme_md", data);
@@ -649,11 +602,8 @@ function append_files_to_list(path, files) {
             }
             var ext = item.fileExtension
             console.log(ext)
-            //if ("|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|pdf|".indexOf(`|${ext}|`) >= 0) {
-            //targetFiles.push(filepath);
             pn += "?a=view";
             c += " view";
-            //}
             html += `<div class="list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
 
             if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
@@ -681,23 +631,6 @@ function append_files_to_list(path, files) {
         document.getElementById('select_items').style.display = 'block';
     }
 
-
-    /*let targetObj = {};
-    targetFiles.forEach((myFilepath, myIndex) => {
-        if (!targetObj[myFilepath]) {
-            targetObj[myFilepath] = {
-                filepath: myFilepath,
-                prev: myIndex === 0 ? null : targetFiles[myIndex - 1],
-                next: myIndex === targetFiles.length - 1 ? null : targetFiles[myIndex + 1],
-            }
-        }
-    })
-    // console.log(targetObj)
-    if (Object.keys(targetObj).length) {
-        localStorage.setItem(path, JSON.stringify(targetObj));
-        // console.log(path)
-    }*/
-
     if (targetFiles.length > 0) {
         let old = localStorage.getItem(path);
         let new_children = targetFiles;
@@ -718,9 +651,7 @@ function append_files_to_list(path, files) {
         localStorage.setItem(path, JSON.stringify(new_children))
     }
 
-    // When it is page 1, remove the horizontal loading bar
     $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
-    // When it is the last page, count and display the total number of items
     if (is_lastpage_loaded) {
         total_size = formatFileSize(totalsize) || '0 Bytes';
         total_items = $list.find('.countitems').length;
@@ -742,9 +673,6 @@ function append_files_to_list(path, files) {
     }
 }
 
-/**
- * Render the search results list. There is a lot of repetitive code, but there are different logics in it.
- */
 function render_search_result_list() {
     var content = `
   <div class="container"><br>
@@ -773,49 +701,31 @@ function render_search_result_list() {
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 
-    /**
-     * Callback after successful search request returns data
-     * The result returned by @param res (object)
-     * @param path the requested path
-     * @param prevReqParams parameters used in request
-     */
     function searchSuccessCallback(res, prevReqParams) {
 
-        // Temporarily store nextPageToken and currentPageIndex in the list element
         $('#list')
             .data('nextPageToken', res['nextPageToken'])
             .data('curPageIndex', res['curPageIndex']);
-
-        // Remove loading spinner
         $('#spinner').remove();
 
         if (res['nextPageToken'] === null) {
-            // If it is the last page, unbind the scroll event, reset scroll_status, and append the data
             $(window).off('scroll');
             window.scroll_status.event_bound = false;
             window.scroll_status.loading_lock = false;
             append_search_result_to_list(res['data']['files']);
         } else {
-            // If it is not the last page, append data and bind the scroll event (if not already bound), update scroll_status
             append_search_result_to_list(res['data']['files']);
             if (window.scroll_status.event_bound !== true) {
-                // Bind event, if not yet bound
                 $(window).on('scroll', function () {
                     var scrollTop = $(this).scrollTop();
                     var scrollHeight = getDocumentHeight();
                     var windowHeight = $(this).height();
-                    // Roll to the bottom
                     if (scrollTop + windowHeight > scrollHeight - (Os.isMobile ? 130 : 80)) {
-                        /*
-     When the event of scrolling to the bottom is triggered, if it is already loading at this time, the event is ignored;
-                 Otherwise, go to loading and occupy the loading lock, indicating that loading is in progress
-             */
                         if (window.scroll_status.loading_lock === true) {
                             return;
                         }
                         window.scroll_status.loading_lock = true;
 
-                        // Show a loading spinner
                         $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
                             .insertBefore('#readme_md');
 
@@ -823,7 +733,6 @@ function render_search_result_list() {
                         requestSearch({
                             q: window.MODEL.q,
                             page_token: $list.data('nextPageToken'),
-                            // Request next page
                             page_index: $list.data('curPageIndex') + 1
                         },
                             searchSuccessCallback
@@ -833,75 +742,43 @@ function render_search_result_list() {
                 window.scroll_status.event_bound = true
             }
         }
-
-        // After loading successfully and rendering new data successfully, release the loading lock so that you can continue to process the "scroll to bottom" event
         if (window.scroll_status.loading_lock === true) {
             window.scroll_status.loading_lock = false
         }
     }
 
-    // Start requesting data from page 1
     requestSearch({
         q: window.MODEL.q
     }, searchSuccessCallback);
 
     const copyBtn = document.getElementById("handle-multiple-items-copy");
-
-    // Add a click event listener to the copy button
     copyBtn.addEventListener("click", () => {
-        // Get all the checked checkboxes
         const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-
-        // Create an array to store the selected items' data
         const selectedItemsData = [];
         if (checkedItems.length === 0) {
             alert("No items selected!");
             return;
         }
-        // Loop through each checked checkbox
         checkedItems.forEach((item) => {
-            // Get the value of the checkbox (in this case, the URL)
             const itemData = item.value;
-            // Push the value to the array
             selectedItemsData.push(itemData);
         });
-
-        // Join the selected items' data with a newline character
         const dataToCopy = selectedItemsData.join("\n");
-
-        // Create a temporary input element
         const tempInput = document.createElement("textarea");
         tempInput.value = dataToCopy;
-
-        // Add the temporary input element to the document
         document.body.appendChild(tempInput);
-
-        // Select the text inside the temporary input element
         tempInput.select();
-
-        // Copy the selected text to the clipboard
         document.execCommand("copy");
-
-        // Remove the temporary input element from the document
         document.body.removeChild(tempInput);
-
-        // Alert the user that the data has been copied
         alert("Selected items copied to clipboard!");
     });
 }
 
-/**
- * Append a new page of search results
- * @param files
- */
 function append_search_result_to_list(files) {
     try {
         var cur = window.current_drive_order || 0;
         var $list = $('#list');
-        // Is it the last page of data?
         var is_lastpage_loaded = null === $list.data('nextPageToken');
-        // var is_firstpage = '0' == $list.data('curPageIndex');
-
         html = "";
         var totalsize = 0;
         var is_file = false;
@@ -947,9 +824,7 @@ function append_search_result_to_list(files) {
         if (is_file && UI.allow_selecting_files) {
             document.getElementById('select_items').style.display = 'block';
         }
-        // When it is page 1, remove the horizontal loading bar
         $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
-        // When it is the last page, count and display the total number of items
         if (is_lastpage_loaded) {
             total_size = formatFileSize(totalsize) || '0 Bytes';
             total_items = $list.find('.countitems').length;
@@ -974,10 +849,6 @@ function append_search_result_to_list(files) {
     }
 }
 
-/**
- * Search result item click event
- * @param a_ele Clicked element
- */
 function onSearchResultItemClick(file_id, can_preview) {
     var cur = window.current_drive_order;
     var title = `Loading...`;
@@ -1034,7 +905,7 @@ function get_file(path, file, callback) {
 }
 
 async function fallback(id, type) {
-    if (type) { // is a file id
+    if (type) {
         var cookie_folder_id = await getCookie("root_id") || '';
         $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
         fetch("/0:fallback", {
@@ -1102,12 +973,11 @@ async function fallback(id, type) {
         </div>`;
                 $("#content").html(content);
             });
-    } else { // is a folder id
+    } else {
         return list(id, true);
     }
 }
 
-// File display ?a=view
 async function file(path) {
     var cookie_folder_id = await getCookie("root_id") || '';
     var name = path.split('/').pop();
@@ -1178,12 +1048,10 @@ async function file(path) {
             $("#content").html(content);
         });
 }
-// Document display |zip|.exe/others direct downloads
+
 function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
-    // Split the file path into parts
     var path = window.location.pathname;
     var pathParts = path.split('/');
-    // Generate the navigation based on path parts
     var navigation = '';
     var new_path = '';
     for (var i = 0; i < pathParts.length; i++) {
@@ -1203,7 +1071,6 @@ function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
 
-    // Add the container and card elements
     var content = `
     <div class="container"><br>
       <nav aria-label="breadcrumb">
@@ -1225,11 +1092,6 @@ function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only"></span>
                 </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Free)</a>
-                  <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.adm.lite/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Lite)</a>
-                  <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.plus/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM+ (Plus)</a>
-                </div>
             </div>
             </div>
             <br></div>`;
@@ -1250,10 +1112,8 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         "md": "Markdown",
     };
 
-    // Split the file path into parts
     var path = window.location.pathname;
     var pathParts = path.split('/');
-    // Generate the navigation based on path parts
     var navigation = '';
     var new_path = '';
     for (var i = 0; i < pathParts.length; i++) {
@@ -1273,7 +1133,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
 
-    // Add the container and card elements
     var content = `
     <div class="container"><br>
       <nav aria-label="breadcrumb">
@@ -1297,11 +1156,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
               <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only"></span>
               </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Free)</a>
-                <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.adm.lite/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Lite)</a>
-                <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.plus/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM+ (Plus)</a>
-              </div>
             </div>
           </div>
           <br>
@@ -1327,15 +1181,10 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
     }
 }
 
-
-
-// Document display video |mp4|webm|avi|
 function file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id) {
     var url_base64 = btoa(url);
-    // Split the file path into parts
     var path = window.location.pathname;
     var pathParts = path.split('/');
-    // Generate the navigation based on path parts
     var navigation = '';
     var new_path = '';
     for (var i = 0; i < pathParts.length; i++) {
@@ -1354,7 +1203,6 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-    // Add the container and card elements
     var content = `
     <div class="container text-center"><br>
       <nav aria-label="breadcrumb">
@@ -1376,20 +1224,6 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
               <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="sr-only"></span>
               </button>
-              <div class="dropdown-menu">
-              <a class="dropdown-item" href="iina://weblink?url=${url}">IINA</a>
-              <a class="dropdown-item" href="potplayer://${url}">PotPlayer</a>
-              <a class="dropdown-item" href="vlc://${url}">VLC Mobile</a>
-              <a class="dropdown-item" href="${url}">VLC Desktop</a>
-              <a class="dropdown-item" href="nplayer-${url}">nPlayer</a>
-              <a class="dropdown-item" href="intent://${url}#Intent;type=video/any;package=is.xyz.mpv;scheme=https;end;">mpv-android</a>
-              <a class="dropdown-item" href="mpv://${url_base64}">mpv x64</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;package=com.mxtech.videoplayer.ad;S.title=${encoded_name};end">MX Player (Free)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;package=com.mxtech.videoplayer.pro;S.title=${encoded_name};end">MX Player (Pro)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Free)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.adm.lite/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Lite)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.plus/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM+ (Plus)</a>
-              </div>
           </div>          
           </div>
           </div>
@@ -1400,14 +1234,10 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
     $("#content").html(content);
 }
 
-
-// File display Audio |mp3|flac|m4a|wav|ogg|
 function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
     var url_base64 = btoa(url);
-    // Split the file path into parts
     var path = window.location.pathname;
     var pathParts = path.split('/');
-    // Generate the navigation based on path parts
     var navigation = '';
     var new_path = '';
     for (var i = 0; i < pathParts.length; i++) {
@@ -1427,7 +1257,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
 
-    // Add the container and card elements
     var content = `
     <div class="container text-center"><br>
       <nav aria-label="breadcrumb">
@@ -1450,20 +1279,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
               <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="sr-only"></span>
               </button>
-              <div class="dropdown-menu">
-              <a class="dropdown-item" href="iina://weblink?url=${url}">IINA</a>
-              <a class="dropdown-item" href="potplayer://${url}">PotPlayer</a>
-              <a class="dropdown-item" href="vlc://${url}">VLC Mobile</a>
-              <a class="dropdown-item" href="${url}">VLC Desktop</a>
-              <a class="dropdown-item" href="nplayer-${url}">nPlayer</a>
-              <a class="dropdown-item" href="intent://${url}#Intent;type=audio/any;package=is.xyz.mpv;scheme=https;end;">mpv-android</a>
-              <a class="dropdown-item" href="mpv://${url_base64}">mpv x64</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;package=com.mxtech.videoplayer.ad;S.title=${encoded_name};end">MX Player (Free)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;package=com.mxtech.videoplayer.pro;S.title=${encoded_name};end">MX Player (Pro)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Free)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.adm.lite/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Lite)</a>
-              <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.plus/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM+ (Plus)</a>
-              </div>
           </div>
           <br>
           </div>
@@ -1475,14 +1290,9 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
     $("#content").html(content);
 }
 
-
-
-// Document display pdf
 function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
-    // Split the file path into parts
     var path = window.location.pathname;
     var pathParts = path.split('/');
-    // Generate the navigation based on path parts
     var navigation = '';
     var new_path = '';
     for (var i = 0; i < pathParts.length; i++) {
@@ -1502,7 +1312,6 @@ function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
 
-    // Add the container and card elements
     var content = `
     <div class="container text-center"><br>
       <nav aria-label="breadcrumb">
@@ -1527,11 +1336,6 @@ function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
         <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="sr-only"></span>
         </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Free)</a>
-            <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.adm.lite/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Lite)</a>
-            <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.plus/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM+ (Plus)</a>
-        </div>
     </div>
     </div>
     <br>
@@ -1543,12 +1347,9 @@ function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
     $("#content").html(content);
 }
 
-// image display
 function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
-    // Split the file path into parts
     var path = window.location.pathname;
     var pathParts = path.split('/');
-    // Generate the navigation based on path parts
     var navigation = '';
     var new_path = '';
     for (var i = 0; i < pathParts.length; i++) {
@@ -1568,7 +1369,6 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
 
-    // Add the container and card elements // wait until image is loaded and then hide spinner
     var content = `
     <div class="container text-center"><br>
       <nav aria-label="breadcrumb">
@@ -1594,11 +1394,6 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
               <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only"></span>
               </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Free)</a>
-                <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.adm.lite/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM (Lite)</a>
-                <a class="dropdown-item" href="intent:${url}#Intent;component=idm.internet.download.manager.plus/idm.internet.download.manager.Downloader;S.title=${encoded_name};end">1DM+ (Plus)</a>
-              </div>
             </div>
           </div>
           <br>
@@ -1609,13 +1404,9 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
     $('#content').html(content);
 }
 
-// Time conversion
 function utc2delhi(utc_datetime) {
-    // Convert UTC datetime to local Delhi time
     var utcDate = new Date(utc_datetime);
     var delhiDate = new Date(utcDate.getTime() + 5.5 * 60 * 60 * 1000);
-
-    // Format the Delhi date and time
     var year = delhiDate.getFullYear();
     var month = ('0' + (delhiDate.getMonth() + 1)).slice(-2);
     var date = ('0' + delhiDate.getDate()).slice(-2);
@@ -1626,8 +1417,6 @@ function utc2delhi(utc_datetime) {
     return `${date}-${month}-${year} ${hour}:${minute}:${second}`;
 }
 
-
-// bytes adaptive conversion to KB, MB, GB
 function formatFileSize(bytes) {
     if (bytes >= 1099511627776) {
         bytes = (bytes / 1099511627776).toFixed(2) + ' TB';
@@ -1647,7 +1436,6 @@ function formatFileSize(bytes) {
     return bytes;
 }
 
-
 String.prototype.trim = function (char) {
     if (char) {
         return this.replace(new RegExp('^\\' + char + '+|\\' + char + '+$', 'g'), '');
@@ -1655,14 +1443,11 @@ String.prototype.trim = function (char) {
     return this.replace(/^\s+|\s+$/g, '');
 };
 
-
-// README.md HEAD.md support
 function markdown(el, data) {
     var html = marked.parse(data);
     $(el).show().html(html);
 }
 
-// Listen for fallback events
 window.onpopstate = function () {
     var path = window.location.pathname;
     render(path);
@@ -1671,23 +1456,9 @@ window.onpopstate = function () {
 $(function () {
     init();
     var path = window.location.pathname;
-    /*$("body").on("click", '.folder', function () {
-        var url = $(this).attr('href');
-        history.pushState(null, null, url);
-        render(url);
-        return false;
-    });
-    $("body").on("click", '.view', function () {
-        var url = $(this).attr('href');
-        history.pushState(null, null, url);
-        render(url);
-        return false;
-    });*/
-
     render(path);
 });
 
-// Copy to Clipboard for Direct Links, This will be modified soon with other UI
 function copyFunction() {
     var copyText = document.getElementById("dlurl");
     copyText.select();
@@ -1708,12 +1479,11 @@ function outFunc() {
     tooltip.innerHTML = "Copy";
 }
 
-// function to update the list of checkboxes
 function updateCheckboxes() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const selectAllCheckbox = document.getElementById('select-all-checkboxes');
 
-    if (checkboxes.length > 0 && selectAllCheckbox) { // Check if checkboxes and selectAllCheckbox exist
+    if (checkboxes.length > 0 && selectAllCheckbox) {
         selectAllCheckbox.addEventListener('click', () => {
             checkboxes.forEach((checkbox) => {
                 checkbox.checked = selectAllCheckbox.checked;
@@ -1733,7 +1503,6 @@ async function getCookie(name) {
     return null;
 }
 
-// Copy File to User Drive
 async function copyFile(driveid) {
     try {
         const copystatus = document.getElementById('copystatus');
@@ -1775,7 +1544,6 @@ async function copyFile(driveid) {
         } else {
             copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unable to Copy File </div>`;
         }
-
         document.getElementById('spinner').style.display = 'none';
     } catch (error) {
         const copystatus = document.getElementById('copystatus');
@@ -1784,17 +1552,13 @@ async function copyFile(driveid) {
     }
 }
 
-
-// create a MutationObserver to listen for changes to the DOM
 const observer = new MutationObserver(() => {
     updateCheckboxes();
 });
 
-// define the options for the observer (listen for changes to child elements)
 const options = {
     childList: true,
     subtree: true
 };
 
-// observe changes to the body element
 observer.observe(document.documentElement, options);
