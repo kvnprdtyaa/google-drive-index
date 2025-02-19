@@ -475,7 +475,7 @@ function append_files_to_fallback_list(path, files) {
                 item['size'] = formatFileSize(item['size']);
                 var is_file = true
                 var epn = item.name;
-                var link = UI.downloaddomain ? item.link : window.location.origin + item.link;
+                var link = window.location.origin + item.link;
                 var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
                 var c = "file";
                 if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
@@ -585,7 +585,7 @@ function append_files_to_list(path, files) {
             item['size'] = formatFileSize(item['size']);
             var is_file = true
             var epn = item.name;
-            var link = UI.downloaddomain ? item.link : window.location.origin + item.link;
+            var link = window.location.origin + item.link;
             var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             var c = "file";
             if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
@@ -796,7 +796,7 @@ function append_search_result_to_list(files) {
                 var totalsize = totalsize + Number(item.size);
                 item['size'] = formatFileSize(item['size']);
                 var ext = item.fileExtension
-                var link = UI.downloaddomain ? item.link : window.location.origin + item.link;
+                var link = window.location.origin + item.link;
                 html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
 
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
@@ -938,7 +938,7 @@ async function fallback(id, type) {
                     const name = obj.name;
                     const encoded_name = encodeURIComponent(name);
                     const size = formatFileSize(obj.size);
-                    const url = UI.downloaddomain ? obj.link : window.location.origin + obj.link;
+                    const url = window.location.origin + obj.link;
                     const file_id = obj.id;
                     if (mimeType.includes("video") || video.includes(fileExtension)) {
                         file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id);
@@ -1011,7 +1011,7 @@ async function file(path) {
                 const name = obj.name;
                 const encoded_name = encodeURIComponent(name);
                 const size = formatFileSize(obj.size);
-                const url = UI.downloaddomain ? obj.link : window.location.origin + obj.link;
+                const url = window.location.origin + obj.link;
                 const file_id = obj.id;
                 if (mimeType.includes("video") || video.includes(fileExtension)) {
                     file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id);
