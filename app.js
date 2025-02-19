@@ -124,7 +124,7 @@ function nav(path) {
     html +=
         `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">${UI.logo_link_name ? '" height="' + '" width="' + '">' : UI.logo_link_name}</a>
+            <a class="navbar-brand" href="/">${UI.logo_link_name}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
