@@ -323,7 +323,7 @@ function list(path, id = '', fallback = false) {
 
     var password = localStorage.getItem('password' + path);
 
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 
@@ -364,7 +364,7 @@ function list(path, id = '', fallback = false) {
 
                         window.scroll_status.loading_lock = true;
 
-                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
+                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
                             .insertBefore('#readme_md');
 
                         let $list = $('#list');
@@ -513,7 +513,7 @@ function append_files_to_fallback_list(path, files) {
                     html += file_icon
                 }
 
-                html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: ${UI.css_a_tag_color};" href="${p}&a=view">${item.name}</a>${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
+                html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" href="${p}&a=view">${item.name}</a>${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
             }
         }
         if (is_file && UI.allow_selecting_files) {
@@ -624,7 +624,7 @@ function append_files_to_list(path, files) {
                 html += file_icon
             }
 
-            html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: ${UI.css_a_tag_color};" href="${pn}">${item.name}</a>${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
+            html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" href="${pn}">${item.name}</a>${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
         }
     }
     if (is_file && UI.allow_selecting_files) {
@@ -697,7 +697,7 @@ function render_search_result_list() {
   `;
     $('#content').html(content);
 
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 
@@ -726,7 +726,7 @@ function render_search_result_list() {
                         }
                         window.scroll_status.loading_lock = true;
 
-                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
+                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
                             .insertBefore('#readme_md');
 
                         let $list = $('#list');
@@ -797,7 +797,7 @@ function append_search_result_to_list(files) {
                 item['size'] = formatFileSize(item['size']);
                 var ext = item.fileExtension
                 var link = UI.second_domain_for_dl ? UI.downloaddomain + item.link : window.location.origin + item.link;
-                html += `<div style="color: ${UI.css_a_tag_color};" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
+                html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
 
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
                     html += video_icon
@@ -853,7 +853,7 @@ function onSearchResultItemClick(file_id, can_preview) {
     var cur = window.current_drive_order;
     var title = `Loading...`;
     $('#SearchModelLabel').html(title);
-    var content = `<div class="d-flex justify-content-center"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div>`;
+    var content = `<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div>`;
     $('#modal-body-space').html(content);
     var p = {
         id: file_id
@@ -907,7 +907,7 @@ function get_file(path, file, callback) {
 async function fallback(id, type) {
     if (type) {
         var cookie_folder_id = await getCookie("root_id") || '';
-        $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+        $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
         fetch("/0:fallback", {
             method: "POST",
             headers: {
@@ -941,7 +941,6 @@ async function fallback(id, type) {
                     const url = UI.second_domain_for_dl ? UI.downloaddomain + obj.link : window.location.origin + obj.link;
                     const file_id = obj.id;
                     if (mimeType.includes("video") || video.includes(fileExtension)) {
-                        const poster = obj.thumbnailLink ? obj.thumbnailLink.replace("s220", "s0") : UI.poster;
                         file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id);
                     } else if (mimeType.includes("audio") || audio.includes(fileExtension)) {
                         file_audio(name, encoded_name, size, url, file_id, cookie_folder_id);
@@ -981,7 +980,7 @@ async function fallback(id, type) {
 async function file(path) {
     var cookie_folder_id = await getCookie("root_id") || '';
     var name = path.split('/').pop();
-    $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border ${UI.loading_spinner_class} m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+    $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
     fetch("", {
         method: "POST",
         headers: {
@@ -1015,7 +1014,6 @@ async function file(path) {
                 const url = UI.second_domain_for_dl ? UI.downloaddomain + obj.link : window.location.origin + obj.link;
                 const file_id = obj.id;
                 if (mimeType.includes("video") || video.includes(fileExtension)) {
-                    const poster = obj.thumbnailLink ? obj.thumbnailLink.replace("s220", "s0") : UI.poster;
                     file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id);
                 } else if (mimeType.includes("audio") || audio.includes(fileExtension)) {
                     file_audio(name, encoded_name, size, url, file_id, cookie_folder_id);
