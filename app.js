@@ -941,7 +941,7 @@ async function fallback(id, type) {
                     const url = UI.downloaddomain ? obj.link : window.location.origin + obj.link;
                     const file_id = obj.id;
                     if (mimeType.includes("video") || video.includes(fileExtension)) {
-                        file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id);
+                        file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id);
                     } else if (mimeType.includes("audio") || audio.includes(fileExtension)) {
                         file_audio(name, encoded_name, size, url, file_id, cookie_folder_id);
                     } else if (mimeType.includes("image") || image.includes(fileExtension)) {
@@ -1014,7 +1014,7 @@ async function file(path) {
                 const url = UI.downloaddomain ? obj.link : window.location.origin + obj.link;
                 const file_id = obj.id;
                 if (mimeType.includes("video") || video.includes(fileExtension)) {
-                    file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id);
+                    file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id);
                 } else if (mimeType.includes("audio") || audio.includes(fileExtension)) {
                     file_audio(name, encoded_name, size, url, file_id, cookie_folder_id);
                 } else if (mimeType.includes("image") || image.includes(fileExtension)) {
@@ -1172,7 +1172,7 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
     }
 }
 
-function file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id) {
+function file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id) {
     var url_base64 = btoa(url);
     var path = window.location.pathname;
     var pathParts = path.split('/');
