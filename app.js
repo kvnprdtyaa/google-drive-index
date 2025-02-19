@@ -6,7 +6,7 @@ function init() {
 </header>
 <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
 <div>
-<div id="content" style="padding-top: ${UI.header_padding}px;${UI.fixed_footer ? ' padding-bottom: clamp(170px, 100%, 300px);' : ''}">
+<div id="content" style="padding-top: 80px;">
 </div>
 <div class="modal fade" id="SearchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SearchModelLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -122,9 +122,9 @@ function nav(path) {
     var html = "";
     var cur = window.current_drive_order || 0;
     html +=
-        `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} ${UI.header_style_class}">
+        `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">${UI.logo_image ? '<img border="0" alt="' + UI.company_name + '" src="' + UI.logo_link_name + '" height="' + '" width="' + '">' : UI.logo_link_name}</a>
+            <a class="navbar-brand" href="/">${UI.logo_image ? '<img border="0" alt="' + '" src="' + UI.logo_link_name + '" height="' + '" width="' + '">' : UI.logo_link_name}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -142,7 +142,7 @@ function nav(path) {
 </ul>
 <form class="d-flex" method="get" action="/${cur}:search">
 <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" value="${search_text}" required>
-<button class="btn ${UI.search_button_class}" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
+<button class="btn btn-danger" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
 </form>
 </div>
 </div>
@@ -284,7 +284,7 @@ function list(path, id = '', fallback = false) {
         <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
       </div>
     </div>
-    <div class="${UI.path_nav_alert_class} d-flex align-items-center" role="alert" style="margin-bottom: 0; padding-bottom: 0rem;">
+    <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0; padding-bottom: 0rem;">
       <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb" id="folderne">
           <li class="breadcrumb-item"><a href="/">Home</a></li>`;
@@ -315,7 +315,7 @@ function list(path, id = '', fallback = false) {
     </nav>
   </div>
   <div id="list" class="list-group text-break"></div>
-  <div class="${UI.file_count_alert_class} text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
+  <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
   <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
 </div>`;
 
@@ -469,13 +469,13 @@ function append_files_to_fallback_list(path, files) {
             var p = "/fallback?id=" + item.id
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a href="${p}" style="color: ${UI.folder_text_color};" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
+                html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
             } else {
                 var totalsize = totalsize + Number(item.size);
                 item['size'] = formatFileSize(item['size']);
                 var is_file = true
                 var epn = item.name;
-                var link = UI.second_domain_for_dl ? UI.downloaddomain + item.link : window.location.origin + item.link;
+                var link = UI.downloaddomain ? item.link : window.location.origin + item.link;
                 var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
                 var c = "file";
                 if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
@@ -579,13 +579,13 @@ function append_files_to_list(path, files) {
         var p = path + ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
         item['modifiedTime'] = utc2delhi(item['modifiedTime']);
         if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-            html += `<a href="${p}" style="color: ${UI.folder_text_color};" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
+            html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
         } else {
             var totalsize = totalsize + Number(item.size);
             item['size'] = formatFileSize(item['size']);
             var is_file = true
             var epn = item.name;
-            var link = UI.second_domain_for_dl ? UI.downloaddomain + item.link : window.location.origin + item.link;
+            var link = UI.downloaddomain ? item.link : window.location.origin + item.link;
             var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             var c = "file";
             if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
@@ -687,11 +687,11 @@ function render_search_result_list() {
   </div>
   </div>
   <div class="card">
-  <div class="${UI.path_nav_alert_class} d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results</div>
+  <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results</div>
   <div id="list" class="list-group text-break">
   </div>
   </div>
-  <div class="${UI.file_count_alert_class} text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
+  <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
   <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
   </div>
   `;
@@ -790,13 +790,13 @@ function append_search_result_to_list(files) {
 
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a style="color: ${UI.folder_text_color};" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
+                html += `<a style="color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} ${UI.display_time ? `<span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</a>`;
             } else {
                 var is_file = true;
                 var totalsize = totalsize + Number(item.size);
                 item['size'] = formatFileSize(item['size']);
                 var ext = item.fileExtension
-                var link = UI.second_domain_for_dl ? UI.downloaddomain + item.link : window.location.origin + item.link;
+                var link = UI.downloaddomain ? item.link : window.location.origin + item.link;
                 html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
 
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
@@ -938,7 +938,7 @@ async function fallback(id, type) {
                     const name = obj.name;
                     const encoded_name = encodeURIComponent(name);
                     const size = formatFileSize(obj.size);
-                    const url = UI.second_domain_for_dl ? UI.downloaddomain + obj.link : window.location.origin + obj.link;
+                    const url = UI.downloaddomain ? obj.link : window.location.origin + obj.link;
                     const file_id = obj.id;
                     if (mimeType.includes("video") || video.includes(fileExtension)) {
                         file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id);
@@ -960,7 +960,7 @@ async function fallback(id, type) {
           <div class="container"><br>
           <div class="card text-center">
             <div class="card-body text-center">
-              <div class="${UI.file_view_alert_class}" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
+              <div class="alert alert-danger" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
             </div>
             <p>The requested URL was not found on this server. That’s all we know.</p>
             <div class="card-text text-center">
@@ -1011,7 +1011,7 @@ async function file(path) {
                 const name = obj.name;
                 const encoded_name = encodeURIComponent(name);
                 const size = formatFileSize(obj.size);
-                const url = UI.second_domain_for_dl ? UI.downloaddomain + obj.link : window.location.origin + obj.link;
+                const url = UI.downloaddomain ? obj.link : window.location.origin + obj.link;
                 const file_id = obj.id;
                 if (mimeType.includes("video") || video.includes(fileExtension)) {
                     file_video(name, encoded_name, size, poster, url, mimeType, file_id, cookie_folder_id);
@@ -1033,7 +1033,7 @@ async function file(path) {
           <div class="container"><br>
           <div class="card text-center">
             <div class="card-body text-center">
-              <div class="${UI.file_view_alert_class}" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
+              <div class="alert alert-danger" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
             </div>
             <p>The requested URL was not found on this server. That’s all we know.</p>
             <div class="card-text text-center">
@@ -1078,7 +1078,7 @@ function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
       </nav>
             <div class="card text-center">
             <div class="card-body text-center">
-              <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>
+              <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
             </div>
             <div class="card-body">
             <div class="input-group mb-4">
@@ -1137,10 +1137,9 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
       </nav>
       <div class="card text-center">
         <div class="card-body text-center">
-          <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>
+          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
         </div>
         <div id="code_spinner"></div>` +
-        (UI.second_domain_for_dl ? `` : `<pre class="line-numbers language-markup" data-src="plugins/line-numbers/index.html" data-start="-5" style="white-space: pre-wrap; counter-reset: linenumber -6;" data-src-status="loaded" tabindex="0"><code id="editor"></code></pre>`) +
         `<div class="card-body">
           <div class="input-group mb-4">
             <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
@@ -1169,7 +1168,7 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         });
     } else {
         $("#code_spinner").html("");
-        $('#editor').html(`<div class="${UI.file_view_alert_class}" id="file_details" role="alert">File size is too large to preview, Max Limit is 2 MB</div>`);
+        $('#editor').html(`<div class="alert alert-danger" id="file_details" role="alert">File size is too large to preview, Max Limit is 2 MB</div>`);
     }
 }
 
@@ -1204,7 +1203,7 @@ function file_video(name, encoded_name, size, poster, url, mimeType, file_id, co
       </nav>
       <div class="card text-center">
         <div class="text-center">
-          <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div></div>
+          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div></div>
         </br>
         ${UI.disable_video_download ? `` : `
           <div class="card-body">
@@ -1255,7 +1254,7 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
       </nav>
       <div class="card text-center">
         <div class="text-center">
-          <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>
+          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
         </div>
         </br>
         ${UI.disable_audio_download ? `` : `
@@ -1307,7 +1306,7 @@ function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
       </nav>
     <div class="card">
     <div class="card-body text-center">
-    <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>
+    <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
     <div>
     </div><br>
     <iframe src="https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>
@@ -1361,7 +1360,7 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
       </nav>
       <div class="card">
         <div class="card-body text-center">
-          <div class="${UI.file_view_alert_class}" id="file_details" role="alert">${name}<br>${size}</div>
+          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
           <img src="${url}" id="load_image" width="100%">
         </div>
         <div class="card-body">
