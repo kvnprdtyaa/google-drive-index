@@ -124,7 +124,7 @@ function nav(path) {
     html +=
         `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} ${UI.header_style_class}">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">${UI.logo_image ? '<img border="0" alt="' + UI.company_name + '" src="' + UI.logo_link_name + '" height="' + UI.logo_height + '" width="' + UI.logo_width + '">' : UI.logo_link_name}</a>
+            <a class="navbar-brand" href="/">${UI.logo_image ? '<img border="0" alt="' + UI.company_name + '" src="' + UI.logo_link_name + '" height="' + '" width="' + '">' : UI.logo_link_name}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -134,7 +134,7 @@ function nav(path) {
     var drive_name = window.drive_names[cur];
 
     html += `<li class="nav-item">
-    <a class="nav-link" href="${UI.contact_link}" target="_blank">${UI.nav_link_4}</a>
+    <a class="nav-link" href="${UI.support_link}" target="_blank">Support</a>
   </li>${UI.show_logout_button ? '<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>' : ''}`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
