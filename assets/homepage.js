@@ -1,7 +1,7 @@
 let len = window.drive_names.length;
 let html = "";
 for (var i = 0; i < len; i++) {
-    html += `<a href="/` + i + `:/" style="color: ${UI.folder_text_color};" class="list-group-item list-group-item-action">
+   html += `<a href="/` + i + `:/" style="color: white;" class="list-group-item list-group-item-action">
        <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
           <linearGradient id="WQEfvoQAcpQgQgyjQQ4Hqa" x1="24" x2="24" y1="6.708" y2="14.977" gradientUnits="userSpaceOnUse">
              <stop offset="0" stop-color="#eba600"></stop>
@@ -14,8 +14,8 @@ for (var i = 0; i < len; i++) {
           </linearGradient>
           <path fill="url(#WQEfvoQAcpQgQgyjQQ4Hqb)" d="M21.586,14.414l3.268-3.268C24.947,11.053,25.074,11,25.207,11H43c1.105,0,2,0.895,2,2v26	c0,1.105-0.895,2-2,2H5c-1.105,0-2-0.895-2-2V15.5C3,15.224,3.224,15,3.5,15h16.672C20.702,15,21.211,14.789,21.586,14.414z"></path>
        </svg> `+
-        window.drive_names[i]
-        + `</a>`;
+      window.drive_names[i]
+      + `</a>`;
 }
 $('#n_drives').html(len);
 $('#list').html(html);
