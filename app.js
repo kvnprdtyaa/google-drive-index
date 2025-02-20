@@ -6,7 +6,7 @@ function init() {
 </header>
 <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
 <div>
-<div id="content" style="padding-top: 80px;">
+<div id="content" style="padding-top: 20px;">
 </div>
 <div class="modal fade" id="SearchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SearchModelLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -124,7 +124,7 @@ function nav(path) {
     html +=
         `<nav class="navbar navbar-expand-lg bg-primary"  data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">${UI.logo_link_name}</a>
+                <a class="navbar-brand" href="/">SPRiNGLER</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -134,7 +134,7 @@ function nav(path) {
     var drive_name = window.drive_names[cur];
 
     html += `<li class="nav-item">
-    <a class="nav-link" href="${UI.support_link}" target="_blank">Support</a>
+    <a class="nav-link" href="https://telegra.ph/SUPPORT-US-02-19" target="_blank">Support</a>
   </li>${UI.show_logout_button ? '<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>' : ''}`;
 
     var search_text = model.is_search_page ? (model.q || '') : '';
