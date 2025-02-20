@@ -122,13 +122,13 @@ function nav(path) {
     var html = "";
     var cur = window.current_drive_order || 0;
     html +=
-        `<nav class="navbar navbar-expand-lg${UI.fixed_header ? ' fixed-top' : ''} navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">${UI.logo_link_name}</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        `<nav class="navbar navbar-expand-lg bg-primary"  data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">${UI.logo_link_name}</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">`;
     var names = window.drive_names;
     var drive_name = window.drive_names[cur];
@@ -142,7 +142,7 @@ function nav(path) {
 </ul>
 <form class="d-flex" method="get" action="/${cur}:search">
 <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" value="${search_text}" required>
-<button class="btn btn-danger" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
+<button class="btn btn-secondary my-2 my-sm-0" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
 </form>
 </div>
 </div>
