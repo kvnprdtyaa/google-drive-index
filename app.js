@@ -1,34 +1,36 @@
 function init() {
     document.siteName = $('title').html();
-    var html = `<header>
-   <div id="nav">
-   </div>
-</header>
-<div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
-<div>
-<div id="content" style="padding-top: 20px;">
-</div>
-<div class="modal fade" id="SearchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SearchModelLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="SearchModelLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span>
-        </button>
-      </div>
-      <div class="modal-body" id="modal-body-space">
-      </div>
-      <div class="modal-footer" id="modal-body-space-buttons">
-      </div>
+    var html = `
+    <header>
+        <div id="nav"></div>
+    </header>
+    <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
+    <div id="content" style="padding-top: 20px;"></div>
+    <div class="modal fade" id="SearchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SearchModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="SearchModelLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body-space"></div>
+            <div class="modal-footer" id="modal-body-space-buttons"></div>
+        </div>
     </div>
-  </div>
-</div>
 <br>
+<footer class="footer py-3" style="position: fixed; bottom: 0; width: 100%;">
+    <div class="container">
+        <ul class="list-unstyled">
+            <li class="float-end"><a href="#top">Back to top</a></li>
+        </ul>
+        <p>© 2025 - SPRiNGLER, All Rights Reserved.</p>
+    </div>
+</footer>
   `;
     $('body').html(html);
 }
-
 const folder_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_11)"><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,24)"><path fill="rgb(255,159,0)" fill-opacity="1" d=" M16,-12 C16,-12 -2,-12 -2,-12 C-2,-12 -6,-16 -6,-16 C-6,-16 -16,-16 -16,-16 C-18.200000762939453,-16 -20,-14.199999809265137 -20,-12 C-20,-12 -20,12 -20,12 C-20,14.208999633789062 -18.208999633789062,16 -16,16 C-16,16 13.682000160217285,16 13.682000160217285,16 C13.682000160217285,16 20,5 20,5 C20,5 20,-8 20,-8 C20,-10.199999809265137 18.200000762939453,-12 16,-12z"></path></g></g><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,26)"><path fill="rgb(255,201,40)" fill-opacity="1" d=" M16,-14 C16,-14 -16,-14 -16,-14 C-18.200000762939453,-14 -20,-12.199999809265137 -20,-10 C-20,-10 -20,10 -20,10 C-20,12.199999809265137 -18.200000762939453,14 -16,14 C-16,14 16,14 16,14 C18.200000762939453,14 20,12.199999809265137 20,10 C20,10 20,-10 20,-10 C20,-12.199999809265137 18.200000762939453,-14 16,-14z"></path></g></g></g></svg>`
 const video_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_11)"><g transform="matrix(1,0,0,1,24,24)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(63,81,181)" fill-opacity="1" d=" M16,17 C16,17 -16,17 -16,17 C-18.200000762939453,17 -20,15.199999809265137 -20,13 C-20,13 -20,-9 -20,-9 C-20,-9 20,-9 20,-9 C20,-9 20,13 20,13 C20,15.199999809265137 18.200000762939453,17 16,17z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M16,-9 C16,-9 12,-3 12,-3 C12,-3 16,-3 16,-3 C16,-3 20,-9 20,-9 C20,-9 16,-9 16,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M8,-9 C8,-9 4,-3 4,-3 C4,-3 8,-3 8,-3 C8,-3 12,-9 12,-9 C12,-9 8,-9 8,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M0,-9 C0,-9 -4,-3 -4,-3 C-4,-3 0,-3 0,-3 C0,-3 4,-9 4,-9 C4,-9 0,-9 0,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-8,-9 C-8,-9 -12,-3 -12,-3 C-12,-3 -8,-3 -8,-3 C-8,-3 -4,-9 -4,-9 C-4,-9 -8,-9 -8,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-16,-9 C-16,-9 -20,-3 -20,-3 C-20,-3 -16,-3 -16,-3 C-16,-3 -12,-9 -12,-9 C-12,-9 -16,-9 -16,-9z"></path></g></g></g><g transform="matrix(1,0,0,1,24,24)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(63,81,181)" fill-opacity="1" d=" M19.399999618530273,-15.699999809265137 C19.399999618530273,-15.699999809265137 -20,-9 -20,-9 C-20,-9 -20.299999237060547,-11 -20.299999237060547,-11 C-20.700000762939453,-13.199999809265137 -19.200000762939453,-15.199999809265137 -17,-15.600000381469727 C-17,-15.600000381469727 14.600000381469727,-20.899999618530273 14.600000381469727,-20.899999618530273 C16.799999237060547,-21.299999237060547 18.799999237060547,-19.799999237060547 19.200000762939453,-17.600000381469727 C19.200000762939453,-17.600000381469727 19.399999618530273,-15.699999809265137 19.399999618530273,-15.699999809265137z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-5.199999809265137,-17.600000381469727 C-5.199999809265137,-17.600000381469727 -0.30000001192092896,-12.300000190734863 -0.30000001192092896,-12.300000190734863 C-0.30000001192092896,-12.300000190734863 3.700000047683716,-13 3.700000047683716,-13 C3.700000047683716,-13 -1.2999999523162842,-18.299999237060547 -1.2999999523162842,-18.299999237060547 C-1.2999999523162842,-18.299999237060547 -5.199999809265137,-17.600000381469727 -5.199999809265137,-17.600000381469727z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-13.100000381469727,-16.299999237060547 C-13.100000381469727,-16.299999237060547 -8.199999809265137,-11 -8.199999809265137,-11 C-8.199999809265137,-11 -4.199999809265137,-11.699999809265137 -4.199999809265137,-11.699999809265137 C-4.199999809265137,-11.699999809265137 -9.199999809265137,-16.899999618530273 -9.199999809265137,-16.899999618530273 C-9.199999809265137,-16.899999618530273 -13.100000381469727,-16.299999237060547 -13.100000381469727,-16.299999237060547z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M2.700000047683716,-18.899999618530273 C2.700000047683716,-18.899999618530273 7.599999904632568,-13.699999809265137 7.599999904632568,-13.699999809265137 C7.599999904632568,-13.699999809265137 11.5,-14.300000190734863 11.5,-14.300000190734863 C11.5,-14.300000190734863 6.599999904632568,-19.600000381469727 6.599999904632568,-19.600000381469727 C6.599999904632568,-19.600000381469727 2.700000047683716,-18.899999618530273 2.700000047683716,-18.899999618530273z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M10.5,-20.200000762939453 C10.5,-20.200000762939453 15.5,-15 15.5,-15 C15.5,-15 19.399999618530273,-15.699999809265137 19.399999618530273,-15.699999809265137 C19.399999618530273,-15.699999809265137 14.5,-20.899999618530273 14.5,-20.899999618530273 C14.5,-20.899999618530273 10.5,-20.200000762939453 10.5,-20.200000762939453z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-16.5,-14 C-17.327999114990234,-14 -18,-13.32800006866455 -18,-12.5 C-18,-11.67199993133545 -17.327999114990234,-11 -16.5,-11 C-15.67199993133545,-11 -15,-11.67199993133545 -15,-12.5 C-15,-13.32800006866455 -15.67199993133545,-14 -16.5,-14z"></path></g></g></g></svg>`
 const code_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_2)"><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,21)"><path fill="rgb(83,109,121)" fill-opacity="1" d=" M-18,-13 C-18,-13 18,-13 18,-13 C18,-13 18,13 18,13 C18,13 -18,13 -18,13 C-18,13 -18,-13 -18,-13z"></path></g><g opacity="1" transform="matrix(1,0,0,1,24,20.5)"><path fill="rgb(186,222,250)" fill-opacity="1" d=" M-16,-10.5 C-16,-10.5 16,-10.5 16,-10.5 C16,-10.5 16,10.5 16,10.5 C16,10.5 -16,10.5 -16,10.5 C-16,10.5 -16,-10.5 -16,-10.5z"></path></g><g opacity="1" transform="matrix(1,0,0,1,24,37)"><path fill="rgb(69,90,99)" fill-opacity="1" d=" M-3,-3 C-3,-3 3,-3 3,-3 C3,-3 3,0 3,0 C3,0 -3,0 -3,0 C-3,0 -3,-3 -3,-3z M9,0 C9,0 -9,0 -9,0 C-11,0 -11,2 -11,2 C-11,2 -11,3 -11,3 C-11,3 11,3 11,3 C11,3 11,2 11,2 C11,2 11,0 9,0z"></path></g></g><g transform="matrix(0.8999999761581421,0,0,0.8999999761581421,2.2750015258789062,-1.0999984741210938)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,15.315999984741211,24.465999603271484)"><path fill="rgb(21,101,192)" fill-opacity="1" d=" M-0.8989999890327454,0.02500000037252903 C-0.8989999890327454,0.02500000037252903 3.684000015258789,2.0399999618530273 3.684000015258789,2.0399999618530273 C3.684000015258789,2.0399999618530273 3.684000015258789,4.894999980926514 3.684000015258789,4.894999980926514 C3.684000015258789,4.894999980926514 -3.684000015258789,1.2100000381469727 -3.684000015258789,1.2100000381469727 C-3.684000015258789,1.2100000381469727 -3.684000015258789,-1.1990000009536743 -3.684000015258789,-1.1990000009536743 C-3.684000015258789,-1.1990000009536743 3.684000015258789,-4.894999980926514 3.684000015258789,-4.894999980926514 C3.684000015258789,-4.894999980926514 3.684000015258789,-2.0399999618530273 3.684000015258789,-2.0399999618530273 C3.684000015258789,-2.0399999618530273 -0.8989999890327454,0.02500000037252903 -0.8989999890327454,0.02500000037252903z"></path></g><g opacity="1" transform="matrix(-1,0,0,-1,32.70000076293945,24.465999603271484)"><path fill="rgb(21,101,192)" fill-opacity="1" d=" M-0.8989999890327454,0.02500000037252903 C-0.8989999890327454,0.02500000037252903 3.684000015258789,2.0399999618530273 3.684000015258789,2.0399999618530273 C3.684000015258789,2.0399999618530273 3.684000015258789,4.894999980926514 3.684000015258789,4.894999980926514 C3.684000015258789,4.894999980926514 -3.684000015258789,1.2100000381469727 -3.684000015258789,1.2100000381469727 C-3.684000015258789,1.2100000381469727 -3.684000015258789,-1.1990000009536743 -3.684000015258789,-1.1990000009536743 C-3.684000015258789,-1.1990000009536743 3.684000015258789,-4.894999980926514 3.684000015258789,-4.894999980926514 C3.684000015258789,-4.894999980926514 3.684000015258789,-2.0399999618530273 3.684000015258789,-2.0399999618530273 C3.684000015258789,-2.0399999618530273 -0.8989999890327454,0.02500000037252903 -0.8989999890327454,0.02500000037252903z"></path></g><g opacity="1" transform="matrix(1,0,0,1,24.240999221801758,24)"><path fill="rgb(21,101,192)" fill-opacity="1" d=" M-1.1649999618530273,7.986000061035156 C-1.1649999618530273,7.986000061035156 -3.259000062942505,7.986000061035156 -3.259000062942505,7.986000061035156 C-3.259000062942505,7.986000061035156 1.1619999408721924,-7.916999816894531 1.1619999408721924,-7.916999816894531 C1.1619999408721924,-7.916999816894531 3.259000062942505,-7.916999816894531 3.259000062942505,-7.916999816894531 C3.259000062942505,-7.916999816894531 -1.1649999618530273,7.986000061035156 -1.1649999618530273,7.986000061035156z"></path></g></g></g></svg>`
@@ -38,7 +40,6 @@ const audio_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height
 const markdown_icon = `<svg width="1.5em" height="1.5em" viewBox="0 0 1024 1024"><path d="M265.61429932 63.6656706h493.57455644c111.51629209 0 201.91670068 90.40220771 201.91670068 201.91580157v493.57545556c0 111.51449297-90.40040859 201.91670068-201.91670068 201.91670069H265.61429932c-111.51539297 0-201.91580068-90.40220771-201.91580069-201.91670069V265.58147217c0-111.51359385 90.40040859-201.91580068 201.91580069-201.91580157z" fill="#707070"></path><path d="M763.60576133 722.16141084L670.49099316 599.42972305h48.19382491V302.57788818h89.84188652v296.85183487h48.19382491L763.60576133 722.16141084zM519.02738545 472.82885791c0-13.71570117 0.30399346-28.21926709 0.91827773-43.48821445l-13.67612753 19.09855107c-0.1726831 0.54323174-0.34626533 1.10265205-0.52074757 1.62609698l-7.15195107 10.50577734-109.52234384 166.63092451-40.52562364-62.91054668h-0.25092949l-28.34248359-44.38850449-41.19926749-63.95563828h0.36425304l-8.60086846-13.47016729-0.46318536-1.8752291-14.42082305-21.30475518c1.05318633 33.22347451 1.60451191 57.42426622 1.60451192 72.50254365v229.53787296h-89.15835059V303.99532753h140.37862325l77.89348828 115.26944679h1.3346956l80.12037832-115.26944678H610.08255019v417.34224141H519.02828457V472.82885791z" fill="#ffffff"></path></svg>`
 const pdf_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_44)"><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,24)"><path fill="rgb(255,87,34)" fill-opacity="1" d=" M16,21 C16,21 -16,21 -16,21 C-16,21 -16,-21 -16,-21 C-16,-21 6,-21 6,-21 C6,-21 16,-11 16,-11 C16,-11 16,21 16,21z"></path></g><g opacity="1" transform="matrix(1,0,0,1,33.75,9.25)"><path fill="rgb(251,233,231)" fill-opacity="1" d=" M4.75,4.75 C4.75,4.75 -4.75,4.75 -4.75,4.75 C-4.75,4.75 -4.75,-4.75 -4.75,-4.75 C-4.75,-4.75 4.75,4.75 4.75,4.75z"></path></g></g><g transform="matrix(1,0,0,1,24,24)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(255,255,255)" fill-opacity="1" d=" M-8,15 C-8.399999618530273,15 -8.699999809265137,14.899999618530273 -9,14.800000190734863 C-10.100000381469727,14.199999809265137 -10.199999809265137,13.300000190734863 -10,12.600000381469727 C-9.600000381469727,11.399999618530273 -7.400000095367432,9.899999618530273 -4.5,8.600000381469727 C-4.5,8.600000381469727 -4.5,8.600000381469727 -4.5,8.600000381469727 C-3.200000047683716,6.199999809265137 -2.200000047683716,3.700000047683716 -1.600000023841858,1.600000023841858 C-2.5999999046325684,-0.30000001192092896 -3.0999999046325684,-2.0999999046325684 -3.0999999046325684,-3.4000000953674316 C-3.0999999046325684,-4.099999904632568 -2.9000000953674316,-4.699999809265137 -2.5999999046325684,-5.199999809265137 C-2.200000047683716,-5.699999809265137 -1.600000023841858,-6 -0.800000011920929,-6 C0.10000000149011612,-6 0.800000011920929,-5.5 1.100000023841858,-4.599999904632568 C1.600000023841858,-3.4000000953674316 1.2999999523162842,-1.2000000476837158 0.6000000238418579,1.2999999523162842 C1.600000023841858,3 2.799999952316284,4.599999904632568 4.099999904632568,5.800000190734863 C6,5.400000095367432 7.699999809265137,5.199999809265137 8.800000190734863,5.400000095367432 C10.699999809265137,5.699999809265137 11,7 11,7.5 C11,9.600000381469727 8.800000190734863,9.600000381469727 8,9.600000381469727 C6.5,9.600000381469727 5,9 3.700000047683716,7.900000095367432 C3.700000047683716,7.900000095367432 3.700000047683716,7.900000095367432 3.700000047683716,7.900000095367432 C1.2999999523162842,8.5 -1.100000023841858,9.300000190734863 -3,10.199999809265137 C-4,11.899999618530273 -5,13.300000190734863 -5.900000095367432,14.100000381469727 C-6.800000190734863,14.800000190734863 -7.5,15 -8,15z M-6.800000190734863,12.100000381469727 C-7.300000190734863,12.399999618530273 -7.699999809265137,12.699999809265137 -7.900000095367432,13 C-7.699999809265137,12.899999618530273 -7.300000190734863,12.699999809265137 -6.800000190734863,12.100000381469727z M6.800000190734863,7.400000095367432 C7.199999809265137,7.5 7.599999904632568,7.599999904632568 8,7.599999904632568 C8.600000381469727,7.599999904632568 8.899999618530273,7.5 9,7.5 C9,7.5 9,7.5 9,7.5 C8.899999618530273,7.400000095367432 8.199999809265137,7.199999809265137 6.800000190734863,7.400000095367432z M-0.20000000298023224,3.799999952316284 C-0.6000000238418579,5 -1.2000000476837158,6.300000190734863 -1.7000000476837158,7.5 C-0.5,7.099999904632568 0.699999988079071,6.699999809265137 1.899999976158142,6.400000095367432 C1.100000023841858,5.599999904632568 0.4000000059604645,4.699999809265137 -0.20000000298023224,3.799999952316284z M-0.800000011920929,-4 C-0.8999999761581421,-4 -0.8999999761581421,-4 -0.8999999761581421,-4 C-1,-3.9000000953674316 -1.100000023841858,-3.200000047683716 -0.699999988079071,-1.7000000476837158 C-0.6000000238418579,-2.9000000953674316 -0.6000000238418579,-3.799999952316284 -0.800000011920929,-4z"></path></g></g></g></svg>`
 const file_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_63)"><g transform="matrix(1,0,0,1,7.75,2.75)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,16.25,21.25)"><path fill="rgb(144,201,248)" fill-opacity="1" d=" M16,21 C16,21 -16,21 -16,21 C-16,21 -16,-21 -16,-21 C-16,-21 6,-21 6,-21 C6,-21 16,-11 16,-11 C16,-11 16,21 16,21z"></path></g></g><g transform="matrix(1,0,0,1,15,21)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,1 C1,1 18,1 18,1"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,5 C1,5 14,5 14,5"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,9 C1,9 18,9 18,9"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(24,118,210)" stroke-opacity="1" stroke-width="2" d=" M1,13 C1,13 14,13 14,13"></path></g></g><g transform="matrix(1,0,0,1,28.75,4.25)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,5,5)"><path fill="rgb(224,245,253)" fill-opacity="1" d=" M4.75,4.75 C4.75,4.75 -4.75,4.75 -4.75,4.75 C-4.75,4.75 -4.75,-4.75 -4.75,-4.75 C-4.75,-4.75 0,0 0,0 C0,0 4.75,4.75 4.75,4.75z"></path></g></g></g></svg>`
-
 const Os = {
     isWindows: navigator.userAgent.toUpperCase().indexOf('WIN') > -1,
     isMac: navigator.userAgent.toUpperCase().indexOf('MAC') > -1,
@@ -46,7 +47,6 @@ const Os = {
     isIos: /(iPhone|iPod|iPad)/i.test(navigator.userAgent),
     isMobile: /Android|webOS|iPhone|iPad|iPod|iOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 };
-
 function getDocumentHeight() {
     var D = document;
     return Math.max(
@@ -55,7 +55,6 @@ function getDocumentHeight() {
         D.body.clientHeight, D.documentElement.clientHeight
     );
 }
-
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
@@ -68,7 +67,6 @@ function getQueryVariable(variable) {
     }
     return (false);
 }
-
 function render(path) {
     if (path.indexOf("?") > 0) {
         path = path.substr(0, path.indexOf("?"));
@@ -104,7 +102,6 @@ function render(path) {
         file(path);
     }
 }
-
 function title(path) {
     path = decodeURI(path);
     var cur = window.current_drive_order || 0;
@@ -116,46 +113,43 @@ function title(path) {
     else
         $('title').html(`${drive_name} - ${path}`);
 }
-
 function nav(path) {
     var model = window.MODEL;
     var html = "";
     var cur = window.current_drive_order || 0;
     html +=
-        `<nav class="navbar navbar-expand-lg bg-primary"  data-bs-theme="dark">
+        `<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">SPRiNGLER</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">`;
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">`;
     var names = window.drive_names;
     var drive_name = window.drive_names[cur];
-
-    html += `<li class="nav-item">
-    <a class="nav-link" href="https://telegra.ph/SUPPORT-US-02-19" target="_blank">Support</a>
-  </li>${UI.show_logout_button ? '<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>' : ''}`;
-
+    html += `
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://telegra.ph/SUPPORT-US-02-19" target="_blank">Support</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>`;
     var search_text = model.is_search_page ? (model.q || '') : '';
     var search_bar = `
-</ul>
-<form class="d-flex" method="get" action="/${cur}:search">
-<input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" value="${search_text}" required>
-<button class="btn btn-secondary my-2 my-sm-0" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
-</form>
-</div>
-</div>
-</nav>
-`;
-
+                    </ul>
+                    <form class="d-flex" method="get" action="/${cur}:search">
+                        <input class="form-control me-sm-2" name="q" type="search" placeholder="Search" value="${search_text}" required>
+                        <button class="btn btn-secondary my-2 my-sm-0" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>`;
     if (model.root_type < 2) {
         html += search_bar;
     }
-
     $('#nav').html(html);
 }
-
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
@@ -163,7 +157,6 @@ function sleep(milliseconds) {
         currentDate = Date.now();
     } while (currentDate - date < milliseconds);
 }
-
 function requestListPath(path, params, resultCallback, authErrorCallback, retries = 3, fallback = false) {
     var requestData = {
         id: params['id'] || '',
@@ -177,7 +170,6 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
     if (fallback) {
         path = "/0:fallback"
     }
-
     function performRequest() {
         fetch(fallback ? "/0:fallback" : path, {
             method: 'POST',
@@ -194,7 +186,6 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
             })
             .then(function (res) {
                 if (res && res.error && res.error.code === 401) {
-                    // Password verification failed
                     askPassword(path);
                 } else if (res && res.data === null) {
                     document.getElementById('spinner').remove();
@@ -220,14 +211,12 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
     console.log("Performing Request again")
     performRequest();
 }
-
 function requestSearch(params, resultCallback, retries = 3) {
     var p = {
         q: params['q'] || null,
         page_token: params['page_token'] || null,
         page_index: params['page_index'] || 0
     };
-
     function performRequest(retries) {
         fetch(`/${window.current_drive_order}:search`, {
             method: 'POST',
@@ -265,34 +254,33 @@ function requestSearch(params, resultCallback, retries = 3) {
                 }
             });
     }
-
     $('#update').html(`<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`);
     performRequest(retries);
 }
-
 function list(path, id = '', fallback = false) {
     console.log(id);
-    var containerContent = `<div class="container">${UI.fixed_header ? '<br>' : ''}
-    <div id="update"></div>
-    <div id="head_md" style="display:none; padding: 20px 20px;"></div>
-    <div class="container" id="select_items" style="padding: 0px 50px 10px; display:none;">
-      <div class="d-flex align-items-center justify-content-between">
-        <div class="form-check mr-3">
-          <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
-          <label class="form-check-label" for="select-all-checkboxes">Select all</label>
-        </div>
-        <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
-      </div>
-    </div>
-    <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0; padding-bottom: 0rem;">
-      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-        <ol class="breadcrumb" id="folderne">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>`;
-
+    var containerContent = `
+        <div class="container">
+            <div id="update"></div>
+            <div id="head_md" style="display:none; padding: 20px 20px;"></div>
+            <div class="container" id="select_items" style="padding: 0px 50px 10px; display:none;">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="form-check mr-3">
+                        <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
+                        <label class="form-check-label" for="select-all-checkboxes">Select all</label>
+                    </div>
+                    <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
+                </div>
+            </div>
+            <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0; padding-bottom: 0rem;">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>`;
     var navfulllink = window.location.pathname;
     var navarray = navfulllink.trim('/').split('/');
     var currentPath = '/';
-
     if (navarray.length > 1) {
         for (var i in navarray) {
             var pathPart = navarray[i];
@@ -306,35 +294,28 @@ function list(path, id = '', fallback = false) {
             if (displayedPathPart === '') {
                 break;
             }
-
             containerContent += `<li class="breadcrumb-item"><a href="${currentPath}">${displayedPathPart}</a></li>`;
         }
     }
-
-    containerContent += `</ol>
-    </nav>
-  </div>
-  <div id="list" class="list-group text-break"></div>
-  <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
-  <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
-</div>`;
-
+    containerContent += `
+                    </ol>
+                </nav>
+            </div>
+            <div id="list" class="list-group"></div>
+            <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
+            <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
+        </div>`;
     $('#content').html(containerContent);
-
     var password = localStorage.getItem('password' + path);
-
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
-
     function handleSuccessResult(res, path, prevReqParams) {
         console.log(res, path, prevReqParams);
         $('#list')
             .data('nextPageToken', res['nextPageToken'])
             .data('curPageIndex', res['curPageIndex']);
-
         $('#spinner').remove();
-
         if (res['nextPageToken'] === null) {
             $(window).off('scroll');
             window.scroll_status.event_bound = false;
@@ -356,17 +337,13 @@ function list(path, id = '', fallback = false) {
                     var scrollTop = $(this).scrollTop();
                     var scrollHeight = getDocumentHeight();
                     var windowHeight = $(this).height();
-
                     if (scrollTop + windowHeight > scrollHeight - (Os.isMobile ? 130 : 80)) {
                         if (window.scroll_status.loading_lock === true) {
                             return;
                         }
-
                         window.scroll_status.loading_lock = true;
-
-                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
+                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`)
                             .insertBefore('#readme_md');
-
                         let $list = $('#list');
                         if (fallback) {
                             console.log('fallback inside handleSuccessResult');
@@ -389,16 +366,13 @@ function list(path, id = '', fallback = false) {
                         }
                     }
                 });
-
                 window.scroll_status.event_bound = true;
             }
         }
-
         if (window.scroll_status.loading_lock === true) {
             window.scroll_status.loading_lock = false;
         }
     }
-
     if (fallback) {
         console.log('fallback inside list');
         requestListPath(path, {
@@ -415,13 +389,10 @@ function list(path, id = '', fallback = false) {
             handleSuccessResult,
             null);
     }
-
     const copyBtn = document.getElementById("handle-multiple-items-copy");
-
     copyBtn.addEventListener("click", () => {
         const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
         const selectedItemsData = [];
-
         if (checkedItems.length === 0) {
             alert("No items selected!");
             return;
@@ -440,26 +411,22 @@ function list(path, id = '', fallback = false) {
         alert("Selected items copied to clipboard!");
     });
 }
-
 function askPassword(path) {
     $('#spinner').remove();
     var passwordInput = prompt("Directory encryption, please enter the password", "");
     localStorage.setItem('password' + path, passwordInput);
-
     if (passwordInput != null && passwordInput != "") {
         list(path);
     } else {
         history.go(-1);
     }
 }
-
 function append_files_to_fallback_list(path, files) {
     try {
         console.log('append_files_to_fallback_list');
         var $list = $('#list');
         var is_lastpage_loaded = null === $list.data('nextPageToken');
         var is_firstpage = '0' == $list.data('curPageIndex');
-
         html = "";
         let targetFiles = [];
         var totalsize = 0;
@@ -478,13 +445,13 @@ function append_files_to_fallback_list(path, files) {
                 var link = window.location.origin + item.link;
                 var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
                 var c = "file";
-                if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
+                if (is_lastpage_loaded && item.name == "README.md") {
                     get_file(p, item, function (data) {
                         markdown("#readme_md", data);
                         $("img").addClass("img-fluid")
                     });
                 }
-                if (item.name == "HEAD.md" && UI.render_head_md) {
+                if (item.name == "HEAD.md") {
                     get_file(p, item, function (data) {
                         markdown("#head_md", data);
                         $("img").addClass("img-fluid")
@@ -494,7 +461,6 @@ function append_files_to_fallback_list(path, files) {
                 pn += "?a=view";
                 c += " view";
                 html += `<div class="list-group-item list-group-item-action">${UI.allow_selecting_files ? '<input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="' + link + '" id="flexCheckDefault">' : ''}`
-
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
                     html += video_icon
                 } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
@@ -512,14 +478,12 @@ function append_files_to_fallback_list(path, files) {
                 } else {
                     html += file_icon
                 }
-
                 html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" href="${p}&a=view">${item.name}</a>${UI.display_download ? `<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a>` : ``}${UI.display_size ? `<span class="badge bg-primary float-end"> ` + item['size'] + ` </span>` : ``}${UI.display_time ? ` <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span>` : ``}</div>`;
             }
         }
         if (is_file && UI.allow_selecting_files) {
             document.getElementById('select_items').style.display = 'block';
         }
-
         if (targetFiles.length > 0) {
             let old = localStorage.getItem(path);
             let new_children = targetFiles;
@@ -538,7 +502,6 @@ function append_files_to_fallback_list(path, files) {
 
             localStorage.setItem(path, JSON.stringify(new_children))
         }
-
         $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
         if (is_lastpage_loaded) {
             total_size = formatFileSize(totalsize) || '0 Bytes';
@@ -563,12 +526,10 @@ function append_files_to_fallback_list(path, files) {
         console.log(e);
     }
 }
-
 function append_files_to_list(path, files) {
     var $list = $('#list');
     var is_lastpage_loaded = null === $list.data('nextPageToken');
     var is_firstpage = '0' == $list.data('curPageIndex');
-
     html = "";
     let targetFiles = [];
     var totalsize = 0;
@@ -588,13 +549,13 @@ function append_files_to_list(path, files) {
             var link = window.location.origin + item.link;
             var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             var c = "file";
-            if (is_lastpage_loaded && item.name == "README.md" && UI.render_readme_md) {
+            if (is_lastpage_loaded && item.name == "README.md") {
                 get_file(p, item, function (data) {
                     markdown("#readme_md", data);
                     $("img").addClass("img-fluid")
                 });
             }
-            if (item.name == "HEAD.md" && UI.render_head_md) {
+            if (item.name == "HEAD.md") {
                 get_file(p, item, function (data) {
                     markdown("#head_md", data);
                     $("img").addClass("img-fluid")
@@ -697,7 +658,7 @@ function render_search_result_list() {
   `;
     $('#content').html(content);
 
-    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+    $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
 
@@ -726,7 +687,7 @@ function render_search_result_list() {
                         }
                         window.scroll_status.loading_lock = true;
 
-                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`)
+                        $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`)
                             .insertBefore('#readme_md');
 
                         let $list = $('#list');
@@ -853,7 +814,7 @@ function onSearchResultItemClick(file_id, can_preview) {
     var cur = window.current_drive_order;
     var title = `Loading...`;
     $('#SearchModelLabel').html(title);
-    var content = `<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div>`;
+    var content = `<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div>`;
     $('#modal-body-space').html(content);
     var p = {
         id: file_id
@@ -907,7 +868,7 @@ function get_file(path, file, callback) {
 async function fallback(id, type) {
     if (type) {
         var cookie_folder_id = await getCookie("root_id") || '';
-        $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+        $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
         fetch("/0:fallback", {
             method: "POST",
             headers: {
@@ -980,7 +941,7 @@ async function fallback(id, type) {
 async function file(path) {
     var cookie_folder_id = await getCookie("root_id") || '';
     var name = path.split('/').pop();
-    $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="sr-only"></span></div></div>`);
+    $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     fetch("", {
         method: "POST",
         headers: {
@@ -1155,7 +1116,7 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
     </div>`;
 
     $('#content').html(content);
-    var spinner = '<div class="d-flex justify-content-center"><div class="spinner-border m-5" role="status"><span class="sr-only"></span></div></div>';
+    var spinner = '<div class="d-flex justify-content-center"><div class="spinner-border m-5" role="status"><span class="visually-hidden"></span></div></div>';
     $("#code_spinner").html(spinner);
     if (bytes <= 1024 * 1024 * 2) {
         $.get(url, function (data) {
@@ -1171,7 +1132,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         $('#editor').html(`<div class="alert alert-danger" id="file_details" role="alert">File size is too large to preview, Max Limit is 2 MB</div>`);
     }
 }
-
 function file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id) {
     var url_base64 = btoa(url);
     var path = window.location.pathname;
