@@ -23,7 +23,7 @@ function init() {
     </div>
     <br>
     <footer class="footer py-3" style="bottom: 0; width: 100%;">
-        <div class="container">
+        <div class="container" tyle="padding: 0 10px;">
             <ul class="list-unstyled">
                 <li class="float-end"><a href="#top">Back to top</a></li>
             </ul>
