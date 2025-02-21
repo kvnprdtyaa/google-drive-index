@@ -303,7 +303,7 @@ function list(path, id = '', fallback = false) {
                     </ol>
                 </nav>
             </div>
-            <div id="list" class="list-group"></div>
+            <div id="list" class="list-group text-break"></div>
             <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
             <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
         </div>`;
