@@ -22,7 +22,7 @@ function init() {
         </div>
     </div>
     <br>
-    <footer class="footer py-3" style="position: fixed; bottom: 0; width: 100%;">
+    <footer class="footer py-3" style="bottom: 0; width: 100%;">
         <div class="container">
             <ul class="list-unstyled">
                 <li class="float-end"><a href="#top">Back to top</a></li>
