@@ -142,7 +142,7 @@ function nav(path) {
                     </ul>
                     <form class="d-flex" method="get" action="/${cur}:search">
                         <input class="form-control me-sm-2" name="q" type="search" placeholder="Search" value="${search_text}" required>
-                        <button class="btn btn-secondary my-2 my-sm-0" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
+                        <button class="btn btn-secondary" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
                     </form>
                 </div>
             </div>
