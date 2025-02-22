@@ -27,7 +27,7 @@ function init() {
             <ul class="list-unstyled">
                 <li class="float-end"><a href="#top">Back to top</a></li>
             </ul>
-            <p>© 2025 - SPRiNGLER, All Rights Reserved.</p>
+            <p>© 2025 - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
         </div>
     </footer>
   `;
