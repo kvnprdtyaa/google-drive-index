@@ -22,14 +22,30 @@ function init() {
         </div>
     </div>
     <br>
+     <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="background: rgba(0,0,0,.4); position: fixed; bottom: 85px; right: -5px; display: none; z-index: 2; --bs-border-opacity: .4;" role="button"><i class="fas fa-chevron-up m-0"></i></button>
     <footer class="footer py-3" style="bottom: 0; width: 100%;">
         <div class="container" tyle="padding: 0 10px;">
-            <ul class="list-unstyled">
-                <li class="float-end"><a href="#top">Back to top</a></li>
-            </ul>
             <p>© 2025 - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
         </div>
     </footer>
+    <script>
+    let btt = document.getElementById("back-to-top");
+    window.onscroll = function () {
+      scrollFunction();
+    };
+    function scrollFunction() {
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        btt.style.display = "block";
+      } else {
+        btt.style.display = "none";
+      }
+    }
+    btt.addEventListener("click", backToTop);
+    function backToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
   `;
     $('body').html(html);
 }
