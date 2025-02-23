@@ -725,7 +725,7 @@ function render_search_result_list() {
         alert("Selected items copied to clipboard!");
     });
 }
-function append_search_result_to_list(files) {
+function append_search_result_to_list(path, files) {
     try {
         var cur = window.current_drive_order || 0;
         var $list = $('#list');
@@ -736,7 +736,7 @@ function append_search_result_to_list(files) {
         for (i in files) {
             var item = files[i];
             var ep = encodeURIComponent(item.name).replace(/\//g, '%2F') + '/';
-            var p = ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
+            var p = path + ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             if (item['size'] == undefined) {
                 item['size'] = "";
             }
