@@ -1045,31 +1045,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-    var content = `
-    <div class="container"><br>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          ${navigation}
-        </ol>
-      </nav>
-      <div class="card text-center">
-        <div class="card-body text-center">
-          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
-        </div>
-        <div id="code_spinner"></div>
-        <div class="card-body">
-          <div class="input-group mb-4">
-            <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
-          </div>
-          <div class="card-text text-center">
-            <div class="btn-group text-center">
-              <a href="${url}" type="button" class="btn btn-primary">Download</a>
-            </div>
-          </div>
-          <br>
-        </div>
-      </div>
-    </div>`;
     $('#content').html(content);
     var spinner = '<div class="d-flex justify-content-center"><div class="spinner-border m-5" role="status"><span class="visually-hidden"></span></div></div>';
     $("#code_spinner").html(spinner);
@@ -1109,20 +1084,6 @@ function file_video(name, encoded_name, size, url, mimeType, file_id, cookie_fol
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-    var content = `
-    <div class="container text-center"><br>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          ${navigation}
-        </ol>
-      </nav>
-      <div class="card text-center">
-        <div class="text-center">
-          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div></div>
-        </br>
-      </div>
-    </div>
-  `;
     $("#content").html(content);
 }
 function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
@@ -1147,33 +1108,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-    var content = `
-    <div class="container text-center"><br>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          ${navigation}
-        </ol>
-      </nav>
-      <div class="card text-center">
-        <div class="text-center">
-          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
-        </div>
-        </br>
-        ${UI.disable_audio_download ? `` : `
-          <div class="card-body">
-          <div class="input-group mb-4">
-          <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
-          </div>
-          <div class="btn-group text-center">
-              <a href="${url}" type="button" class="btn btn-primary">Download</a>
-          </div>
-          <br>
-          </div>
-          </div>
-          `}
-      </div>
-    </div>
-  `;
     $("#content").html(content);
 }
 function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
@@ -1197,36 +1131,6 @@ function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-
-    var content = `
-    <div class="container text-center"><br>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          ${navigation}
-        </ol>
-      </nav>
-    <div class="card">
-    <div class="card-body text-center">
-    <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
-    <div>
-    </div><br>
-    <iframe src="https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>
-    </div>
-    <div class="card-body">
-    <div class="input-group mb-4">
-    <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
-    </div>
-    <div class="card-text text-center">
-    <div class="btn-group text-center">
-        <a href="${url}" type="button" class="btn btn-primary">Download</a>
-    </div>
-    </div>
-    <br>
-    
-    </div>
-    </div>
-    </div>  
-  `;
     $("#content").html(content);
 }
 
@@ -1251,36 +1155,6 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-
-    var content = `
-    <div class="container text-center"><br>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          ${navigation}
-        </ol>
-      </nav>
-      <div class="card">
-        <div class="card-body text-center">
-          <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
-          <img src="${url}" id="load_image" width="100%">
-        </div>
-        <div class="card-body">
-          <div class="input-group mb-4">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">Full URL</span>
-            </div>
-            <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
-          </div>
-          <div class="card-text text-center">
-            <div class="btn-group text-center">
-              <a href="${url}" type="button" class="btn btn-primary">Download</a>
-            </div>
-          </div>
-          <br>
-        </div>
-      </div>
-    </div>
-  `;
     $('#content').html(content);
 }
 
