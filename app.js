@@ -589,18 +589,15 @@ function append_files_to_list(path, files) {
             } else {
                 html += file_icon
             }
-
             html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" href="${pn}">${item.name}</a><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge bg-primary float-end"> ` + item['size'] + ` </span><span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
         }
     }
     if (is_file) {
         document.getElementById('select_items').style.display = 'block';
     }
-
     if (targetFiles.length > 0) {
         let old = localStorage.getItem(path);
         let new_children = targetFiles;
-        // Reset on page 1; otherwise append
         if (!is_firstpage && old) {
             let old_children;
             try {
@@ -613,10 +610,8 @@ function append_files_to_list(path, files) {
             }
             new_children = old_children.concat(targetFiles)
         }
-
         localStorage.setItem(path, JSON.stringify(new_children))
     }
-
     $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
     if (is_lastpage_loaded) {
         total_size = formatFileSize(totalsize) || '0 Bytes';
@@ -638,42 +633,36 @@ function append_files_to_list(path, files) {
         }
     }
 }
-
 function render_search_result_list() {
     var content = `
-  <div class="container"><br>
-  <div id="update"></div>
-  <div class="container" id="select_items" style="padding: 0px 50px 10px; display:none;">
-  <div class="d-flex align-items-center justify-content-between">
-    <div class="form-check mr-3">
-      <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
-      <label class="form-check-label" for="select-all-checkboxes">Select all</label>
-    </div>
-    <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
-  </div>
-  </div>
-  <div class="card">
-  <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results</div>
-  <div id="list" class="list-group text-break">
-  </div>
-  </div>
-  <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
-  <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
-  </div>
+        <div class="container"><br>
+            <div id="update"></div>
+            <div class="container" id="select_items" style="padding: 0px 50px 10px; display:none;">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="form-check mr-3">
+                        <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
+                        <label class="form-check-label" for="select-all-checkboxes">Select all</label>
+                    </div>
+                    <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results</div>
+                <div id="list" class="list-group text-break"></div>
+            </div>
+            <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
+            <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
+        </div>
   `;
     $('#content').html(content);
-
     $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     $('#readme_md').hide().html('');
     $('#head_md').hide().html('');
-
     function searchSuccessCallback(res, prevReqParams) {
-
         $('#list')
             .data('nextPageToken', res['nextPageToken'])
             .data('curPageIndex', res['curPageIndex']);
         $('#spinner').remove();
-
         if (res['nextPageToken'] === null) {
             $(window).off('scroll');
             window.scroll_status.event_bound = false;
@@ -691,7 +680,6 @@ function render_search_result_list() {
                             return;
                         }
                         window.scroll_status.loading_lock = true;
-
                         $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`)
                             .insertBefore('#readme_md');
 
@@ -712,11 +700,9 @@ function render_search_result_list() {
             window.scroll_status.loading_lock = false
         }
     }
-
     requestSearch({
         q: window.MODEL.q
     }, searchSuccessCallback);
-
     const copyBtn = document.getElementById("handle-multiple-items-copy");
     copyBtn.addEventListener("click", () => {
         const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -739,7 +725,6 @@ function render_search_result_list() {
         alert("Selected items copied to clipboard!");
     });
 }
-
 function append_search_result_to_list(files) {
     try {
         var cur = window.current_drive_order || 0;
@@ -753,7 +738,6 @@ function append_search_result_to_list(files) {
             if (item['size'] == undefined) {
                 item['size'] = "";
             }
-
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
                 html += `<a style="color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
@@ -765,7 +749,6 @@ function append_search_result_to_list(files) {
                 var link = window.location.origin + item.link;
                 html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">
                     <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="` + link + `" id="flexCheckDefault">`
-
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
                     html += video_icon
                 } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
@@ -783,9 +766,7 @@ function append_search_result_to_list(files) {
                 } else {
                     html += file_icon
                 }
-
                 html += ` <span onclick="onSearchResultItemClick('${item['id']}', true)" data-bs-toggle="modal" data-bs-target="#SearchModel">${item.name}</span><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge float-end csize"> <span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
-
             }
         }
         if (is_file) {
@@ -815,7 +796,6 @@ function append_search_result_to_list(files) {
         console.log(e);
     }
 }
-
 function onSearchResultItemClick(file_id, can_preview) {
     var cur = window.current_drive_order;
     var title = `Loading...`;
@@ -825,7 +805,6 @@ function onSearchResultItemClick(file_id, can_preview) {
     var p = {
         id: file_id
     };
-    // Request a path
     fetch(`/${cur}:id2path`, {
         method: 'POST',
         body: JSON.stringify(p),
@@ -857,7 +836,6 @@ function onSearchResultItemClick(file_id, can_preview) {
             $('#modal-body-space').html(content);
         });
 }
-
 function get_file(path, file, callback) {
     var key = "file_path_" + path + file['modifiedTime'];
     var data = localStorage.getItem(key);
@@ -870,7 +848,6 @@ function get_file(path, file, callback) {
         });
     }
 }
-
 async function fallback(id, type) {
     if (type) {
         var cookie_folder_id = await getCookie("root_id") || '';
@@ -924,26 +901,25 @@ async function fallback(id, type) {
             })
             .catch(function (error) {
                 var content = `
-          <div class="container"><br>
-          <div class="card text-center">
-            <div class="card-body text-center">
-              <div class="alert alert-danger" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
-            </div>
-            <p>The requested URL was not found on this server. That’s all we know.</p>
-            <div class="card-text text-center">
-              <div class="btn-group text-center">
-                <a href="/" type="button" class="btn btn-primary">Homepage</a>
-              </div>
-            </div><br>
-          </div>
-        </div>`;
+                    <div class="container"><br>
+                        <div class="card text-center">
+                            <div class="card-body text-center">
+                                <div class="alert alert-danger" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
+                            </div>
+                            <p>The requested URL was not found on this server. That’s all we know.</p>
+                            <div class="card-text text-center">
+                                <div class="btn-group text-center">
+                                    <a href="/" type="button" class="btn btn-primary">Homepage</a>
+                                </div>
+                            </div><br>
+                        </div>
+                    </div>`;
                 $("#content").html(content);
             });
     } else {
         return list(id, true);
     }
 }
-
 async function file(path) {
     var cookie_folder_id = await getCookie("root_id") || '';
     var name = path.split('/').pop();
@@ -997,23 +973,22 @@ async function file(path) {
         })
         .catch(function (error) {
             var content = `
-          <div class="container"><br>
-          <div class="card text-center">
-            <div class="card-body text-center">
-              <div class="alert alert-danger" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
-            </div>
-            <p>The requested URL was not found on this server. That’s all we know.</p>
-            <div class="card-text text-center">
-              <div class="btn-group text-center">
-                <a href="/" type="button" class="btn btn-primary">Homepage</a>
-              </div>
-            </div><br>
-          </div>
-        </div>`;
+                <div class="container"><br>
+                    <div class="card text-center">
+                        <div class="card-body text-center">
+                            <div class="alert alert-danger" id="file_details" role="alert"><b>404.</b> That’s an error. ` + error + `</div>
+                        </div>
+                        <p>The requested URL was not found on this server. That’s all we know.</p>
+                        <div class="card-text text-center">
+                            <div class="btn-group text-center">
+                                <a href="/" type="button" class="btn btn-primary">Homepage</a>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>`;
             $("#content").html(content);
         });
 }
-
 function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
     var path = window.location.pathname;
     var pathParts = path.split('/');
@@ -1035,31 +1010,8 @@ function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-
-    var content = `
-    <div class="container"><br>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          ${navigation}
-        </ol>
-      </nav>
-            <div class="card text-center">
-            <div class="card-body text-center">
-              <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
-            </div>
-            <div class="card-body">
-            <div class="input-group mb-4">
-              <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
-            </div>
-            <div class="card-text text-center">
-            <div class="btn-group text-center">
-                <a href="${url}" type="button" class="btn btn-primary">Download</a>
-            </div>
-            </div>
-            <br></div>`;
     $("#content").html(content);
 }
-
 function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_folder_id) {
     var type = {
         "html": "html",
@@ -1073,7 +1025,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         "sh": "sh",
         "md": "Markdown",
     };
-
     var path = window.location.pathname;
     var pathParts = path.split('/');
     var navigation = '';
@@ -1094,7 +1045,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-
     var content = `
     <div class="container"><br>
       <nav aria-label="breadcrumb">
@@ -1106,8 +1056,8 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         <div class="card-body text-center">
           <div class="alert alert-danger" id="file_details" role="alert">${name}<br>${size}</div>
         </div>
-        <div id="code_spinner"></div>` +
-        `<div class="card-body">
+        <div id="code_spinner"></div>
+        <div class="card-body">
           <div class="input-group mb-4">
             <input type="text" class="form-control" id="dlurl" value="${url}" readonly>
           </div>
@@ -1120,7 +1070,6 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         </div>
       </div>
     </div>`;
-
     $('#content').html(content);
     var spinner = '<div class="d-flex justify-content-center"><div class="spinner-border m-5" role="status"><span class="visually-hidden"></span></div></div>';
     $("#code_spinner").html(spinner);
@@ -1176,7 +1125,6 @@ function file_video(name, encoded_name, size, url, mimeType, file_id, cookie_fol
   `;
     $("#content").html(content);
 }
-
 function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
     var url_base64 = btoa(url);
     var path = window.location.pathname;
@@ -1199,7 +1147,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
         }
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
-
     var content = `
     <div class="container text-center"><br>
       <nav aria-label="breadcrumb">
@@ -1229,7 +1176,6 @@ function file_audio(name, encoded_name, size, url, file_id, cookie_folder_id) {
   `;
     $("#content").html(content);
 }
-
 function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
     var path = window.location.pathname;
     var pathParts = path.split('/');
