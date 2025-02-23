@@ -7,6 +7,19 @@ function init() {
     <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
     <div>
         <div id="content" style="padding-top: 20px;"></div>
+        <div class="modal fade" id="SearchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SearchModelLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="SearchModelLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body-space"></div>
+                <div class="modal-footer" id="modal-body-space-buttons"></div>
+            </div>
+        </div>
     </div>
     <br>
     <footer class="footer py-3" style="bottom: 0; width: 100%;">
@@ -805,6 +818,22 @@ function onSearchResultItemClick(file_id, can_preview) {
             } else {
                 throw new Error('Request failed.');
             }
+        })
+        .then(function (obj) {
+            var href = `${obj.path}`;
+            var encodedUrl = href.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F')
+            title = `Result`;
+            $('#SearchModelLabel').html(title);
+            content = `<a class="btn btn-info" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a> <a class="btn btn-secondary" href="${encodedUrl}${can_preview ? '?a=view' : ''}" target="_blank">Open in New Tab</a>`;
+            $('#modal-body-space').html(content);
+        })
+        .catch(function (error) {
+            console.log(error);
+            var link = ""
+            title = `Fallback Method`;
+            $('#SearchModelLabel').html(title);
+            content = `<a class="btn btn-info" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a> <a class="btn btn-secondary" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}" target="_blank">Open in New Tab</a>`;
+            $('#modal-body-space').html(content);
         });
 }
 function get_file(path, file, callback) {
