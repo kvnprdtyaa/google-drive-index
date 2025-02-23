@@ -463,8 +463,7 @@ function append_files_to_fallback_list(path, files) {
                 pn += "?a=view";
                 c += " view";
                 html += `
-                    <div class="list-group-item list-group-item-action">
-                        <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="` + link + `" id="flexCheckDefault">`
+                    <div class="list-group-item list-group-item-action">`
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
                     html += video_icon
                 } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
@@ -566,9 +565,7 @@ function append_files_to_list(path, files) {
             console.log(ext)
             pn += "?a=view";
             c += " view";
-            html += `<div class="list-group-item list-group-item-action">
-            <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="` + link + `" id="flexCheckDefault">`
-
+            html += `<div class="list-group-item list-group-item-action">`
             if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
                 html += video_icon
             } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
@@ -741,8 +738,7 @@ function append_search_result_to_list(files) {
                 item['size'] = formatFileSize(item['size']);
                 var ext = item.fileExtension
                 var link = window.location.origin + item.link;
-                html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">
-                    <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" value="` + link + `" id="flexCheckDefault">`
+                html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">`
                 if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
                     html += video_icon
                 } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
