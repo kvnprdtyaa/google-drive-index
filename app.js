@@ -740,7 +740,7 @@ function append_search_result_to_list(files) {
             }
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
+                html += `<a style="color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
                 var is_file = true;
                 var totalsize = totalsize + Number(item.size);
@@ -766,7 +766,7 @@ function append_search_result_to_list(files) {
                 } else {
                     html += file_icon
                 }
-                html += ` <a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge float-end csize"> <span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
+                html += ` <span onclick="onSearchResultItemClick('${item['id']}', true)" data-bs-toggle="modal" data-bs-target="#SearchModel">${item.name}</span><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge float-end csize"> <span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
             }
         }
         if (is_file) {
