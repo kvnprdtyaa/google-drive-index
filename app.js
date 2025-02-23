@@ -735,6 +735,7 @@ function append_search_result_to_list(files) {
         var is_file = false;
         for (i in files) {
             var item = files[i];
+            var p = path + ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             if (item['size'] == undefined) {
                 item['size'] = "";
             }
