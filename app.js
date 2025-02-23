@@ -727,7 +727,7 @@ function append_search_result_to_list(files) {
             }
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a style="color: white;" href="${item.link}" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
+                html += `<a style="color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
                 var is_file = true;
                 var totalsize = totalsize + Number(item.size);
@@ -811,7 +811,7 @@ function onSearchResultItemClick(file_id, can_preview) {
             var encodedUrl = href.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F')
             title = `Result`;
             $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-info" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a> <a class="btn btn-secondary" href="${encodedUrl}${can_preview ? '?a=view' : ''}" target="_blank">Open in New Tab</a>`;
+            content = `<a class="btn btn-info" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a>`;
             $('#modal-body-space').html(content);
         })
         .catch(function (error) {
@@ -819,7 +819,7 @@ function onSearchResultItemClick(file_id, can_preview) {
             var link = ""
             title = `Fallback Method`;
             $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-info" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a> <a class="btn btn-secondary" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}" target="_blank">Open in New Tab</a>`;
+            content = `<a class="btn btn-info" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a>`;
             $('#modal-body-space').html(content);
         });
 }
