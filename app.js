@@ -741,7 +741,7 @@ function append_search_result_to_list(files) {
             }
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a style="color: white;" <a href="${p}" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
+                html += `<a style="color: white;" href="${p}" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
                 var is_file = true;
                 var totalsize = totalsize + Number(item.size);
