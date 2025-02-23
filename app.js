@@ -726,7 +726,9 @@ function append_search_result_to_list(files) {
                 item['size'] = "";
             }
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
-            {
+            if (item['mimeType'] == 'application/vnd.google-apps.folder') {
+                html += `<a style="color: white;" href="${item.link}" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
+            } else {
                 var is_file = true;
                 var totalsize = totalsize + Number(item.size);
                 item['size'] = formatFileSize(item['size']);
@@ -780,6 +782,46 @@ function append_search_result_to_list(files) {
     } catch (e) {
         console.log(e);
     }
+}
+function onSearchResultItemClick(file_id, can_preview) {
+    var cur = window.current_drive_order;
+    var title = `Loading...`;
+    $('#SearchModelLabel').html(title);
+    var content = `<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div>`;
+    $('#modal-body-space').html(content);
+    var p = {
+        id: file_id
+    };
+    fetch(`/${cur}:id2path`, {
+        method: 'POST',
+        body: JSON.stringify(p),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Request failed.');
+            }
+        })
+        .then(function (obj) {
+            var href = `${obj.path}`;
+            var encodedUrl = href.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F')
+            title = `Result`;
+            $('#SearchModelLabel').html(title);
+            content = `<a class="btn btn-info" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a> <a class="btn btn-secondary" href="${encodedUrl}${can_preview ? '?a=view' : ''}" target="_blank">Open in New Tab</a>`;
+            $('#modal-body-space').html(content);
+        })
+        .catch(function (error) {
+            console.log(error);
+            var link = ""
+            title = `Fallback Method`;
+            $('#SearchModelLabel').html(title);
+            content = `<a class="btn btn-info" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a> <a class="btn btn-secondary" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}" target="_blank">Open in New Tab</a>`;
+            $('#modal-body-space').html(content);
+        });
 }
 function get_file(path, file, callback) {
     var key = "file_path_" + path + file['modifiedTime'];
