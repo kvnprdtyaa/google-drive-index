@@ -265,7 +265,7 @@ function list(path, id = '', fallback = false) {
         <div class="container">
             <div id="update"></div>
             <div id="head_md" style="display:none; padding: 20px 20px;"></div>
-            <div class="container" id="select_items" style="padding: 0px 50px 10px; display:none;">
+            <div class="container" style="padding: 0px 50px 10px; display:none;">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="form-check mr-3">
                         <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
@@ -485,9 +485,6 @@ function append_files_to_fallback_list(path, files) {
                 html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" <p>${item.name}</p><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
             }
         }
-        if (is_file) {
-            document.getElementById('select_items').style.display = 'block';
-        }
         if (targetFiles.length > 0) {
             let old = localStorage.getItem(path);
             let new_children = targetFiles;
@@ -592,9 +589,6 @@ function append_files_to_list(path, files) {
             html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" <p>${item.name}</p><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge bg-primary float-end"> ` + item['size'] + ` </span><span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
         }
     }
-    if (is_file) {
-        document.getElementById('select_items').style.display = 'block';
-    }
     if (targetFiles.length > 0) {
         let old = localStorage.getItem(path);
         let new_children = targetFiles;
@@ -637,7 +631,7 @@ function render_search_result_list() {
     var content = `
         <div class="container"><br>
             <div id="update"></div>
-            <div class="container" id="select_items" style="padding: 0px 50px 10px; display:none;">
+            <div class="container" style="padding: 0px 50px 10px; display:none;">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="form-check mr-3">
                         <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
