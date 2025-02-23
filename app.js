@@ -22,8 +22,7 @@ function init() {
         </div>
     </div>
     <br>
-    <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 2; --bs-border-opacity: .4;" role="button"><svg fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 viewBox="0 0 407.436 407.436" xml:space="preserve"><polygon points="203.718,91.567 0,294.621 21.179,315.869 203.718,133.924 386.258,315.869 407.436,294.621 "/></svg></button>
+    <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 2; --bs-border-opacity: .4;" role="button"><i class="fa-solid fa-chevron-up m-0"></i></button>
     <footer class="footer py-3" style="bottom: 0; width: 100%;">
         <div class="container" tyle="padding: 0 10px;">
             <p>© 2025 - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
