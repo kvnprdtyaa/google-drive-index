@@ -783,6 +783,30 @@ function append_search_result_to_list(files) {
         console.log(e);
     }
 }
+function onSearchResultItemClick(file_id, can_preview) {
+    var cur = window.current_drive_order;
+    var title = `Loading...`;
+    $('#SearchModelLabel').html(title);
+    var content = `<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div>`;
+    $('#modal-body-space').html(content);
+    var p = {
+        id: file_id
+    };
+    fetch(`/${cur}:id2path`, {
+        method: 'POST',
+        body: JSON.stringify(p),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Request failed.');
+            }
+        });
+}
 function get_file(path, file, callback) {
     var key = "file_path_" + path + file['modifiedTime'];
     var data = localStorage.getItem(key);
