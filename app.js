@@ -7,7 +7,7 @@ function init() {
     <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
     <div>
         <div id="content" style="padding-top: 20px;"></div>
-        <div class="modal fade" id="SearchModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SearchModelLabel" aria-hidden="true">
+        <div class="modal" id="SearchModel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -747,7 +747,7 @@ function append_search_result_to_list(files) {
             }
             item['modifiedTime'] = utc2delhi(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a style="cursor: pointer; color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
+                html += `<a style="cursor: pointer; color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
                 var is_file = true;
                 var totalsize = totalsize + Number(item.size);
