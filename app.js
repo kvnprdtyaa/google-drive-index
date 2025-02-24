@@ -280,16 +280,6 @@ function list(path, id = '', fallback = false) {
     var containerContent = `
         <div class="container">
             <div id="update"></div>
-            <div id="head_md" style="display:none; padding: 20px 20px;"></div>
-            <div class="container" style="padding: 0px 50px 10px; display:none;">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="form-check mr-3">
-                        <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
-                        <label class="form-check-label" for="select-all-checkboxes">Select all</label>
-                    </div>
-                    <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
-                </div>
-            </div>
             <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0; padding-bottom: 0rem;">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -304,11 +294,8 @@ function list(path, id = '', fallback = false) {
             var pathPart = navarray[i];
             var decodedPathPart = decodeURIComponent(pathPart).replace(/\//g, '%2F');
             var trimmedPathPart = decodedPathPart.replace(/\?.+/g, "$'");
-
             var displayedPathPart = trimmedPathPart.length > 15 ? trimmedPathPart.slice(0, 5) + '...' : trimmedPathPart.slice(0, 15);
-
             currentPath += pathPart + '/';
-
             if (displayedPathPart === '') {
                 break;
             }
@@ -321,13 +308,10 @@ function list(path, id = '', fallback = false) {
             </div>
             <div id="list" class="list-group text-break"></div>
             <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
-            <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
         </div>`;
     $('#content').html(containerContent);
     var password = localStorage.getItem('password' + path);
     $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
-    $('#readme_md').hide().html('');
-    $('#head_md').hide().html('');
     function handleSuccessResult(res, path, prevReqParams) {
         console.log(res, path, prevReqParams);
         $('#list')
@@ -361,7 +345,6 @@ function list(path, id = '', fallback = false) {
                         }
                         window.scroll_status.loading_lock = true;
                         $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`)
-                            .insertBefore('#readme_md');
                         let $list = $('#list');
                         if (fallback) {
                             console.log('fallback inside handleSuccessResult');
@@ -407,27 +390,6 @@ function list(path, id = '', fallback = false) {
             handleSuccessResult,
             null);
     }
-    const copyBtn = document.getElementById("handle-multiple-items-copy");
-    copyBtn.addEventListener("click", () => {
-        const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-        const selectedItemsData = [];
-        if (checkedItems.length === 0) {
-            alert("No items selected!");
-            return;
-        }
-        checkedItems.forEach((item) => {
-            const itemData = item.value;
-            selectedItemsData.push(itemData);
-        });
-        const dataToCopy = selectedItemsData.join("\n");
-        const tempInput = document.createElement("textarea");
-        tempInput.value = dataToCopy;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-        alert("Selected items copied to clipboard!");
-    });
 }
 function askPassword(path) {
     $('#spinner').remove();
@@ -448,33 +410,19 @@ function append_files_to_fallback_list(path, files) {
         html = "";
         let targetFiles = [];
         var totalsize = 0;
-        var is_file = false
         for (i in files) {
             var item = files[i];
             var p = "/fallback?id=" + item.id
-            item['modifiedTime'] = utc2delhi(item['modifiedTime']);
+            item['modifiedTime'];
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
                 html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
                 var totalsize = totalsize + Number(item.size);
                 item['size'] = formatFileSize(item['size']);
-                var is_file = true
                 var epn = item.name;
                 var link = window.location.origin + item.link;
                 var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
                 var c = "file";
-                if (is_lastpage_loaded && item.name == "README.md") {
-                    get_file(p, item, function (data) {
-                        markdown("#readme_md", data);
-                        $("img").addClass("img-fluid")
-                    });
-                }
-                if (item.name == "HEAD.md") {
-                    get_file(p, item, function (data) {
-                        markdown("#head_md", data);
-                        $("img").addClass("img-fluid")
-                    });
-                }
                 var ext = item.fileExtension
                 pn += "?a=view";
                 c += " view";
@@ -515,7 +463,6 @@ function append_files_to_fallback_list(path, files) {
                 }
                 new_children = old_children.concat(targetFiles)
             }
-
             localStorage.setItem(path, JSON.stringify(new_children))
         }
         $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
@@ -549,37 +496,20 @@ function append_files_to_list(path, files) {
     html = "";
     let targetFiles = [];
     var totalsize = 0;
-    var is_file = false
     for (i in files) {
         var item = files[i];
         var ep = encodeURIComponent(item.name).replace(/\//g, '%2F') + '/';
         var p = path + ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
-        item['modifiedTime'] = utc2delhi(item['modifiedTime']);
+        item['modifiedTime'];
         if (item['mimeType'] == 'application/vnd.google-apps.folder') {
             html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
         } else {
             var totalsize = totalsize + Number(item.size);
             item['size'] = formatFileSize(item['size']);
-            var is_file = true
-            var epn = item.name;
             var link = window.location.origin + item.link;
-            var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
             var c = "file";
-            if (is_lastpage_loaded && item.name == "README.md") {
-                get_file(p, item, function (data) {
-                    markdown("#readme_md", data);
-                    $("img").addClass("img-fluid")
-                });
-            }
-            if (item.name == "HEAD.md") {
-                get_file(p, item, function (data) {
-                    markdown("#head_md", data);
-                    $("img").addClass("img-fluid")
-                });
-            }
             var ext = item.fileExtension
             console.log(ext)
-            pn += "?a=view";
             c += " view";
             html += `<div class="list-group-item list-group-item-action">`
             if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
@@ -644,27 +574,15 @@ function render_search_result_list() {
     var content = `
         <div class="container"><br>
             <div id="update"></div>
-            <div class="container" style="padding: 0px 50px 10px; display:none;">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="form-check mr-3">
-                        <input class="form-check-input" style="margin-top: 0.3em;margin-right: 0.5em;" type="checkbox" id="select-all-checkboxes">
-                        <label class="form-check-label" for="select-all-checkboxes">Select all</label>
-                    </div>
-                    <button id="handle-multiple-items-copy" style="padding: 5px 10px; font-size: 12px;" class="btn btn-success">Copy</button>
-                </div>
-            </div>
             <div class="card">
                 <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results</div>
                 <div id="list" class="list-group text-break"></div>
             </div>
             <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
-            <div id="readme_md" style="display:none; padding: 20px 20px;"></div>
         </div>
   `;
     $('#content').html(content);
     $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
-    $('#readme_md').hide().html('');
-    $('#head_md').hide().html('');
     function searchSuccessCallback(res, prevReqParams) {
         $('#list')
             .data('nextPageToken', res['nextPageToken'])
@@ -688,8 +606,6 @@ function render_search_result_list() {
                         }
                         window.scroll_status.loading_lock = true;
                         $(`<div id="spinner" class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`)
-                            .insertBefore('#readme_md');
-
                         let $list = $('#list');
                         requestSearch({
                             q: window.MODEL.q,
@@ -710,27 +626,6 @@ function render_search_result_list() {
     requestSearch({
         q: window.MODEL.q
     }, searchSuccessCallback);
-    const copyBtn = document.getElementById("handle-multiple-items-copy");
-    copyBtn.addEventListener("click", () => {
-        const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-        const selectedItemsData = [];
-        if (checkedItems.length === 0) {
-            alert("No items selected!");
-            return;
-        }
-        checkedItems.forEach((item) => {
-            const itemData = item.value;
-            selectedItemsData.push(itemData);
-        });
-        const dataToCopy = selectedItemsData.join("\n");
-        const tempInput = document.createElement("textarea");
-        tempInput.value = dataToCopy;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-        alert("Selected items copied to clipboard!");
-    });
 }
 function append_search_result_to_list(files) {
     try {
@@ -739,17 +634,15 @@ function append_search_result_to_list(files) {
         var is_lastpage_loaded = null === $list.data('nextPageToken');
         html = "";
         var totalsize = 0;
-        var is_file = false;
         for (i in files) {
             var item = files[i];
             if (item['size'] == undefined) {
                 item['size'] = "";
             }
-            item['modifiedTime'] = utc2delhi(item['modifiedTime']);
+            item['modifiedTime'];
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
                 html += `<a style="cursor: pointer; color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
-                var is_file = true;
                 var totalsize = totalsize + Number(item.size);
                 item['size'] = formatFileSize(item['size']);
                 var ext = item.fileExtension
@@ -827,7 +720,7 @@ function onSearchResultItemClick(file_id, can_preview) {
             var encodedUrl = href.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F')
             title = `Result`;
             $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-info" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a>`;
+            content = `<a class="btn btn-primary" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a>`;
             $('#modal-body-space').html(content);
         })
         .catch(function (error) {
@@ -835,7 +728,7 @@ function onSearchResultItemClick(file_id, can_preview) {
             var link = ""
             title = `Fallback Method`;
             $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-info" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a>`;
+            content = `<a class="btn btn-primary" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a>`;
             $('#modal-body-space').html(content);
         });
 }
@@ -1136,7 +1029,6 @@ function file_pdf(name, encoded_name, size, url, file_id, cookie_folder_id) {
     }
     $("#content").html(content);
 }
-
 function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
     var path = window.location.pathname;
     var pathParts = path.split('/');
@@ -1160,20 +1052,6 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
     }
     $('#content').html(content);
 }
-
-function utc2delhi(utc_datetime) {
-    var utcDate = new Date(utc_datetime);
-    var delhiDate = new Date(utcDate.getTime() + 5.5 * 60 * 60 * 1000);
-    var year = delhiDate.getFullYear();
-    var month = ('0' + (delhiDate.getMonth() + 1)).slice(-2);
-    var date = ('0' + delhiDate.getDate()).slice(-2);
-    var hour = ('0' + delhiDate.getHours()).slice(-2);
-    var minute = ('0' + delhiDate.getMinutes()).slice(-2);
-    var second = ('0' + delhiDate.getSeconds()).slice(-2);
-
-    return `${date}-${month}-${year} ${hour}:${minute}:${second}`;
-}
-
 function formatFileSize(bytes) {
     if (bytes >= 1099511627776) {
         bytes = (bytes / 1099511627776).toFixed(2) + ' TB';
@@ -1192,35 +1070,29 @@ function formatFileSize(bytes) {
     }
     return bytes;
 }
-
 String.prototype.trim = function (char) {
     if (char) {
         return this.replace(new RegExp('^\\' + char + '+|\\' + char + '+$', 'g'), '');
     }
     return this.replace(/^\s+|\s+$/g, '');
 };
-
 function markdown(el, data) {
     var html = marked.parse(data);
     $(el).show().html(html);
 }
-
 window.onpopstate = function () {
     var path = window.location.pathname;
     render(path);
 }
-
 $(function () {
     init();
     var path = window.location.pathname;
     render(path);
 });
-
 function copyFunction() {
     var copyText = document.getElementById("dlurl");
     copyText.select();
     copyText.setSelectionRange(0, 99999);
-
     navigator.clipboard.writeText(copyText.value)
         .then(function () {
             var tooltip = document.getElementById("myTooltip");
@@ -1230,12 +1102,10 @@ function copyFunction() {
             console.error("Failed to copy text: ", error);
         });
 }
-
 function outFunc() {
     var tooltip = document.getElementById("myTooltip");
     tooltip.innerHTML = "Copy";
 }
-
 function updateCheckboxes() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const selectAllCheckbox = document.getElementById('select-all-checkboxes');
@@ -1248,7 +1118,6 @@ function updateCheckboxes() {
         });
     }
 }
-
 async function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -1259,18 +1128,15 @@ async function getCookie(name) {
     }
     return null;
 }
-
 async function copyFile(driveid) {
     try {
         const copystatus = document.getElementById('copystatus');
         copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Processing... </div>`;
-
         const user_folder_id = document.getElementById('user_folder_id').value;
         if (user_folder_id === '') {
             copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Empty ID </div>`;
             return null;
         }
-
         document.getElementById('spinner').style.display = 'block';
         document.cookie = `root_id=${user_folder_id}; expires=Thu, 18 Dec 2050 12:00:00 UTC`;
         const time = Math.floor(Date.now() / 1000);
@@ -1282,9 +1148,8 @@ async function copyFile(driveid) {
             },
             body: `id=${encodeURIComponent(driveid)}&root_id=${user_folder_id}&resourcekey=null&time=${time}`
         });
-
         if (response.status === 500) {
-            copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unable to Copy File, Make Sure you've added system@zindex.eu.org to your Destination Folder </div>`;
+            copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unable to Copy File </div>`;
         } else if (response.status === 401) {
             copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unauthorized </div>`;
         } else if (response.ok) {
@@ -1308,14 +1173,11 @@ async function copyFile(driveid) {
         document.getElementById('spinner').style.display = 'none';
     }
 }
-
 const observer = new MutationObserver(() => {
     updateCheckboxes();
 });
-
 const options = {
     childList: true,
     subtree: true
 };
-
 observer.observe(document.documentElement, options);
