@@ -413,7 +413,7 @@ function append_files_to_fallback_list(path, files) {
         for (i in files) {
             var item = files[i];
             var p = "/fallback?id=" + item.id
-            item['modifiedTime'];
+            item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
                 html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
@@ -500,7 +500,7 @@ function append_files_to_list(path, files) {
         var item = files[i];
         var ep = encodeURIComponent(item.name).replace(/\//g, '%2F') + '/';
         var p = path + ep.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
-        item['modifiedTime'];
+        item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
         if (item['mimeType'] == 'application/vnd.google-apps.folder') {
             html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
         } else {
@@ -639,7 +639,7 @@ function append_search_result_to_list(files) {
             if (item['size'] == undefined) {
                 item['size'] = "";
             }
-            item['modifiedTime'];
+            item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
             if (item['mimeType'] == 'application/vnd.google-apps.folder') {
                 html += `<a style="cursor: pointer; color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
             } else {
@@ -1051,6 +1051,17 @@ function file_image(name, encoded_name, size, url, file_id, cookie_folder_id) {
         navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
     }
     $('#content').html(content);
+}
+function utc2jakarta(utc_datetime) {
+    var utcDate = new Date(utc_datetime);
+    var jakartaDate = new Date(utcDate.getTime() + 7 * 60 * 60 * 1000);
+    var year = jakartaDate.getFullYear();
+    var month = ('0' + (jakartaDate.getMonth() + 1)).slice(-2);
+    var date = ('0' + jakartaDate.getDate()).slice(-2);
+    var hour = ('0' + jakartaDate.getHours()).slice(-2);
+    var minute = ('0' + jakartaDate.getMinutes()).slice(-2);
+    var second = ('0' + jakartaDate.getSeconds()).slice(-2);
+    return `${date}-${month}-${year} ${hour}:${minute}:${second}`;
 }
 function formatFileSize(bytes) {
     if (bytes >= 1099511627776) {
