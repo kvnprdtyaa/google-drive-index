@@ -284,12 +284,12 @@ function list(path, id = '', fallback = false) {
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="${currentPath}">${displayedPathPart}</a>
+                            <a href="/">Home</a>
                         </li>`;
     var navfulllink = window.location.pathname.replace(/^\/+|\/+$/g, '');
     var navarray = navfulllink.split('/');
     var currentPath = '/';
-    if (navarray.length > 1) {
+    if (navarray.length > 0) {
         for (var i in navarray) {
             var pathPart = navarray[i];
             var decodedPathPart = decodeURIComponent(pathPart).replace(/\//g, '%2F');
