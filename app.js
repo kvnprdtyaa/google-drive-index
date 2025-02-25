@@ -284,7 +284,7 @@ function list(path, id = '', fallback = false) {
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Home</a>
+                            <a href="${currentPath}">${displayedPathPart}</a>
                         </li>`;
     var navfulllink = window.location.pathname.replace(/^\/+|\/+$/g, '');
     var navarray = navfulllink.split('/');
