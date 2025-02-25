@@ -287,7 +287,7 @@ function list(path, id = '', fallback = false) {
                             <a href="/">Home</a>
                         </li>`;
     var navfulllink = window.location.pathname;
-    var navarray = navfulllink.trim('/').split('/');
+    var navarray = navfulllink.split('/');
     var currentPath = '/';
     if (navarray.length > 1) {
         for (var i in navarray) {
