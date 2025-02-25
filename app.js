@@ -286,7 +286,7 @@ function list(path, id = '', fallback = false) {
                         <li class="breadcrumb-item">
                             <a href="/">Home</a>
                         </li>`;
-    var navfulllink = window.location.pathname.replace(/\//g, '%2F');
+    var navfulllink = window.location.pathname.replace(/^\/+|\/+$/g, '');
     var navarray = navfulllink.split('/');
     var currentPath = '/';
     if (navarray.length > 1) {
