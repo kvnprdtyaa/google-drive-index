@@ -1,12 +1,8 @@
 function init() {
     document.siteName = $('title').html();
     var html = `
-    <header>
-        <div id="nav"></div>
-    </header>
     <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
-    <div>
-        <div id="content" style="padding-top: 20px;"></div>
+        <main id="content" style="padding-top: 20px;"></main>
         <div class="modal" id="SearchModel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -20,11 +16,13 @@ function init() {
                 <div class="modal-footer" id="modal-body-space-buttons"></div>
             </div>
         </div>
-    </div>
-    <br>
-    <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 2; --bs-border-opacity: .4;" role="button"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg></button>
+    <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 2;" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+            <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+        </svg>
+    </button>
     <footer class="footer text-center py-3" style="bottom: 0; width: 100%;">
-        <div class="container" tyle="padding: 0 10px;">
+        <div class="container" style="padding: 0 10px;">
             <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
         </div>
     </footer>
@@ -131,7 +129,7 @@ function title(path) {
     else
         $('title').html(`${drive_name} - ${path}`);
 }
-function nav(path) {
+function nav() {
     var model = window.MODEL;
     var html = "";
     var cur = window.current_drive_order || 0;
@@ -144,8 +142,6 @@ function nav(path) {
                     </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">`;
-    var names = window.drive_names;
-    var drive_name = window.drive_names[cur];
     html += `
                         <li class="nav-item">
                             <a class="nav-link" href="https://telegra.ph/SUPPORT-US-02-19" target="_blank">Support</a>
@@ -156,9 +152,9 @@ function nav(path) {
     var search_text = model.is_search_page ? (model.q || '') : '';
     var search_bar = `
                     </ul>
-                    <form class="d-flex" method="get" action="/${cur}:search">
+                    <form class="d-flex" method="get" action="/${cur}:search" id="search_bar_form">
                         <input class="form-control me-sm-2" name="q" type="search" placeholder="Search" value="${search_text}" required>
-                        <button class="btn btn-secondary" onclick="if($('#search_bar_form>input').val()) $('#search_bar_form').submit();" type="submit">Search</button>
+                        <button class="btn btn-secondary" type="submit">Search</button>
                     </form>
                 </div>
             </div>
