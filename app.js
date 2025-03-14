@@ -1,6 +1,7 @@
 function init() {
     document.siteName = $('title').html();
     var html = `
+    <body class="d-flex flex-column min-vh-100" style="position: relative;">
     <header>
         <div id="nav"></div>
     </header>
@@ -28,7 +29,7 @@ function init() {
         <footer class="footer text-center mt-auto container bg-primary" style="display:block; border-radius: .5rem .5rem 0 0; border: 1px solid rgba(140, 130, 115, 0.13);">
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-md-12">
                         © ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.
                         <script>
                             let btt = document.getElementById("back-to-top");
@@ -52,6 +53,7 @@ function init() {
                 </div>
             </div>
         </footer>
+    </body>
   `;
     $('body').html(html);
 }
