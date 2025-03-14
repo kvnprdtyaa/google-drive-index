@@ -25,11 +25,11 @@ function init() {
                 <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
             </svg>
         </button>
-        <footer class="footer text-center mt-auto container bg-primary" style="display:block; border-radius: .5rem .5rem 0 0; border: 1px solid rgba(140, 130, 115, 0.13);">
+        <footer class="footer text-center mt-auto container bg-primary" style="border-radius: .5rem .5rem 0 0; border: 1px solid rgba(140, 130, 115, 0.13);">
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
                     <div class="col-md-12">
-                        © ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.
+                        <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
                         <script>
                             let btt = document.getElementById("back-to-top");
                             window.onscroll = function () {
