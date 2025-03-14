@@ -1,7 +1,6 @@
 function init() {
     document.siteName = $('title').html();
     var html = `
-    <body class="d-flex flex-column min-vh-100" style="position: relative;">
     <header>
         <div id="nav"></div>
     </header>
