@@ -7,43 +7,44 @@ function init() {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="SearchModelLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                    </button>
+                        <h5 class="modal-title" id="SearchModelLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body-space"></div>
+                    <div class="modal-footer" id="modal-body-space-buttons"></div>
                 </div>
-                <div class="modal-body" id="modal-body-space"></div>
-                <div class="modal-footer" id="modal-body-space-buttons"></div>
             </div>
         </div>
-    <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 2;" role="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-            <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
-        </svg>
-    </button>
-    <footer class="footer text-center py-3" style="bottom: 0; width: 100%;">
-        <div class="container" style="padding: 0 10px;">
-            <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
-        </div>
-    </footer>
-    <script>
-    let btt = document.getElementById("back-to-top");
-    window.onscroll = function () {
-      scrollFunction();
-    };
-    function scrollFunction() {
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        btt.style.display = "block";
-      } else {
-        btt.style.display = "none";
-      }
-    }
-    btt.addEventListener("click", backToTop);
-    function backToTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
+        <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 2;" role="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+                <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+            </svg>
+        </button>
+        <footer class="footer text-center py-3" style="bottom: 0; width: 100%;">
+            <div class="container" style="padding: 0 10px;">
+                <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
+            </div>
+        </footer>
+        <script>
+        let btt = document.getElementById("back-to-top");
+        window.onscroll = function () {
+        scrollFunction();
+        };
+        function scrollFunction() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            btt.style.display = "block";
+        } else {
+            btt.style.display = "none";
+        }
+        }
+        btt.addEventListener("click", backToTop);
+        function backToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        }
+    </script>
   `;
     $('body').html(html);
 }
@@ -661,7 +662,7 @@ function append_search_result_to_list(files) {
                 } else {
                     html += file_icon
                 }
-                html += ` ${item.name}<a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge float-end csize"> <span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
+                html += ` ${item.name}<a href="${link}"><svg class="float-end" width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge float-end csize"> <span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
             }
         }
         $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
