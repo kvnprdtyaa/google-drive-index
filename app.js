@@ -25,7 +25,7 @@ function init() {
                 <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
             </svg>
         </button>
-        <footer class="footer text-center mt-auto container">
+        <footer class="footer text-center mt-auto container bg-primary" style="display:block;">
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 text-lg-start">© ${new Date().getFullYear()} <a href="" target="_blank"></a> with ❤️ '<p>Redesigned with <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg> by <a href="https://www.npmjs.com/package/@googledrive/index" target="_blank">TheFirstSpeedster</a>, based on Open Source Softwares.</p>'}</div>
