@@ -28,25 +28,27 @@ function init() {
         <footer class="footer text-center mt-auto container bg-primary" style="display:block; border-radius: .5rem .5rem 0 0; border: 1px solid rgba(140, 130, 115, 0.13);">
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
-                    <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
-                    <script>
-                        let btt = document.getElementById("back-to-top");
-                        window.onscroll = function () {
-                            scrollFunction();
-                        };
-                        function scrollFunction() {
-                            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                                btt.style.display = "block";
-                            } else {
-                                btt.style.display = "none";
+                    <div class="col-lg-4 col-md-12">
+                        © ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.
+                        <script>
+                            let btt = document.getElementById("back-to-top");
+                            window.onscroll = function () {
+                                scrollFunction();
+                            };
+                            function scrollFunction() {
+                                if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                                    btt.style.display = "block";
+                                } else {
+                                    btt.style.display = "none";
+                                }
                             }
-                        }
-                        btt.addEventListener("click", backToTop);
-                            function backToTop() {
-                                document.body.scrollTop = 0;
-                                document.documentElement.scrollTop = 0;
-                            }
-                    </script>
+                            btt.addEventListener("click", backToTop);
+                                function backToTop() {
+                                    document.body.scrollTop = 0;
+                                    document.documentElement.scrollTop = 0;
+                                }
+                        </script>
+                    </div>
                 </div>
             </div>
         </footer>
