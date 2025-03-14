@@ -1,6 +1,9 @@
 function init() {
     document.siteName = $('title').html();
     var html = `
+    <header>
+        <div id="nav"></div>
+    </header>
     <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
         <main id="content" style="padding-top: 20px;"></main>
         <div class="modal" id="SearchModel">
