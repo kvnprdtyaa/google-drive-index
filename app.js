@@ -28,17 +28,16 @@ function init() {
         <footer class="footer text-center mt-auto container">
             <div class="container" style="padding-top: 15px;">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 text-lg-start">© ${new Date().getFullYear()} <a href="${UI.company_link}" target="_blank">${UI.company_name}</a> with ❤️ '<p>Redesigned with <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg> by <a href="https://www.npmjs.com/package/@googledrive/index" target="_blank">TheFirstSpeedster</a>, based on Open Source Softwares.</p>'}</div>
+                    <div class="col-lg-4 col-md-12 text-lg-start">© ${new Date().getFullYear()} <a href="" target="_blank"></a> with ❤️ '<p>Redesigned with <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="red" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg> by <a href="https://www.npmjs.com/package/@googledrive/index" target="_blank">TheFirstSpeedster</a>, based on Open Source Softwares.</p>'}</div>
                         <div class="col-lg-4 col-md-12">
-                            <a href="${UI.contact_link}" title="Please allow us up to 48 hours to process DMCA requests.">DMCA</a> ∙ 
-                            <a href="${UI.contact_link}">Contact</a>
+                            <a href="" title="Please allow us up to 48 hours to process DMCA requests.">DMCA</a> ∙ 
+                            <a href="">Contact</a>
                         </div>
                         <div class="col-lg-4 col-md-12 text-lg-end">
                         <p>
                         <a href="#"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2F` + window.location.host + `&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
                         </p>
                     </div>
-                
         <script>
         let btt = document.getElementById("back-to-top");
         window.onscroll = function () {
