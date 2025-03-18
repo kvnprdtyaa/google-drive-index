@@ -168,7 +168,7 @@ const login_html = `
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" required>
             </div>
-              <div class="mb-3 cf-turnstile" data-sitekey="0x4AAAAAAA_OjkWg3B82DZix"></div>
+              <div class="mb-3 cf-turnstile" data-sitekey=""></div>
             <button type="submit" class="btn btn-primary w-100">LOGIN</button>
           </form>
     </div>
