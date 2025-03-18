@@ -93,7 +93,9 @@ const homepage = `
       <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0; padding-bottom: 0;">
         <nav style="--bs-breadcrumb-divider: '>';">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">
+              <a href="/">Home</a>
+            </li>
           </ol>
         </nav>
       </div>
@@ -134,24 +136,6 @@ const homepage = `
     </div>
   </footer>
 </body>
-  <script>
-    let btt = document.getElementById("back-to-top");
-    window.onscroll = function () {
-      scrollFunction();
-    };
-    function scrollFunction() {
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        btt.style.display = "block";
-      } else {
-        btt.style.display = "none";
-      }
-    }
-    btt.addEventListener("click", backToTop);
-    function backToTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-  </script>
   <script src="/assets/homepage.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>`
@@ -191,7 +175,7 @@ const login_html = `
   </div>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     $(document).ready(function(){
     $("#login-form").on("submit", function(event) {
