@@ -824,7 +824,7 @@ async function fallback(id, type) {
 async function file(path) {
     var cookie_folder_id = await getCookie("root_id") || '';
     var name = path.split('/').pop();
-    $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
+    $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px;"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     fetch("", {
         method: "POST",
         headers: {
