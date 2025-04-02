@@ -19,6 +19,7 @@ const authConfig = {
     },
   ]
 };
+
 const crypto_base_key = "3225f86e99e205347b4310e437253bfd"
 const hmac_base_key = "4d1fbf294186b82d74fff2494c04012364200263d6a36123db0bd08d6be1423c"
 const encrypt_iv = new Uint8Array([247, 254, 106, 195, 32, 148, 131, 244, 222, 133, 26, 182, 20, 138, 215, 81]);
@@ -484,7 +485,7 @@ async function handleRequest(request, event) {
   let path = url.pathname;
   let hostname = url.hostname;
   if (path == '/app.js') {
-    const js = await fetch('https://rawcdn.githack.com/kvnprdtyaa/google-drive-index/7c52e64be6ef4119b94947cbbbe90771024e65ea/app.js', {
+    const js = await fetch('https://cdn.jsdelivr.net/gh/kvnprdtyaa/google-drive-index/app.js', {
       method: 'GET',
     })
     const data = await js.text()
@@ -498,7 +499,7 @@ async function handleRequest(request, event) {
     });
   }
   if (path == '/assets/homepage.js') {
-    const js = await fetch('https://rawcdn.githack.com/kvnprdtyaa/google-drive-index/be116ec732f8a33c811b42cd1da4797d1d5b5c8b/assets/homepage.js', {
+    const js = await fetch('https://cdn.jsdelivr.net/gh/kvnprdtyaa/google-drive-index/assets/homepage.js', {
       method: 'GET',
     })
     const data = await js.text()
