@@ -40,28 +40,6 @@
 * set `"service_account": false` to `"service_account": true`
 * Replace {} with data from service account `file.json`
 
-## Multiple Users Password
-
-* For single user
-
-````
-            // "auth": {"username":"password"} /** remove double slash at starting of this line to use password. */
-````
-
-* For multiple users (unlimited users)
-
-````
-      {
-          "id": "",
-          "name": "Drive Two",
-          "protect_file_link": true,
-          // "auth": { "user1":"pass1", "user2":"pass2", }  /** remove double slash at starting of this line to use password. */
-      },
-````
-
-* where `"user1":"pass1"` and `"user2":"pass2"` are combinations.
-* if users adds `"auth":{"":""}` empty values then the site will ask for authentication but user can enter without entering any data by clicking submit.
-
 ## Upcoming Changes
 
 * Adding More Features from other Indexes.
