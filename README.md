@@ -11,7 +11,6 @@
           "id": "root",
           "name": "Drive One",
           "protect_file_link": false,
-         // "auth": {"username":"password"} /* Remove double slash before "auth" to activate id password protection */
       },
     ]};
 ````
@@ -26,13 +25,11 @@
           "id": "root",
           "name": "Drive One",
           "protect_file_link": false,
-         // "auth": {"username":"password"} /* Remove double slash before "auth" to activate id password protection */
       },
       {
           "id": "root",
           "name": "Drive Two",
           "protect_file_link": false,
-         // "auth": {"username":"password", "username1":"password1"} /* Remove double slash before "auth" to activate id password protection */
       },
     ]};
 ````
