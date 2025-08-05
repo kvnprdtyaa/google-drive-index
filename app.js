@@ -861,43 +861,8 @@ function createFileItem(item, path, modifiedTime, isSearch, isFallback) {
             <span class="badge bg-info float-end">${modifiedTime}</span>
         </div>`;
 }
-            html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" <p>${item.name}</p><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge bg-primary float-end"> ` + item['size'] + ` </span><span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
-        }
-    }
-    if (targetFiles.length > 0) {
-        let old = localStorage.getItem(path);
-        let new_children = targetFiles;
-        if (!is_firstpage && old) {
-            let old_children;
-            try {
-                old_children = JSON.parse(old);
-                if (!Array.isArray(old_children)) {
-                    old_children = []
-                }
-            } catch (e) {
-                old_children = [];
-            }
-            new_children = old_children.concat(targetFiles)
-        }
-        localStorage.setItem(path, JSON.stringify(new_children))
-    }
-    $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
-    if (is_lastpage_loaded) {
-        total_size = formatFileSize(totalsize) || '0 Bytes';
-        total_items = $list.find('.countitems').length;
-        total_files = $list.find('.size_items').length;
-        if (total_items == 0) {
-            $('#count').removeClass('d-none').find('.number').text("Empty Folder");
-        } else if (total_items == 1) {
-            $('#count').removeClass('d-none').find('.number').text(total_items + " item");
-        } else {
-            $('#count').removeClass('d-none').find('.number').text(total_items + " items");
-        }
-        if (total_files == 0) {
-            $('#count').removeClass('d-none').find('.totalsize').text("Zero Files");
-        } else if (total_files == 1) {
-            $('#count').removeClass('d-none').find('.totalsize').text(total_files + " File with Size " + total_size);
-        } else {
+
+function render_search_result_list() {
             $('#count').removeClass('d-none').find('.totalsize').text(total_files + " Files with Size " + total_size);
         }
     }
@@ -1016,7 +981,21 @@ function append_search_result_to_list(files) {
             // Convert UTC time to Jakarta time
             item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
             
-            html += createFileListItem(item, '', true, false);
+            // Use createFileListItem function or fallback to simple HTML
+            try {
+                html += createFileListItem(item, '', true, false);
+            } catch (error) {
+                console.warn('createFileListItem failed, using fallback:', error);
+                // Fallback simple HTML
+                const fileIcon = getFileIcon(item.fileExtension || 'txt');
+                const fileSize = formatFileSize(item.size) || '0 B';
+                html += `<div class="list-group-item list-group-item-action" style="color: white;">
+                    ${fileIcon} 
+                    <span class="countitems size_items">${item.name}</span>
+                    <span class="badge bg-primary float-end">${fileSize}</span>
+                    <span class="badge bg-info float-end">${item.modifiedTime}</span>
+                </div>`;
+            }
             
             if (item.mimeType !== 'application/vnd.google-apps.folder') {
                 totalSize += Number(item.size);
@@ -1672,6 +1651,7 @@ function displayCopyResult(fileLink) {
                class="btn btn-danger btn-block">Open Copied File</a>
         </div>`;
 }
+
 const observer = new MutationObserver(() => {
     updateCheckboxes();
 });
