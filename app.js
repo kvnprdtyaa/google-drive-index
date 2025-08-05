@@ -24,6 +24,36 @@ function init() {
     const htmlTemplate = createMainHTMLTemplate();
     $('body').html(htmlTemplate);
     initializeBackToTopButton();
+    
+    // Initialize global variables with default values if not set
+    if (!window.current_drive_order) {
+        window.current_drive_order = 0;
+    }
+    
+    if (!window.MODEL) {
+        window.MODEL = {
+            is_search_page: false,
+            q: '',
+            root_type: 0
+        };
+    }
+    
+    // Add search form handler
+    $(document).on('submit', '#search_bar_form', function(e) {
+        e.preventDefault();
+        const query = $(this).find('input[name="q"]').val();
+        if (query && query.trim() !== '') {
+            const currentDrive = window.current_drive_order || 0;
+            window.location.href = `/${currentDrive}:search?q=${encodeURIComponent(query.trim())}`;
+        }
+    });
+    
+    // Add a global test function for debugging
+    window.testSearch = function(query) {
+        window.MODEL.is_search_page = true;
+        window.MODEL.q = query || 'test';
+        render_search_result_list();
+    };
 }
 
 function createMainHTMLTemplate() {
@@ -188,6 +218,24 @@ function render(path) {
     if (path.indexOf("?") > 0) {
         path = path.substr(0, path.indexOf("?"));
     }
+    
+    // Extract drive order from path if available
+    const driveMatch = path.match(/^\/(\d+):/);
+    if (driveMatch) {
+        window.current_drive_order = parseInt(driveMatch[1]);
+    }
+    
+    // Check if this is a search page and set up MODEL accordingly
+    if (path.includes(":search")) {
+        window.MODEL.is_search_page = true;
+        // Extract search query from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        window.MODEL.q = urlParams.get('q') || '';
+    } else {
+        window.MODEL.is_search_page = false;
+        window.MODEL.q = '';
+    }
+    
     title(path);
     nav(path);
     var reg = /\/\d+:$/g;
@@ -346,13 +394,20 @@ async function handleRequestError(error, retries) {
     }
 }
 function requestSearch(params, resultCallback, retries = 3) {
+    console.log('requestSearch called with:', params);
+    console.log('current_drive_order:', window.current_drive_order);
+    
     var p = {
         q: params['q'] || null,
         page_token: params['page_token'] || null,
         page_index: params['page_index'] || 0
     };
+    
     function performRequest(retries) {
-        fetch(`/${window.current_drive_order}:search`, {
+        const searchUrl = `/${window.current_drive_order}:search`;
+        console.log('Making search request to:', searchUrl);
+        
+        fetch(searchUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -360,15 +415,17 @@ function requestSearch(params, resultCallback, retries = 3) {
             body: JSON.stringify(p)
         })
             .then(function (response) {
+                console.log('Search response status:', response.status);
                 if (!response.ok) {
-                    throw new Error('Request failed');
+                    throw new Error(`Request failed with status ${response.status}`);
                 }
                 return response.json();
             })
             .then(function (res) {
+                console.log('Search response data:', res);
                 if (res && res.data === null) {
                     $('#spinner').remove();
-                    $('#list').html(`<div class='alert alert-danger' role='alert'> Server didn't send any data.</div></div></div>`);
+                    $('#list').html(`<div class='alert alert-danger' role='alert'> Server didn't send any data.</div>`);
                     $('#update').remove();
                 }
                 if (res && res.data) {
@@ -377,18 +434,22 @@ function requestSearch(params, resultCallback, retries = 3) {
                 }
             })
             .catch(function (error) {
+                console.error('Search request failed:', error);
                 if (retries > 0) {
                     sleep(2000);
-                    $('#update').html(`<div class='alert alert-info' role='alert'> Retrying...</div></div></div>`);
+                    $('#update').html(`<div class='alert alert-info' role='alert'> Retrying...</div>`);
                     performRequest(retries - 1);
                 } else {
-                    $('#update').html(`<div class='alert alert-danger' role='alert'> Unable to get data from the server. Something went wrong. 3 Failures</div></div></div>`);
-                    $('#list').html(`<div class='alert alert-danger' role='alert'> We were unable to get data from the server.</div></div></div>`);
+                    $('#update').html(`<div class='alert alert-danger' role='alert'> Search failed. Make sure the search endpoint is available.</div>`);
+                    $('#list').html(`<div class='alert alert-warning' role='alert'>Unable to perform search. This might be because:<br>
+                        1. The search feature is not enabled on the server<br>
+                        2. There's a network connectivity issue<br>
+                        3. The server is temporarily unavailable</div>`);
                     $('#spinner').remove();
                 }
             });
     }
-    $('#update').html(`<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`);
+    $('#update').html(`<div class='alert alert-info' role='alert'> Connecting...</div>`);
     performRequest(retries);
 }
 function list(path, id = '', fallback = false) {
@@ -732,11 +793,28 @@ function createFileItem(item, path, modifiedTime, isSearch, isFallback) {
     }
 }
 function render_search_result_list() {
+    // Validate search query
+    if (!window.MODEL.q || window.MODEL.q.trim() === '') {
+        var content = `
+            <div class="container"><br>
+                <div id="update"></div>
+                <div class="card">
+                    <div class="alert alert-warning d-flex align-items-center" role="alert" style="margin-bottom: 0;">Please enter a search query</div>
+                    <div id="list" class="list-group text-break">
+                        <div class="alert alert-info" role="alert">Enter a search term to find files in your drive.</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        $('#content').html(content);
+        return;
+    }
+    
     var content = `
         <div class="container"><br>
             <div id="update"></div>
             <div class="card">
-                <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results</div>
+                <div class="alert alert-primary d-flex align-items-center" role="alert" style="margin-bottom: 0;">Search Results for "${window.MODEL.q}"</div>
                 <div id="list" class="list-group text-break"></div>
             </div>
             <div class="alert alert-secondary text-center d-none" role="alert" id="count"><span class="number text-center"></span> | <span class="totalsize text-center"></span></div>
