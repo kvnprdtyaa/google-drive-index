@@ -84,10 +84,13 @@ google-drive-index/
 * set `"service_account": false` to `"service_account": true`
 * Replace {} with data from service account `file.json`
 
-## Upcoming Changes
+## Security Features
 
-* Adding More Features from other Indexes.
-* Reworking UI/UX Change Bootstrap & Bootswatch To Tailwind Maybe.
+- Password protection for the entire index
+- Session-based authentication
+- Encrypted tokens for secure access
+- Service account isolation
+- No direct file access without authentication
 
 ## Credits
 
