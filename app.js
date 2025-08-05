@@ -1,60 +1,102 @@
+// Constants
+const CONSTANTS = {
+    SCROLL_THRESHOLD: 50,
+    MOBILE_SCROLL_BUFFER: 130,
+    DESKTOP_SCROLL_BUFFER: 80,
+    MAX_FILE_SIZE: 1024 * 1024 * 2, // 2MB
+    MAX_RETRY_COUNT: 3,
+    RETRY_DELAY: 2000
+};
+
+// File type configurations
+const FILE_TYPES = {
+    video: ["mp4", "webm", "avi", "mpg", "mpeg", "mkv", "rm", "rmvb", "mov", "wmv", "asf", "ts", "flv", "3gp", "m4v"],
+    audio: ["mp3", "flac", "wav", "ogg", "m4a", "aac", "wma", "alac"],
+    image: ["bmp", "jpg", "jpeg", "png", "gif", "svg", "tiff", "ico"],
+    code: ["php", "css", "go", "java", "js", "json", "txt", "sh", "md", "html", "xml", "py", "rb", "c", "cpp", "h", "hpp"],
+    zip: ["zip", "rar", "tar", "7z", "gz"],
+    pdf: ["pdf"],
+    markdown: ["md"]
+};
+
 function init() {
     document.siteName = $('title').html();
-    var html = `
+    const htmlTemplate = createMainHTMLTemplate();
+    $('body').html(htmlTemplate);
+    initializeBackToTopButton();
+}
+
+function createMainHTMLTemplate() {
+    return `
     <header>
         <div id="nav"></div>
     </header>
     <div class="loading" id="spinner" style="display:none;">Loading&#8230;</div>
-        <main id="content" style="padding-top: 20px;"></main>
-        <div class="modal" id="SearchModel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="SearchModelLabel"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="modal-body-space"></div>
-                    <div class="modal-footer" id="modal-body-space-buttons"></div>
+    <main id="content" style="padding-top: 20px;"></main>
+    ${createSearchModal()}
+    ${createBackToTopButton()}
+    ${createFooter()}
+    </body>`;
+}
+
+function createSearchModal() {
+    return `
+    <div class="modal" id="SearchModel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="SearchModelLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body-space"></div>
+                <div class="modal-footer" id="modal-body-space-buttons"></div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function createBackToTopButton() {
+    return `
+    <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" 
+            style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 1;" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+            <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
+        </svg>
+    </button>`;
+}
+
+function createFooter() {
+    return `
+    <footer class="footer text-center mt-auto container bg-primary" 
+            style="border-radius: .5rem .5rem 0 0; border: 1px solid rgba(140, 130, 115, 0.13);">
+        <div class="container" style="padding-top: 15px;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
                 </div>
             </div>
         </div>
-        <button id="back-to-top" class="btn btn-secondary btn-lg shadow border border-light" style="position: fixed; bottom: 85px; right: 10px; display: none; z-index: 1;" role="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
-                <path fill="#ffffff" d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
-            </svg>
-        </button>
-        <footer class="footer text-center mt-auto container bg-primary" style="border-radius: .5rem .5rem 0 0; border: 1px solid rgba(140, 130, 115, 0.13);">
-            <div class="container" style="padding-top: 15px;">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <p>© ${new Date().getFullYear()} - <span style="color: #00BC8C;">SPRiNGLER</span>, All Rights Reserved.</p>
-                        <script>
-                            let btt = document.getElementById("back-to-top");
-                            window.onscroll = function () {
-                                scrollFunction();
-                            };
-                            function scrollFunction() {
-                                if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                                    btt.style.display = "block";
-                                } else {
-                                    btt.style.display = "none";
-                                }
-                            }
-                            btt.addEventListener("click", backToTop);
-                                function backToTop() {
-                                    document.body.scrollTop = 0;
-                                    document.documentElement.scrollTop = 0;
-                                }
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </body>
-  `;
-    $('body').html(html);
+    </footer>`;
+}
+
+function initializeBackToTopButton() {
+    const backToTopBtn = document.getElementById("back-to-top");
+    if (!backToTopBtn) return;
+
+    window.onscroll = () => handleScroll(backToTopBtn);
+    backToTopBtn.addEventListener("click", scrollToTop);
+}
+
+function handleScroll(button) {
+    const scrollPosition = document.body.scrollTop || document.documentElement.scrollTop;
+    button.style.display = scrollPosition > CONSTANTS.SCROLL_THRESHOLD ? "block" : "none";
+}
+
+function scrollToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 const folder_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_11)"><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,24)"><path fill="rgb(255,159,0)" fill-opacity="1" d=" M16,-12 C16,-12 -2,-12 -2,-12 C-2,-12 -6,-16 -6,-16 C-6,-16 -16,-16 -16,-16 C-18.200000762939453,-16 -20,-14.199999809265137 -20,-12 C-20,-12 -20,12 -20,12 C-20,14.208999633789062 -18.208999633789062,16 -16,16 C-16,16 13.682000160217285,16 13.682000160217285,16 C13.682000160217285,16 20,5 20,5 C20,5 20,-8 20,-8 C20,-10.199999809265137 18.200000762939453,-12 16,-12z"></path></g></g><g transform="matrix(1,0,0,1,0,0)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,24,26)"><path fill="rgb(255,201,40)" fill-opacity="1" d=" M16,-14 C16,-14 -16,-14 -16,-14 C-18.200000762939453,-14 -20,-12.199999809265137 -20,-10 C-20,-10 -20,10 -20,10 C-20,12.199999809265137 -18.200000762939453,14 -16,14 C-16,14 16,14 16,14 C18.200000762939453,14 20,12.199999809265137 20,10 C20,10 20,-10 20,-10 C20,-12.199999809265137 18.200000762939453,-14 16,-14z"></path></g></g></g></svg>`
 const video_icon = `<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g clip-path="url(#__lottie_element_11)"><g transform="matrix(1,0,0,1,24,24)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(63,81,181)" fill-opacity="1" d=" M16,17 C16,17 -16,17 -16,17 C-18.200000762939453,17 -20,15.199999809265137 -20,13 C-20,13 -20,-9 -20,-9 C-20,-9 20,-9 20,-9 C20,-9 20,13 20,13 C20,15.199999809265137 18.200000762939453,17 16,17z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M16,-9 C16,-9 12,-3 12,-3 C12,-3 16,-3 16,-3 C16,-3 20,-9 20,-9 C20,-9 16,-9 16,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M8,-9 C8,-9 4,-3 4,-3 C4,-3 8,-3 8,-3 C8,-3 12,-9 12,-9 C12,-9 8,-9 8,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M0,-9 C0,-9 -4,-3 -4,-3 C-4,-3 0,-3 0,-3 C0,-3 4,-9 4,-9 C4,-9 0,-9 0,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-8,-9 C-8,-9 -12,-3 -12,-3 C-12,-3 -8,-3 -8,-3 C-8,-3 -4,-9 -4,-9 C-4,-9 -8,-9 -8,-9z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-16,-9 C-16,-9 -20,-3 -20,-3 C-20,-3 -16,-3 -16,-3 C-16,-3 -12,-9 -12,-9 C-12,-9 -16,-9 -16,-9z"></path></g></g></g><g transform="matrix(1,0,0,1,24,24)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(63,81,181)" fill-opacity="1" d=" M19.399999618530273,-15.699999809265137 C19.399999618530273,-15.699999809265137 -20,-9 -20,-9 C-20,-9 -20.299999237060547,-11 -20.299999237060547,-11 C-20.700000762939453,-13.199999809265137 -19.200000762939453,-15.199999809265137 -17,-15.600000381469727 C-17,-15.600000381469727 14.600000381469727,-20.899999618530273 14.600000381469727,-20.899999618530273 C16.799999237060547,-21.299999237060547 18.799999237060547,-19.799999237060547 19.200000762939453,-17.600000381469727 C19.200000762939453,-17.600000381469727 19.399999618530273,-15.699999809265137 19.399999618530273,-15.699999809265137z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-5.199999809265137,-17.600000381469727 C-5.199999809265137,-17.600000381469727 -0.30000001192092896,-12.300000190734863 -0.30000001192092896,-12.300000190734863 C-0.30000001192092896,-12.300000190734863 3.700000047683716,-13 3.700000047683716,-13 C3.700000047683716,-13 -1.2999999523162842,-18.299999237060547 -1.2999999523162842,-18.299999237060547 C-1.2999999523162842,-18.299999237060547 -5.199999809265137,-17.600000381469727 -5.199999809265137,-17.600000381469727z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-13.100000381469727,-16.299999237060547 C-13.100000381469727,-16.299999237060547 -8.199999809265137,-11 -8.199999809265137,-11 C-8.199999809265137,-11 -4.199999809265137,-11.699999809265137 -4.199999809265137,-11.699999809265137 C-4.199999809265137,-11.699999809265137 -9.199999809265137,-16.899999618530273 -9.199999809265137,-16.899999618530273 C-9.199999809265137,-16.899999618530273 -13.100000381469727,-16.299999237060547 -13.100000381469727,-16.299999237060547z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M2.700000047683716,-18.899999618530273 C2.700000047683716,-18.899999618530273 7.599999904632568,-13.699999809265137 7.599999904632568,-13.699999809265137 C7.599999904632568,-13.699999809265137 11.5,-14.300000190734863 11.5,-14.300000190734863 C11.5,-14.300000190734863 6.599999904632568,-19.600000381469727 6.599999904632568,-19.600000381469727 C6.599999904632568,-19.600000381469727 2.700000047683716,-18.899999618530273 2.700000047683716,-18.899999618530273z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M10.5,-20.200000762939453 C10.5,-20.200000762939453 15.5,-15 15.5,-15 C15.5,-15 19.399999618530273,-15.699999809265137 19.399999618530273,-15.699999809265137 C19.399999618530273,-15.699999809265137 14.5,-20.899999618530273 14.5,-20.899999618530273 C14.5,-20.899999618530273 10.5,-20.200000762939453 10.5,-20.200000762939453z"></path></g><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path fill="rgb(159,168,218)" fill-opacity="1" d=" M-16.5,-14 C-17.327999114990234,-14 -18,-13.32800006866455 -18,-12.5 C-18,-11.67199993133545 -17.327999114990234,-11 -16.5,-11 C-15.67199993133545,-11 -15,-11.67199993133545 -15,-12.5 C-15,-13.32800006866455 -15.67199993133545,-14 -16.5,-14z"></path></g></g></g></svg>`
@@ -72,25 +114,75 @@ const Os = {
     isIos: /(iPhone|iPod|iPad)/i.test(navigator.userAgent),
     isMobile: /Android|webOS|iPhone|iPad|iPod|iOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 };
+// Utility functions
 function getDocumentHeight() {
-    var D = document;
+    const doc = document;
     return Math.max(
-        D.body.scrollHeight, D.documentElement.scrollHeight,
-        D.body.offsetHeight, D.documentElement.offsetHeight,
-        D.body.clientHeight, D.documentElement.clientHeight
+        doc.body.scrollHeight, doc.documentElement.scrollHeight,
+        doc.body.offsetHeight, doc.documentElement.offsetHeight,
+        doc.body.clientHeight, doc.documentElement.clientHeight
     );
 }
+
+function getFileIcon(extension) {
+    const iconMap = {
+        video: video_icon,
+        code: code_icon,
+        zip: zip_icon,
+        image: image_icon,
+        audio: audio_icon,
+        markdown: markdown_icon,
+        pdf: pdf_icon,
+        default: file_icon
+    };
+
+    for (const [type, extensions] of Object.entries(FILE_TYPES)) {
+        if (extensions.includes(extension)) {
+            return iconMap[type] || iconMap.default;
+        }
+    }
+    return iconMap.default;
+}
+
+function buildNavigationPath() {
+    const navFullLink = window.location.pathname;
+    const navArray = navFullLink.trim('/').split('/');
+    let currentPath = '/';
+    let containerContent = '';
+
+    if (navArray.length > 0) {
+        for (const pathPart of navArray) {
+            const decodedPathPart = decodeURIComponent(pathPart).replace(/\//g, '%2F');
+            const trimmedPathPart = decodedPathPart.replace(/\?.+/g, "$'");
+            const displayedPathPart = trimmedPathPart.length > 15 
+                ? trimmedPathPart.slice(0, 5) + '...' 
+                : trimmedPathPart.slice(0, 15);
+            
+            currentPath += pathPart + '/';
+            
+            if (displayedPathPart === '') break;
+            
+            containerContent += `<li class="breadcrumb-item"><a href="${currentPath}">${displayedPathPart}</a></li>`;
+        }
+    }
+    return containerContent;
+}
+
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-    var pair;
-    for (var i = 0; i < vars.length; i++) {
-        pair = vars[i].split('=');
-        if (pair[0] == variable) {
+    const query = window.location.search.substring(1);
+    const vars = query.split('&');
+    
+    for (const varPair of vars) {
+        const pair = varPair.split('=');
+        if (pair[0] === variable) {
             return pair[1];
         }
     }
-    return (false);
+    return false;
 }
 function render(path) {
     if (path.indexOf("?") > 0) {
@@ -139,100 +231,119 @@ function title(path) {
         $('title').html(`${drive_name} - ${path}`);
 }
 function nav() {
-    var model = window.MODEL;
-    var html = "";
-    var cur = window.current_drive_order || 0;
-    html +=
-        `<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    const model = window.MODEL;
+    const currentDrive = window.current_drive_order || 0;
+    const searchText = model.is_search_page ? (model.q || '') : '';
+    
+    const navbarHTML = createNavbarHTML(currentDrive, searchText);
+    $('#nav').html(navbarHTML);
+}
+
+function createNavbarHTML(currentDrive, searchText) {
+    const navbarStart = `
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">SPRiNGLER</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#navbarColor01" aria-controls="navbarColor01" 
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">`;
-    html += `
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="https://telegra.ph/SUPPORT-US-02-19" target="_blank">Support</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
-                        </li>`;
-    var search_text = model.is_search_page ? (model.q || '') : '';
-    var search_bar = `
-                    </ul>
-                    <form class="d-flex" method="get" action="/${cur}:search" id="search_bar_form">
-                        <input class="form-control me-sm-2" name="q" type="search" placeholder="Search" value="${search_text}" required>
-                        <button class="btn btn-secondary" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
+                        </li>
+                    </ul>`;
+
+    const searchBar = createSearchBar(currentDrive, searchText);
+    
+    return window.MODEL.root_type < 2 
+        ? navbarStart + searchBar 
+        : navbarStart + '</div></div></nav>';
+}
+
+function createSearchBar(currentDrive, searchText) {
+    return `
+        <form class="d-flex" method="get" action="/${currentDrive}:search" id="search_bar_form">
+            <input class="form-control me-sm-2" name="q" type="search" 
+                   placeholder="Search" value="${searchText}" required>
+            <button class="btn btn-secondary" type="submit">Search</button>
+        </form>
+        </div>
+        </div>
         </nav>`;
-    if (model.root_type < 2) {
-        html += search_bar;
-    }
-    $('#nav').html(html);
 }
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-        currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-}
-function requestListPath(path, params, resultCallback, authErrorCallback, retries = 3, fallback = false) {
-    var requestData = {
-        id: params['id'] || '',
+async function requestListPath(path, params, resultCallback, authErrorCallback, retries = CONSTANTS.MAX_RETRY_COUNT, fallback = false) {
+    const requestData = {
+        id: params.id || '',
         type: 'folder',
-        password: params['password'] || '',
-        page_token: params['page_token'] || '',
-        page_index: params['page_index'] || 0
+        password: params.password || '',
+        page_token: params.page_token || '',
+        page_index: params.page_index || 0
     };
-    $('#update').show();
-    document.getElementById('update').innerHTML = `<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`;
+
+    showUpdateMessage('Connecting...');
+    
     if (fallback) {
-        path = "/0:fallback"
+        path = "/0:fallback";
     }
-    function performRequest() {
-        fetch(fallback ? "/0:fallback" : path, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
-        })
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Request failed');
-                }
-                return response.json();
-            })
-            .then(function (res) {
-                if (res && res.error && res.error.code === 401) {
-                    askPassword(path);
-                } else if (res && res.data === null) {
-                    document.getElementById('spinner').remove();
-                    document.getElementById('list').innerHTML = `<div class='alert alert-danger' role='alert'> Server didn't send any data.</div></div></div>`;
-                    $('#update').hide();
-                } else if (res && res.data) {
-                    resultCallback(res, path, requestData);
-                    $('#update').hide();
-                }
-            })
-            .catch(function (error) {
-                if (retries > 0) {
-                    sleep(2000);
-                    document.getElementById('update').innerHTML = `<div class='alert alert-info' role='alert'> Retrying...</div></div></div>`;
-                    performRequest(path, requestData, resultCallback, authErrorCallback, retries - 1);
-                } else {
-                    document.getElementById('update').innerHTML = `<div class='alert alert-danger' role='alert'> Unable to get data from the server. Something went wrong.</div></div></div>`;
-                    document.getElementById('list').innerHTML = `<div class='alert alert-danger' role='alert'> We were unable to get data from the server. ` + error + `</div></div></div>`;
-                    $('#update').hide();
-                }
-            });
+
+    try {
+        await performListRequest(path, requestData, resultCallback, retries);
+    } catch (error) {
+        handleRequestError(error, retries);
     }
-    console.log("Performing Request again")
-    performRequest();
+}
+
+async function performListRequest(path, requestData, resultCallback, retries) {
+    const response = await fetch(path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
+    });
+
+    if (!response.ok) {
+        throw new Error('Request failed');
+    }
+
+    const res = await response.json();
+    
+    if (res?.error?.code === 401) {
+        askPassword(path);
+    } else if (res?.data === null) {
+        showErrorMessage('Server didn\'t send any data.');
+    } else if (res?.data) {
+        resultCallback(res, path, requestData);
+        hideUpdateMessage();
+    }
+}
+
+function showUpdateMessage(message) {
+    $('#update').show().html(`<div class='alert alert-info' role='alert'>${message}</div>`);
+}
+
+function showErrorMessage(message) {
+    $('#update').hide();
+    $('#list').html(`<div class='alert alert-danger' role='alert'>${message}</div>`);
+    $('#spinner').remove();
+}
+
+function hideUpdateMessage() {
+    $('#update').hide();
+}
+
+async function handleRequestError(error, retries) {
+    if (retries > 0) {
+        await sleep(CONSTANTS.RETRY_DELAY);
+        showUpdateMessage('Retrying...');
+        // Retry logic would be implemented here
+    } else {
+        showErrorMessage(`Unable to get data from the server. ${error}`);
+    }
 }
 function requestSearch(params, resultCallback, retries = 3) {
     var p = {
@@ -408,90 +519,103 @@ function askPassword(path) {
 }
 function append_files_to_fallback_list(path, files) {
     try {
-        console.log('append_files_to_fallback_list');
-        var $list = $('#list');
-        var is_lastpage_loaded = null === $list.data('nextPageToken');
-        var is_firstpage = '0' == $list.data('curPageIndex');
-        html = "";
+        const $list = $('#list');
+        const isLastPageLoaded = $list.data('nextPageToken') === null;
+        const isFirstPage = $list.data('curPageIndex') === '0';
+        
+        let html = '';
         let targetFiles = [];
-        var totalsize = 0;
-        for (i in files) {
-            var item = files[i];
-            var p = "/fallback?id=" + item.id
-            item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
-            if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a href="${p}" style="color: white;" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
-            } else {
-                var totalsize = totalsize + Number(item.size);
-                item['size'] = formatFileSize(item['size']);
-                var epn = item.name;
-                var link = window.location.origin + item.link;
-                var pn = path + epn.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F');
-                var c = "file";
-                var ext = item.fileExtension
-                pn += "?a=view";
-                c += " view";
-                html += `
-                    <div class="list-group-item list-group-item-action">`
-                if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
-                    html += video_icon
-                } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
-                    html += code_icon
-                } else if ("|zip|rar|tar|.7z|.gz|".indexOf(`|${ext}|`) >= 0) {
-                    html += zip_icon
-                } else if ("|bmp|jpg|jpeg|png|gif|".indexOf(`|${ext}|`) >= 0) {
-                    html += image_icon
-                } else if ("|m4a|mp3|flac|wav|ogg|".indexOf(`|${ext}|`) >= 0) {
-                    html += audio_icon
-                } else if ("|md|".indexOf(`|${ext}|`) >= 0) {
-                    html += markdown_icon
-                } else if ("|pdf|".indexOf(`|${ext}|`) >= 0) {
-                    html += pdf_icon
-                } else {
-                    html += file_icon
-                }
-                html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" <p>${item.name}</p><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
+        let totalSize = 0;
+
+        files.forEach(item => {
+            html += createFileListItem(item, path, false, true);
+            
+            if (item.mimeType !== 'application/vnd.google-apps.folder') {
+                totalSize += Number(item.size);
             }
+        });
+
+        updateFilesList($list, html, isFirstPage);
+        updateTargetFiles(path, targetFiles, isFirstPage);
+        
+        if (isLastPageLoaded) {
+            updateFileCounts($list, totalSize);
         }
-        if (targetFiles.length > 0) {
-            let old = localStorage.getItem(path);
-            let new_children = targetFiles;
-            if (!is_firstpage && old) {
-                let old_children;
-                try {
-                    old_children = JSON.parse(old);
-                    if (!Array.isArray(old_children)) {
-                        old_children = []
-                    }
-                } catch (e) {
-                    old_children = [];
-                }
-                new_children = old_children.concat(targetFiles)
-            }
-            localStorage.setItem(path, JSON.stringify(new_children))
+    } catch (error) {
+        console.error('Error in append_files_to_fallback_list:', error);
+    }
+}
+
+function append_files_to_list(path, files) {
+    const $list = $('#list');
+    const isLastPageLoaded = $list.data('nextPageToken') === null;
+    const isFirstPage = $list.data('curPageIndex') === '0';
+    
+    let html = '';
+    let targetFiles = [];
+    let totalSize = 0;
+
+    files.forEach(item => {
+        html += createFileListItem(item, path, false, false);
+        
+        if (item.mimeType !== 'application/vnd.google-apps.folder') {
+            totalSize += Number(item.size);
         }
-        $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
-        if (is_lastpage_loaded) {
-            total_size = formatFileSize(totalsize) || '0 Bytes';
-            total_items = $list.find('.countitems').length;
-            total_files = $list.find('.size_items').length;
-            if (total_items == 0) {
-                $('#count').removeClass('d-none').find('.number').text("Empty Folder");
-            } else if (total_items == 1) {
-                $('#count').removeClass('d-none').find('.number').text(total_items + " item");
-            } else {
-                $('#count').removeClass('d-none').find('.number').text(total_items + " items");
-            }
-            if (total_files == 0) {
-                $('#count').removeClass('d-none').find('.totalsize').text("Zero Files");
-            } else if (total_files == 1) {
-                $('#count').removeClass('d-none').find('.totalsize').text(total_files + " File with Size " + total_size);
-            } else {
-                $('#count').removeClass('d-none').find('.totalsize').text(total_files + " Files with Size " + total_size);
-            }
+    });
+
+    updateFilesList($list, html, isFirstPage);
+    updateTargetFiles(path, targetFiles, isFirstPage);
+    
+    if (isLastPageLoaded) {
+        updateFileCounts($list, totalSize);
+    }
+}
+
+function updateFilesList($list, html, isFirstPage) {
+    const currentContent = isFirstPage ? '' : $list.html();
+    $list.html(currentContent + html);
+}
+
+function updateTargetFiles(path, targetFiles, isFirstPage) {
+    if (targetFiles.length === 0) return;
+    
+    const oldData = localStorage.getItem(path);
+    let newChildren = targetFiles;
+    
+    if (!isFirstPage && oldData) {
+        try {
+            const oldChildren = JSON.parse(oldData);
+            newChildren = Array.isArray(oldChildren) ? oldChildren.concat(targetFiles) : targetFiles;
+        } catch (error) {
+            console.error('Error parsing localStorage data:', error);
         }
-    } catch (e) {
-        console.log(e);
+    }
+    
+    localStorage.setItem(path, JSON.stringify(newChildren));
+}
+
+function updateFileCounts($list, totalSize) {
+    const totalSizeFormatted = formatFileSize(totalSize) || '0 Bytes';
+    const totalItems = $list.find('.countitems').length;
+    const totalFiles = $list.find('.size_items').length;
+    
+    const countElement = $('#count');
+    countElement.removeClass('d-none');
+    
+    // Update item count
+    if (totalItems === 0) {
+        countElement.find('.number').text("Empty Folder");
+    } else {
+        const itemText = totalItems === 1 ? "item" : "items";
+        countElement.find('.number').text(`${totalItems} ${itemText}`);
+    }
+    
+    // Update file size
+    if (totalFiles === 0) {
+        countElement.find('.totalsize').text("Zero Files");
+    } else {
+        const fileText = totalFiles === 1 ? "File" : "Files";
+        countElement.find('.totalsize').text(`${totalFiles} ${fileText} with Size ${totalSizeFormatted}`);
     }
 }
 function append_files_to_list(path, files) {
@@ -517,23 +641,55 @@ function append_files_to_list(path, files) {
             console.log(ext)
             c += " view";
             html += `<div class="list-group-item list-group-item-action">`
-            if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
-                html += video_icon
-            } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
-                html += code_icon
-            } else if ("|zip|rar|tar|.7z|.gz|".indexOf(`|${ext}|`) >= 0) {
-                html += zip_icon
-            } else if ("|bmp|jpg|jpeg|png|gif|".indexOf(`|${ext}|`) >= 0) {
-                html += image_icon
-            } else if ("|m4a|mp3|flac|wav|ogg|".indexOf(`|${ext}|`) >= 0) {
-                html += audio_icon
-            } else if ("|md|".indexOf(`|${ext}|`) >= 0) {
-                html += markdown_icon
-            } else if ("|pdf|".indexOf(`|${ext}|`) >= 0) {
-                html += pdf_icon
-            } else {
-                html += file_icon
-            }
+function createFileListItem(item, path, isSearch = false, isFallback = false) {
+    const modifiedTime = utc2jakarta(item.modifiedTime);
+    
+    if (item.mimeType === 'application/vnd.google-apps.folder') {
+        return createFolderListItem(item, path, modifiedTime, isSearch);
+    } else {
+        return createFileItem(item, path, modifiedTime, isSearch, isFallback);
+    }
+}
+
+function createFolderListItem(item, path, modifiedTime, isSearch) {
+    if (isSearch) {
+        return `<a style="cursor: pointer; color: white;" onclick="onSearchResultItemClick('${item.id}', false)" 
+                data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action">
+                ${folder_icon} ${item.name} 
+                <span class="badge bg-info float-end">${modifiedTime}</span></a>`;
+    } else {
+        const linkPath = path.includes('fallback') 
+            ? `/fallback?id=${item.id}`
+            : path + encodeURIComponent(item.name).replace(/\//g, '%2F') + '/';
+        
+        return `<a href="${linkPath}" style="color: white;" class="countitems list-group-item list-group-item-action">
+                ${folder_icon} ${item.name} 
+                <span class="badge bg-info float-end">${modifiedTime}</span></a>`;
+    }
+}
+
+function createFileItem(item, path, modifiedTime, isSearch, isFallback) {
+    const fileIcon = getFileIcon(item.fileExtension);
+    const fileSize = formatFileSize(item.size);
+    const downloadLink = window.location.origin + item.link;
+    
+    const downloadButton = `<a href="${downloadLink}">
+        <svg class="float-end" width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" 
+             width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path>
+        </svg></a>`;
+
+    return `<div class="list-group-item list-group-item-action" style="color: white;">
+            ${fileIcon} 
+            <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;">
+                <p>${item.name}</p>
+            </a>
+            ${downloadButton}
+            <span class="badge bg-primary float-end">${fileSize}</span>
+            <span class="badge bg-info float-end">${modifiedTime}</span>
+        </div>`;
+}
             html += ` <a class="countitems size_items list-group-item-action" style="text-decoration: none; color: white;" <p>${item.name}</p><a href="${link}"><svg class="float-end"width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge bg-primary float-end"> ` + item['size'] + ` </span><span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
         }
     }
@@ -634,108 +790,105 @@ function render_search_result_list() {
 }
 function append_search_result_to_list(files) {
     try {
-        var cur = window.current_drive_order || 0;
-        var $list = $('#list');
-        var is_lastpage_loaded = null === $list.data('nextPageToken');
-        html = "";
-        var totalsize = 0;
-        for (i in files) {
-            var item = files[i];
-            if (item['size'] == undefined) {
-                item['size'] = "";
+        const $list = $('#list');
+        const isLastPageLoaded = $list.data('nextPageToken') === null;
+        
+        let html = '';
+        let totalSize = 0;
+
+        files.forEach(item => {
+            if (!item.size) item.size = "";
+            
+            html += createFileListItem(item, '', true, false);
+            
+            if (item.mimeType !== 'application/vnd.google-apps.folder') {
+                totalSize += Number(item.size);
             }
-            item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
-            if (item['mimeType'] == 'application/vnd.google-apps.folder') {
-                html += `<a style="cursor: pointer; color: white;" onclick="onSearchResultItemClick('${item['id']}', false)" data-bs-toggle="modal" data-bs-target="#SearchModel" class="countitems list-group-item list-group-item-action"> ${folder_icon} ${item.name} <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></a>`;
-            } else {
-                var totalsize = totalsize + Number(item.size);
-                item['size'] = formatFileSize(item['size']);
-                var ext = item.fileExtension
-                var link = window.location.origin + item.link;
-                html += `<div style="color: white;" gd-type="$item['mimeType']}" class="countitems size_items list-group-item list-group-item-action">`
-                if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
-                    html += video_icon
-                } else if ("|html|php|css|go|java|js|json|txt|sh|".indexOf(`|${ext}|`) >= 0) {
-                    html += code_icon
-                } else if ("|zip|rar|tar|.7z|.gz|".indexOf(`|${ext}|`) >= 0) {
-                    html += zip_icon
-                } else if ("|bmp|jpg|jpeg|png|gif|".indexOf(`|${ext}|`) >= 0) {
-                    html += image_icon
-                } else if ("|m4a|mp3|flac|wav|ogg|".indexOf(`|${ext}|`) >= 0) {
-                    html += audio_icon
-                } else if ("|md|".indexOf(`|${ext}|`) >= 0) {
-                    html += markdown_icon
-                } else if ("|pdf|".indexOf(`|${ext}|`) >= 0) {
-                    html += pdf_icon
-                } else {
-                    html += file_icon
-                }
-                html += ` ${item.name}<a href="${link}"><svg class="float-end" width="25px" style="margin-left: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path> </svg></a><span class="badge float-end csize"> <span class="badge bg-primary float-end"> ` + item['size'] + ` </span> <span class="badge bg-info float-end"> ` + item['modifiedTime'] + ` </span></div>`;
-            }
+        });
+
+        updateFilesList($list, html, $list.data('curPageIndex') === '0');
+        
+        if (isLastPageLoaded) {
+            updateSearchResultCounts($list, totalSize);
         }
-        $list.html(($list.data('curPageIndex') == '0' ? '' : $list.html()) + html);
-        if (is_lastpage_loaded) {
-            total_size = formatFileSize(totalsize) || '0 Bytes';
-            total_items = $list.find('.countitems').length;
-            total_files = $list.find('.size_items').length;
-            if (total_items == 0) {
-                $('#count').removeClass('d-none').find('.number').text("No Results");
-            } else if (total_items == 1) {
-                $('#count').removeClass('d-none').find('.number').text(total_items + " item");
-            } else {
-                $('#count').removeClass('d-none').find('.number').text(total_items + " items");
-            }
-            if (total_files == 0) {
-                $('#count').removeClass('d-none').find('.totalsize').text("Found Nothing");
-            } else if (total_files == 1) {
-                $('#count').removeClass('d-none').find('.totalsize').text(total_files + " File with Size " + total_size);
-            } else {
-                $('#count').removeClass('d-none').find('.totalsize').text(total_files + " Files with Size " + total_size);
-            }
-        }
-    } catch (e) {
-        console.log(e);
+    } catch (error) {
+        console.error('Error in append_search_result_to_list:', error);
     }
 }
-function onSearchResultItemClick(file_id, can_preview) {
-    var cur = window.current_drive_order;
-    var title = `Loading...`;
-    $('#SearchModelLabel').html(title);
-    var content = `<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div>`;
-    $('#modal-body-space').html(content);
-    var p = {
-        id: file_id
-    };
-    fetch(`/${cur}:id2path`, {
-        method: 'POST',
-        body: JSON.stringify(p),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
-        .then(function (response) {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Request failed.');
-            }
-        })
-        .then(function (obj) {
-            var href = `${obj.path}`;
-            var encodedUrl = href.replace(new RegExp('#', 'g'), '%23').replace(new RegExp('\\?', 'g'), '%3F')
-            title = `Result`;
-            $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-primary" href="${encodedUrl}${can_preview ? '?a=view' : ''}">Open</a>`;
-            $('#modal-body-space').html(content);
-        })
-        .catch(function (error) {
-            console.log(error);
-            var link = ""
-            title = `Fallback Method`;
-            $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-primary" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a>`;
-            $('#modal-body-space').html(content);
+
+function updateSearchResultCounts($list, totalSize) {
+    const totalSizeFormatted = formatFileSize(totalSize) || '0 Bytes';
+    const totalItems = $list.find('.countitems').length;
+    const totalFiles = $list.find('.size_items').length;
+    
+    const countElement = $('#count');
+    countElement.removeClass('d-none');
+    
+    // Update item count
+    if (totalItems === 0) {
+        countElement.find('.number').text("No Results");
+    } else {
+        const itemText = totalItems === 1 ? "item" : "items";
+        countElement.find('.number').text(`${totalItems} ${itemText}`);
+    }
+    
+    // Update file size
+    if (totalFiles === 0) {
+        countElement.find('.totalsize').text("Found Nothing");
+    } else {
+        const fileText = totalFiles === 1 ? "File" : "Files";
+        countElement.find('.totalsize').text(`${totalFiles} ${fileText} with Size ${totalSizeFormatted}`);
+    }
+}
+async function onSearchResultItemClick(fileId, canPreview) {
+    const currentDrive = window.current_drive_order;
+    
+    showModalLoading();
+    
+    try {
+        const response = await fetch(`/${currentDrive}:id2path`, {
+            method: 'POST',
+            body: JSON.stringify({ id: fileId }),
+            headers: { 'Content-Type': 'application/json' }
         });
+
+        if (response.ok) {
+            const result = await response.json();
+            showModalSuccess(result.path, canPreview);
+        } else {
+            throw new Error('Request failed');
+        }
+    } catch (error) {
+        console.error('Error fetching file path:', error);
+        showModalFallback(fileId, canPreview);
+    }
+}
+
+function showModalLoading() {
+    $('#SearchModelLabel').html('Loading...');
+    $('#modal-body-space').html(`
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-light m-5" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </div>`);
+}
+
+function showModalSuccess(path, canPreview) {
+    const encodedUrl = path.replace(/#/g, '%23').replace(/\?/g, '%3F');
+    const viewParam = canPreview ? '?a=view' : '';
+    
+    $('#SearchModelLabel').html('Result');
+    $('#modal-body-space').html(`
+        <a class="btn btn-primary" href="${encodedUrl}${viewParam}">Open</a>`);
+}
+
+function showModalFallback(fileId, canPreview) {
+    const viewParam = canPreview ? 'a=view' : '';
+    
+    $('#SearchModelLabel').html('Fallback Method');
+    $('#modal-body-space').html(`
+        <a class="btn btn-primary" href="/fallback?id=${fileId}&${viewParam}">Open</a>`);
 }
 function get_file(path, file, callback) {
     var key = "file_path_" + path + file['modifiedTime'];
@@ -913,10 +1066,10 @@ function file_others(name, encoded_name, size, url, file_id, cookie_folder_id) {
     }
     $("#content").html(content);
 }
-function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_folder_id) {
-    var type = {
+function file_code(name, encodedName, size, url, fileId, cookieFolderId) {
+    const codeTypes = {
         "html": "html",
-        "php": "php",
+        "php": "php", 
         "css": "css",
         "go": "golang",
         "java": "java",
@@ -924,44 +1077,103 @@ function file_code(name, encoded_name, size, bytes, url, ext, file_id, cookie_fo
         "json": "json",
         "txt": "Text",
         "sh": "sh",
-        "md": "Markdown",
+        "md": "Markdown"
     };
-    var path = window.location.pathname;
-    var pathParts = path.split('/');
-    var navigation = '';
-    var new_path = '';
-    for (var i = 0; i < pathParts.length; i++) {
-        var part = pathParts[i];
-        if (i == pathParts.length - 1) {
-            new_path += part + '?a=view'
-        } else {
-            new_path += part + '/'
-        }
-        if (part.length > 15) {
-            part = decodeURIComponent(part);
-            part = part.substring(0, 10) + '...';
-        }
-        if (part == '') {
-            part = 'Home'
-        }
-        navigation += '<a href="' + new_path + '" class="breadcrumb-item">' + part + '</a>';
-    }
-    $('#content').html(content);
-    var spinner = '<div class="d-flex justify-content-center"><div class="spinner-border m-5" role="status"><span class="visually-hidden"></span></div></div>';
+
+    const path = window.location.pathname;
+    const navigation = buildBreadcrumbNavigation(path);
+    const fileExtension = getFileExtension(name);
+    
+    $('#content').html(createCodeViewerHTML(navigation, name, size));
+    
+    const spinner = '<div class="d-flex justify-content-center"><div class="spinner-border m-5" role="status"><span class="visually-hidden"></span></div></div>';
     $("#code_spinner").html(spinner);
-    if (bytes <= 1024 * 1024 * 2) {
-        $.get(url, function (data) {
-            $('#editor').html($('<div/>').text(data).html());
-            $("#code_spinner").html("");
-            var code_type = "Text";
-            if (type[ext] != undefined) {
-                code_type = type[ext];
-            }
-        });
+    
+    if (size <= CONSTANTS.MAX_FILE_SIZE) {
+        loadAndDisplayCode(url, fileExtension, codeTypes);
     } else {
-        $("#code_spinner").html("");
-        $('#editor').html(`<div class="alert alert-danger" id="file_details" role="alert">File size is too large to preview, Max Limit is 2 MB</div>`);
+        showFileTooLargeError();
     }
+}
+
+function getFileExtension(filename) {
+    return filename.split('.').pop().toLowerCase();
+}
+
+function buildBreadcrumbNavigation(path) {
+    const pathParts = path.split('/');
+    let navigation = '';
+    let newPath = '';
+    
+    pathParts.forEach((part, index) => {
+        if (index === pathParts.length - 1) {
+            newPath += part + '?a=view';
+        } else {
+            newPath += part + '/';
+        }
+        
+        let displayPart = part.length > 15 
+            ? decodeURIComponent(part).substring(0, 10) + '...' 
+            : part;
+        
+        if (displayPart === '') displayPart = 'Home';
+        
+        navigation += `<a href="${newPath}" class="breadcrumb-item">${displayPart}</a>`;
+    });
+    
+    return navigation;
+}
+
+function createCodeViewerHTML(navigation, name, size) {
+    return `
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">${navigation}</ol>
+            </nav>
+            <div class="card">
+                <div class="card-header">
+                    <h5>${name}</h5>
+                    <small class="text-muted">${size}</small>
+                </div>
+                <div class="card-body">
+                    <div id="code_spinner"></div>
+                    <pre><code id="editor"></code></pre>
+                </div>
+            </div>
+        </div>`;
+}
+
+async function loadAndDisplayCode(url, extension, codeTypes) {
+    try {
+        const response = await fetch(url);
+        const data = await response.text();
+        
+        $('#editor').text(data);
+        $("#code_spinner").html("");
+        
+        const codeType = codeTypes[extension] || "Text";
+        // Could add syntax highlighting here if needed
+        
+    } catch (error) {
+        console.error('Error loading code:', error);
+        showCodeLoadError();
+    }
+}
+
+function showFileTooLargeError() {
+    $("#code_spinner").html("");
+    $('#editor').html(`
+        <div class="alert alert-danger" role="alert">
+            File size is too large to preview. Maximum limit is ${CONSTANTS.MAX_FILE_SIZE / (1024 * 1024)} MB
+        </div>`);
+}
+
+function showCodeLoadError() {
+    $("#code_spinner").html("");
+    $('#editor').html(`
+        <div class="alert alert-danger" role="alert">
+            Failed to load file content
+        </div>`);
 }
 function file_video(name, encoded_name, size, url, mimeType, file_id, cookie_folder_id) {
     var url_base64 = btoa(url);
@@ -1144,50 +1356,103 @@ async function getCookie(name) {
     }
     return null;
 }
-async function copyFile(driveid) {
-    try {
-        const copystatus = document.getElementById('copystatus');
-        copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Processing... </div>`;
-        const user_folder_id = document.getElementById('user_folder_id').value;
-        if (user_folder_id === '') {
-            copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Empty ID </div>`;
-            return null;
-        }
-        document.getElementById('spinner').style.display = 'block';
-        document.cookie = `root_id=${user_folder_id}; expires=Thu, 18 Dec 2050 12:00:00 UTC`;
-        const time = Math.floor(Date.now() / 1000);
-        const response = await fetch('/copy', {
-            method: 'POST',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `id=${encodeURIComponent(driveid)}&root_id=${user_folder_id}&resourcekey=null&time=${time}`
-        });
-        if (response.status === 500) {
-            copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unable to Copy File </div>`;
-        } else if (response.status === 401) {
-            copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unauthorized </div>`;
-        } else if (response.ok) {
-            const data = await response.json();
-            if (data && data.name) {
-                const link = `https://drive.google.com/file/d/${data.id}/view?usp=share_link`;
-                const copyresult = document.getElementById('copyresult');
-                copyresult.innerHTML = `<div class="col-12 col-md-12"> <input type="text" id="usercopiedfile" class="form-control" placeholder="Enter Your Folder ID to Copy this File" value="${link}" readonly></div> <div class="col-12 col-md-12"> <a href="${link}" target="_blank" style="margin-top: 5px;" class="btn btn-danger btn-block">Open Copied File</a></div>`;
-            } else if (data && data.error && data.error.message) {
-                copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> ` + data.error.message + ` </div>`;
-            } else {
-                copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unable to Copy File </div>`;
-            }
-        } else {
-            copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> Unable to Copy File </div>`;
-        }
-        document.getElementById('spinner').style.display = 'none';
-    } catch (error) {
-        const copystatus = document.getElementById('copystatus');
-        copystatus.innerHTML = `<div class='alert alert-danger' role='alert'> An error occurred ` + error + `</div>`;
-        document.getElementById('spinner').style.display = 'none';
+async function copyFile(driveId) {
+    const statusElement = document.getElementById('copystatus');
+    const spinnerElement = document.getElementById('spinner');
+    const userFolderId = document.getElementById('user_folder_id')?.value;
+
+    if (!userFolderId) {
+        showCopyStatus(statusElement, 'Empty ID', 'danger');
+        return null;
     }
+
+    try {
+        showCopyStatus(statusElement, 'Processing...', 'info');
+        showSpinner(spinnerElement, true);
+
+        await setCookieWithExpiration('root_id', userFolderId);
+        
+        const response = await performCopyRequest(driveId, userFolderId);
+        await handleCopyResponse(response, statusElement);
+        
+    } catch (error) {
+        console.error('Copy file error:', error);
+        showCopyStatus(statusElement, `An error occurred: ${error.message}`, 'danger');
+    } finally {
+        showSpinner(spinnerElement, false);
+    }
+}
+
+function showCopyStatus(element, message, type) {
+    if (!element) return;
+    element.innerHTML = `<div class='alert alert-${type}' role='alert'>${message}</div>`;
+}
+
+function showSpinner(element, show) {
+    if (!element) return;
+    element.style.display = show ? 'block' : 'none';
+}
+
+async function setCookieWithExpiration(name, value) {
+    const expirationDate = new Date('2050-12-18T12:00:00Z');
+    document.cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}`;
+}
+
+async function performCopyRequest(driveId, userFolderId) {
+    const timestamp = Math.floor(Date.now() / 1000);
+    const requestBody = new URLSearchParams({
+        id: driveId,
+        root_id: userFolderId,
+        resourcekey: 'null',
+        time: timestamp.toString()
+    });
+
+    return await fetch('/copy', {
+        method: 'POST',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: requestBody
+    });
+}
+
+async function handleCopyResponse(response, statusElement) {
+    if (response.status === 500) {
+        showCopyStatus(statusElement, 'Unable to Copy File', 'danger');
+    } else if (response.status === 401) {
+        showCopyStatus(statusElement, 'Unauthorized', 'danger');
+    } else if (response.ok) {
+        const data = await response.json();
+        handleSuccessfulCopy(data, statusElement);
+    } else {
+        showCopyStatus(statusElement, 'Unable to Copy File', 'danger');
+    }
+}
+
+function handleSuccessfulCopy(data, statusElement) {
+    if (data?.name && data?.id) {
+        const fileLink = `https://drive.google.com/file/d/${data.id}/view?usp=share_link`;
+        displayCopyResult(fileLink);
+        showCopyStatus(statusElement, 'File copied successfully!', 'success');
+    } else if (data?.error?.message) {
+        showCopyStatus(statusElement, data.error.message, 'danger');
+    } else {
+        showCopyStatus(statusElement, 'Unable to Copy File', 'danger');
+    }
+}
+
+function displayCopyResult(fileLink) {
+    const copyResultElement = document.getElementById('copyresult');
+    if (!copyResultElement) return;
+
+    copyResultElement.innerHTML = `
+        <div class="col-12 col-md-12">
+            <input type="text" id="usercopiedfile" class="form-control" 
+                   value="${fileLink}" readonly>
+        </div>
+        <div class="col-12 col-md-12">
+            <a href="${fileLink}" target="_blank" style="margin-top: 5px;" 
+               class="btn btn-danger btn-block">Open Copied File</a>
+        </div>`;
 }
 const observer = new MutationObserver(() => {
     updateCheckboxes();
