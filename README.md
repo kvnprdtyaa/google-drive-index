@@ -19,6 +19,29 @@ A modern web application that allows you to browse and share your Google Drive f
 - **Fast Loading**: Optimized for speed with pagination
 - **CDN Ready**: Designed to work with Cloudflare Workers
 
+## Tech Stack
+
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Styling**: Bootstrap 5
+- **Backend**: Cloudflare Workers
+- **API**: Google Drive API v3
+- **Authentication**: Google Service Accounts
+
+## Project Structure
+
+```
+google-drive-index/
+├── app.js              # Main frontend application logic
+├── worker.js           # Cloudflare Worker backend code
+├── assets/
+│   └── homepage.js     # Homepage rendering logic
+├── images/
+│   ├── Google Logo 1x 150x54dp.png
+│   ├── Google Logo 2x 150x54dp.png
+│   └── robot.png
+└── README.md
+```
+
 ## Drive ID Types
 
 * My Drive is `root`, eg. Drive of Simple Gmail Account.
