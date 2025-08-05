@@ -1659,4 +1659,4 @@ const options = {
     childList: true,
     subtree: true
 };
-observer.observe(document.documentElement, options);
+observer.observe(document.documentElement, options);}
