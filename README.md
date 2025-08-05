@@ -1,3 +1,24 @@
+# Google Drive Index
+
+A modern web application that allows you to browse and share your Google Drive files through a clean, responsive web interface. This project creates a public index of your Google Drive folders that can be deployed on Cloudflare Workers.
+
+## Features
+
+- **Multiple Drive Support**: Index multiple Google Drive accounts
+- **Modern UI**: Clean, responsive design with Bootstrap 5
+- **Search Functionality**: Search through your indexed files
+- **Mobile Friendly**: Responsive design that works on all devices
+- **Authentication**: Password protection for accessing the index
+- **File Preview**: Support for various file types including:
+  - Documents (PDF, DOC, TXT)
+  - Images (JPG, PNG, GIF, etc.)
+  - Videos (MP4, AVI, etc.)
+  - Audio files
+  - Code files
+  - Archives (ZIP, RAR, etc.)
+- **Fast Loading**: Optimized for speed with pagination
+- **CDN Ready**: Designed to work with Cloudflare Workers
+
 ## Drive ID Types
 
 * My Drive is `root`, eg. Drive of Simple Gmail Account.
