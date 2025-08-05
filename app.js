@@ -54,6 +54,64 @@ function init() {
         window.MODEL.q = query || 'test';
         render_search_result_list();
     };
+    
+    // Add mock search for testing when server is not available
+    window.mockSearch = function(query) {
+        window.MODEL.is_search_page = true;
+        window.MODEL.q = query || 'test';
+        
+        const mockResponse = {
+            data: {
+                files: [
+                    {
+                        id: 'mock1',
+                        name: 'Test File 1.txt',
+                        mimeType: 'text/plain',
+                        size: 1024,
+                        modifiedTime: new Date().toISOString()
+                    },
+                    {
+                        id: 'mock2', 
+                        name: 'Test Document.pdf',
+                        mimeType: 'application/pdf',
+                        size: 2048,
+                        modifiedTime: new Date().toISOString()
+                    }
+                ]
+            },
+            nextPageToken: null,
+            curPageIndex: 0
+        };
+        
+        render_search_result_list();
+        
+        // Simulate the callback after a short delay
+        setTimeout(() => {
+            const callback = function(res) {
+                console.log('Mock search callback triggered');
+                $('#list')
+                    .data('nextPageToken', res.nextPageToken)
+                    .data('curPageIndex', res.curPageIndex);
+                append_search_result_to_list(res.data.files);
+            };
+            callback(mockResponse);
+        }, 500);
+    };
+    
+    // Add debug buttons to navbar when available
+    $(document).on('DOMContentLoaded', function() {
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            setTimeout(() => {
+                const debugHtml = `
+                    <div class="debug-tools" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+                        <button class="btn btn-sm btn-info" onclick="window.testSearch('test')" title="Test Search Function">Test Search</button>
+                        <button class="btn btn-sm btn-success" onclick="window.mockSearch('test')" title="Mock Search with Sample Data">Mock Search</button>
+                    </div>
+                `;
+                $('body').append(debugHtml);
+            }, 1000);
+        }
+    });
 }
 
 function createMainHTMLTemplate() {
@@ -215,6 +273,9 @@ function getQueryVariable(variable) {
     return false;
 }
 function render(path) {
+    console.log('render called with path:', path);
+    
+    let originalPath = path;
     if (path.indexOf("?") > 0) {
         path = path.substr(0, path.indexOf("?"));
     }
@@ -223,14 +284,17 @@ function render(path) {
     const driveMatch = path.match(/^\/(\d+):/);
     if (driveMatch) {
         window.current_drive_order = parseInt(driveMatch[1]);
+        console.log('Extracted drive order:', window.current_drive_order);
     }
     
     // Check if this is a search page and set up MODEL accordingly
     if (path.includes(":search")) {
+        console.log('Search page detected');
         window.MODEL.is_search_page = true;
         // Extract search query from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         window.MODEL.q = urlParams.get('q') || '';
+        console.log('Search query:', window.MODEL.q);
     } else {
         window.MODEL.is_search_page = false;
         window.MODEL.q = '';
@@ -403,18 +467,27 @@ function requestSearch(params, resultCallback, retries = 3) {
         page_index: params['page_index'] || 0
     };
     
+    // Create controller for this request
+    const controller = new AbortController();
+    window.currentSearchController = controller;
+    
     function performRequest(retries) {
         const searchUrl = `/${window.current_drive_order}:search`;
         console.log('Making search request to:', searchUrl);
+        
+        // Add timeout 
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
         
         fetch(searchUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(p)
+            body: JSON.stringify(p),
+            signal: controller.signal
         })
             .then(function (response) {
+                clearTimeout(timeoutId);
                 console.log('Search response status:', response.status);
                 if (!response.ok) {
                     throw new Error(`Request failed with status ${response.status}`);
@@ -423,35 +496,72 @@ function requestSearch(params, resultCallback, retries = 3) {
             })
             .then(function (res) {
                 console.log('Search response data:', res);
-                if (res && res.data === null) {
-                    $('#spinner').remove();
-                    $('#list').html(`<div class='alert alert-danger' role='alert'> Server didn't send any data.</div>`);
-                    $('#update').remove();
+                $('#spinner').remove();
+                $('#update').remove();
+                
+                if (!res) {
+                    $('#list').html(`<div class='alert alert-danger' role='alert'>No response from server.</div>`);
+                    return;
                 }
-                if (res && res.data) {
-                    if (resultCallback) resultCallback(res, p);
-                    $('#update').remove();
+                
+                if (res.error) {
+                    $('#list').html(`<div class='alert alert-danger' role='alert'>Error: ${res.error}</div>`);
+                    return;
+                }
+                
+                if (res.data === null || res.data === undefined) {
+                    $('#list').html(`<div class='alert alert-warning' role='alert'>No search results found.</div>`);
+                    return;
+                }
+                
+                if (resultCallback) {
+                    resultCallback(res, p);
+                } else {
+                    console.warn('No result callback provided');
                 }
             })
             .catch(function (error) {
+                clearTimeout(timeoutId);
                 console.error('Search request failed:', error);
+                
+                if (error.name === 'AbortError') {
+                    $('#update').html(`<div class='alert alert-danger' role='alert'>Search request timed out. The server may be slow or unavailable.</div>`);
+                    $('#list').html(`<div class='alert alert-warning' role='alert'>Request timed out after 10 seconds. Please try again or contact administrator.</div>`);
+                    $('#spinner').remove();
+                    return;
+                }
+                
                 if (retries > 0) {
+                    console.log(`Retrying search... ${retries} attempts left`);
                     sleep(2000);
-                    $('#update').html(`<div class='alert alert-info' role='alert'> Retrying...</div>`);
+                    $('#update').html(`<div class='alert alert-info' role='alert'> Retrying... (${retries} attempts left)</div>`);
                     performRequest(retries - 1);
                 } else {
-                    $('#update').html(`<div class='alert alert-danger' role='alert'> Search failed. Make sure the search endpoint is available.</div>`);
+                    $('#update').html(`<div class='alert alert-danger' role='alert'> Search failed after 3 attempts.</div>`);
                     $('#list').html(`<div class='alert alert-warning' role='alert'>Unable to perform search. This might be because:<br>
                         1. The search feature is not enabled on the server<br>
                         2. There's a network connectivity issue<br>
-                        3. The server is temporarily unavailable</div>`);
+                        3. The server is temporarily unavailable<br><br>
+                        <button class="btn btn-primary" onclick="window.mockSearch('${p.q}')">Try Mock Search</button></div>`);
                     $('#spinner').remove();
                 }
             });
     }
-    $('#update').html(`<div class='alert alert-info' role='alert'> Connecting...</div>`);
+    $('#update').html(`<div class='alert alert-info' role='alert'> Connecting... <button class="btn btn-sm btn-secondary ms-2" onclick="window.stopSearch()">Cancel</button></div>`);
+    
     performRequest(retries);
 }
+
+// Function to stop current search
+window.stopSearch = function() {
+    if (window.currentSearchController) {
+        window.currentSearchController.abort();
+        $('#update').html(`<div class='alert alert-warning' role='alert'>Search cancelled by user.</div>`);
+        $('#list').html(`<div class='alert alert-info' role='alert'>Search was cancelled. You can start a new search anytime.</div>`);
+        $('#spinner').remove();
+    }
+};
+
 function list(path, id = '', fallback = false) {
     console.log(id);
     var containerContent = `
@@ -823,17 +933,31 @@ function render_search_result_list() {
     $('#content').html(content);
     $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     function searchSuccessCallback(res, prevReqParams) {
+        console.log('searchSuccessCallback called with:', res);
+        
+        if (!res || !res.data) {
+            $('#list').html(`<div class='alert alert-warning' role='alert'>No search results found.</div>`);
+            return;
+        }
+        
         $('#list')
-            .data('nextPageToken', res['nextPageToken'])
-            .data('curPageIndex', res['curPageIndex']);
-        $('#spinner').remove();
+            .data('nextPageToken', res['nextPageToken'] || null)
+            .data('curPageIndex', res['curPageIndex'] || 0);
+        
+        const files = res.data.files || [];
+        
+        if (files.length === 0) {
+            $('#list').html(`<div class='alert alert-info' role='alert'>No files found matching your search query.</div>`);
+            return;
+        }
+        
         if (res['nextPageToken'] === null) {
             $(window).off('scroll');
             window.scroll_status.event_bound = false;
             window.scroll_status.loading_lock = false;
-            append_search_result_to_list(res['data']['files']);
+            append_search_result_to_list(files);
         } else {
-            append_search_result_to_list(res['data']['files']);
+            append_search_result_to_list(files);
             if (window.scroll_status.event_bound !== true) {
                 $(window).on('scroll', function () {
                     var scrollTop = $(this).scrollTop();
@@ -868,14 +992,29 @@ function render_search_result_list() {
 }
 function append_search_result_to_list(files) {
     try {
+        console.log('append_search_result_to_list called with:', files);
+        
         const $list = $('#list');
         const isLastPageLoaded = $list.data('nextPageToken') === null;
+        
+        if (!files || files.length === 0) {
+            $list.html(`<div class='alert alert-info' role='alert'>No files found matching your search query.</div>`);
+            return;
+        }
         
         let html = '';
         let totalSize = 0;
 
         files.forEach(item => {
             if (!item.size) item.size = "";
+            
+            // Set default modified time if missing
+            if (!item.modifiedTime) {
+                item.modifiedTime = new Date().toISOString();
+            }
+            
+            // Convert UTC time to Jakarta time
+            item['modifiedTime'] = utc2jakarta(item['modifiedTime']);
             
             html += createFileListItem(item, '', true, false);
             
@@ -891,6 +1030,7 @@ function append_search_result_to_list(files) {
         }
     } catch (error) {
         console.error('Error in append_search_result_to_list:', error);
+        $('#list').html(`<div class='alert alert-danger' role='alert'>Error displaying search results: ${error.message}</div>`);
     }
 }
 
