@@ -188,6 +188,13 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
         page_token: params['page_token'] || '',
         page_index: params['page_index'] || 0
     };
+    
+    console.log("=== REQUEST DEBUG ===");
+    console.log("Path:", path);
+    console.log("Request data:", requestData);
+    console.log("Password being sent:", requestData.password);
+    console.log("====================");
+    
     $('#update').show();
     document.getElementById('update').innerHTML = `<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`;
     if (fallback) {
@@ -208,14 +215,28 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
                 return response.json();
             })
             .then(function (res) {
+                console.log("=== RESPONSE DEBUG ===");
+                console.log("Response:", res);
+                console.log("Error:", res?.error);
+                console.log("Data:", res?.data);
+                console.log("=====================");
+                
                 if (res && res.error && res.error.code === 401) {
+                    console.log("Password required, asking user...");
                     askPassword(path);
                 } else if (res && res.data === null) {
+                    console.log("Server returned null data");
                     document.getElementById('spinner').remove();
                     document.getElementById('list').innerHTML = `<div class='alert alert-danger' role='alert'> Server didn't send any data.</div></div></div>`;
                     $('#update').hide();
                 } else if (res && res.data) {
+                    console.log("Success, calling result callback");
                     resultCallback(res, path, requestData);
+                    $('#update').hide();
+                } else {
+                    console.log("Unexpected response format:", res);
+                    document.getElementById('spinner').remove();
+                    document.getElementById('list').innerHTML = `<div class='alert alert-danger' role='alert'> Unexpected response from server.</div>`;
                     $('#update').hide();
                 }
             })
@@ -316,6 +337,12 @@ function list(path, id = '', fallback = false) {
         </div>`;
     $('#content').html(containerContent);
     var password = localStorage.getItem('password' + path);
+    console.log("=== PASSWORD DEBUG (CLIENT) ===");
+    console.log("Path:", path);
+    console.log("Password from localStorage:", password);
+    console.log("LocalStorage key:", 'password' + path);
+    console.log("==============================");
+    
     $('#list').html(`<div class="d-flex justify-content-center"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
     function handleSuccessResult(res, path, prevReqParams) {
         console.log(res, path, prevReqParams);
@@ -383,28 +410,36 @@ function list(path, id = '', fallback = false) {
         console.log('fallback inside list');
         requestListPath(path, {
             id: id,
-            password: password
+            password: password || ""  // Ensure password is string, not null
         },
             handleSuccessResult,
             null, null, fallback = true);
     } else {
         console.log("handling this")
+        console.log("Making request with password:", password ? "***" : "empty");
         requestListPath(path, {
-            password: password
+            password: password || ""  // Ensure password is string, not null
         },
             handleSuccessResult,
             null);
     }
 }
 function askPassword(path) {
+    console.log("=== ASK PASSWORD ===");
+    console.log("Path:", path);
     $('#spinner').remove();
     var passwordInput = prompt("Directory encryption, please enter the password", "");
-    localStorage.setItem('password' + path, passwordInput);
+    console.log("Password entered:", passwordInput ? "***" : "null/empty");
+    
     if (passwordInput != null && passwordInput != "") {
+        localStorage.setItem('password' + path, passwordInput);
+        console.log("Password saved to localStorage with key:", 'password' + path);
         list(path);
     } else {
+        console.log("No password entered, going back");
         history.go(-1);
     }
+    console.log("==================");
 }
 function append_files_to_fallback_list(path, files) {
     try {
