@@ -183,7 +183,19 @@ function sleep(milliseconds) {
 function requestListPath(path, params, resultCallback, authErrorCallback, retries = 3, fallback = false) {
     // Get folder password from sessionStorage if available
     let folderPassword = '';
-    if (path && !fallback) {
+    
+    if (fallback && params['id']) {
+        // For fallback, try to get password from any stored passwords
+        // since we don't know which specific folder this belongs to
+        for (let i = 0; i < (window.drive_names?.length || 3); i++) {
+            const storedPassword = sessionStorage.getItem(`folder_password_${i}`);
+            if (storedPassword) {
+                folderPassword = storedPassword;
+                console.log('DEBUG Frontend Fallback: Using password from folder', i);
+                break;
+            }
+        }
+    } else if (path && !fallback) {
         const pathParts = path.split('/').filter(part => part !== '');
         if (pathParts.length > 0) {
             const rootIndex = pathParts[0].split(':')[0];
@@ -204,6 +216,7 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
     };
     
     console.log('DEBUG Frontend: Request data =', {...requestData, folder_password: requestData.folder_password ? 'PASSWORD_SET' : 'NO_PASSWORD'});
+    console.log('DEBUG Frontend: Is fallback =', fallback);
     $('#update').show();
     document.getElementById('update').innerHTML = `<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`;
     if (fallback) {
