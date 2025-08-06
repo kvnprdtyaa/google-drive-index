@@ -181,10 +181,21 @@ function sleep(milliseconds) {
     } while (currentDate - date < milliseconds);
 }
 function requestListPath(path, params, resultCallback, authErrorCallback, retries = 3, fallback = false) {
+    // Get folder password from sessionStorage if available
+    let folderPassword = '';
+    if (path && !fallback) {
+        const pathParts = path.split('/').filter(part => part !== '');
+        if (pathParts.length > 0) {
+            const rootIndex = pathParts[0].split(':')[0];
+            folderPassword = sessionStorage.getItem(`folder_password_${rootIndex}`) || '';
+        }
+    }
+
     var requestData = {
         id: params['id'] || '',
         type: 'folder',
         password: params['password'] || '',
+        folder_password: folderPassword,
         page_token: params['page_token'] || '',
         page_index: params['page_index'] || 0
     };
@@ -210,6 +221,9 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
             .then(function (res) {
                 if (res && res.error && res.error.code === 401) {
                     askPassword(path);
+                } else if (res && res.error && res.error.code === 403) {
+                    // Folder password required
+                    askFolderPassword(path);
                 } else if (res && res.data === null) {
                     document.getElementById('spinner').remove();
                     document.getElementById('list').innerHTML = `<div class='alert alert-danger' role='alert'> Server didn't send any data.</div></div></div>`;
@@ -405,6 +419,87 @@ function askPassword(path) {
     } else {
         history.go(-1);
     }
+}
+
+function askFolderPassword(path) {
+    $('#spinner').remove();
+    
+    // Extract folder index from path
+    const pathParts = path.split('/').filter(part => part !== '');
+    let folderIndex = 0;
+    let folderName = 'Folder';
+    
+    if (pathParts.length > 0) {
+        folderIndex = pathParts[0].split(':')[0];
+        folderName = window.drive_names[folderIndex] || 'Folder';
+    }
+    
+    const modalHtml = `
+        <div class="modal fade" id="folderPasswordModal" tabindex="-1" aria-labelledby="folderPasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white" id="folderPasswordModalLabel">Enter Password for ${folderName}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="folderPasswordInput" class="form-label text-white">Password</label>
+                            <input type="password" class="form-control" id="folderPasswordInput" placeholder="Enter folder password">
+                        </div>
+                        <div id="folderPasswordError" class="alert alert-danger d-none" role="alert">
+                            Incorrect password. Please try again.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="verifyAndAccessFolder('${path}', ${folderIndex})">Access Folder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal if any
+    $('#folderPasswordModal').remove();
+    
+    // Add modal to body
+    $('body').append(modalHtml);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('folderPasswordModal'));
+    modal.show();
+    
+    // Focus on password input
+    $('#folderPasswordModal').on('shown.bs.modal', function () {
+        $('#folderPasswordInput').focus();
+    });
+    
+    // Handle Enter key
+    $('#folderPasswordInput').on('keypress', function(e) {
+        if (e.which === 13) {
+            verifyAndAccessFolder(path, folderIndex);
+        }
+    });
+}
+
+function verifyAndAccessFolder(path, folderIndex) {
+    const password = $('#folderPasswordInput').val();
+    
+    if (!password) {
+        $('#folderPasswordError').text('Please enter a password.').removeClass('d-none');
+        return;
+    }
+    
+    // Store password for this session
+    sessionStorage.setItem(`folder_password_${folderIndex}`, password);
+    
+    // Hide modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('folderPasswordModal'));
+    modal.hide();
+    
+    // Try to access the folder again
+    list(path);
 }
 function append_files_to_fallback_list(path, files) {
     try {
