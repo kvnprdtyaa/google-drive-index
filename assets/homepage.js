@@ -3,10 +3,16 @@ let html = "";
 
 // Function to handle folder click with password protection
 function handleFolderClick(folderIndex, folderName) {
+    console.log('DEBUG Homepage: Folder clicked:', folderIndex, folderName);
+    console.log('DEBUG Homepage: Password protected folders:', window.password_protected_folders);
+    console.log('DEBUG Homepage: Is password required:', window.password_protected_folders && window.password_protected_folders[folderIndex]);
+    
     // Check if folder requires password
     if (window.password_protected_folders && window.password_protected_folders[folderIndex]) {
+        console.log('DEBUG Homepage: Showing password modal');
         showPasswordModal(folderIndex, folderName);
     } else {
+        console.log('DEBUG Homepage: No password required, redirecting directly');
         window.location.href = `/${folderIndex}:/`;
     }
 }
@@ -66,6 +72,9 @@ function showPasswordModal(folderIndex, folderName) {
 function verifyFolderPassword(folderIndex, folderName) {
     const password = $('#folderPassword').val();
     
+    console.log('DEBUG Homepage: Verifying password for folder', folderIndex, folderName);
+    console.log('DEBUG Homepage: Password length:', password ? password.length : 0);
+    
     if (!password) {
         $('#passwordError').text('Please enter a password.').removeClass('d-none');
         return;
@@ -73,11 +82,13 @@ function verifyFolderPassword(folderIndex, folderName) {
     
     // Store password for this session
     sessionStorage.setItem(`folder_password_${folderIndex}`, password);
+    console.log('DEBUG Homepage: Password stored in sessionStorage');
     
     // Hide modal and redirect
     const modal = bootstrap.Modal.getInstance(document.getElementById('passwordModal'));
     modal.hide();
     
+    console.log('DEBUG Homepage: Redirecting to folder');
     window.location.href = `/${folderIndex}:/`;
 }
 
