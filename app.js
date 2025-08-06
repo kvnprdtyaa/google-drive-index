@@ -188,6 +188,9 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
         if (pathParts.length > 0) {
             const rootIndex = pathParts[0].split(':')[0];
             folderPassword = sessionStorage.getItem(`folder_password_${rootIndex}`) || '';
+            console.log('DEBUG Frontend: Path =', path);
+            console.log('DEBUG Frontend: Root index =', rootIndex);
+            console.log('DEBUG Frontend: Folder password =', folderPassword ? 'PASSWORD_SET' : 'NO_PASSWORD');
         }
     }
 
@@ -199,6 +202,8 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
         page_token: params['page_token'] || '',
         page_index: params['page_index'] || 0
     };
+    
+    console.log('DEBUG Frontend: Request data =', {...requestData, folder_password: requestData.folder_password ? 'PASSWORD_SET' : 'NO_PASSWORD'});
     $('#update').show();
     document.getElementById('update').innerHTML = `<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`;
     if (fallback) {
