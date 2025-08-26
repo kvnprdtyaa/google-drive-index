@@ -153,9 +153,6 @@ function nav() {
                     <ul class="navbar-nav me-auto">`;
     html += `
                         <li class="nav-item">
-                            <a class="nav-link" href="https://telegra.ph/SUPPORT-US-02-19" target="_blank">Support</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
                         </li>`;
     var search_text = model.is_search_page ? (model.q || '') : '';
