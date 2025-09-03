@@ -188,10 +188,11 @@ function requestListPath(path, params, resultCallback, authErrorCallback, retrie
     $('#update').show();
     document.getElementById('update').innerHTML = `<div class='alert alert-info' role='alert'> Connecting...</div></div></div>`;
     if (fallback) {
-        path = "/0:fallback"
+        const d = window.current_drive_order || 0;
+        path = `/${d}:fallback`;
     }
     function performRequest() {
-        fetch(fallback ? "/0:fallback" : path, {
+    fetch(path, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -730,7 +731,8 @@ function onSearchResultItemClick(file_id, can_preview) {
             var link = ""
             title = `Fallback Method`;
             $('#SearchModelLabel').html(title);
-            content = `<a class="btn btn-primary" href="/fallback?id=${file_id}&${can_preview ? 'a=view' : ''}">Open</a>`;
+            const d = window.current_drive_order || 0;
+            content = `<a class="btn btn-primary" href="/fallback?id=${file_id}&d=${d}${can_preview ? '&a=view' : ''}">Open</a>`;
             $('#modal-body-space').html(content);
         });
 }
@@ -750,7 +752,8 @@ async function fallback(id, type) {
     if (type) {
         var cookie_folder_id = await getCookie("root_id") || '';
         $('#content').html(`<div class="d-flex justify-content-center" style="height: 150px;"><div class="spinner-border text-light m-5" role="status" id="spinner"><span class="visually-hidden"></span></div></div>`);
-        fetch("/0:fallback", {
+    const d = window.current_drive_order || 0;
+    fetch(`/${d}:fallback`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
